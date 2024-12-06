@@ -18,6 +18,8 @@ class App{
         $routes = [
             '/' => 'homeController.php',
             '/Home' => 'homeController.php',
+            '/AboutUs' => 'homeController.php',
+
         ];
         if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin') {
             $routes = array_merge($routes, [
