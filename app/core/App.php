@@ -1,8 +1,6 @@
 <?php
 class App{
-    private $__controller, $__action, $__params;
     public function __construct() {
-        global $routes;
         $this->handleUrl();
     }
     public function getUrl() {
