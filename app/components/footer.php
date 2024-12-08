@@ -1,16 +1,9 @@
 <!-- code base -->
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Footer Example</title>
-  <!-- Thêm liên kết đến Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/footer.css">
-</head>
-<body>
+<?php
+        require_once'./app/assets/css/footer.css.php';
+        require_once'./app/assets/css/bootstrap.php';
+
+?>
   <!-- Footer -->
   <footer class="footer">
         <div class="container">
@@ -87,5 +80,3 @@
   </footer>
 
 
-</body>
-</html>

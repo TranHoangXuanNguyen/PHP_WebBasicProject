@@ -1,0 +1,33 @@
+<style>
+    .navbar-brand {
+  padding-left: 100px;
+}
+
+#navbarNav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  color: #ff9f0d;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.logo {
+  transform: scale(3);
+}
+
+.navbar1{
+    display: flex;
+    align-items: center;
+}
+
+</style>

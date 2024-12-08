@@ -1,5 +1,6 @@
-
-        *{
+<style>
+    
+    *{
                 margin:0px;
                 padding:0px;
                 color:white;
@@ -137,3 +138,5 @@
        h6{
         margin-bottom: 25px;
        }
+
+</style>
