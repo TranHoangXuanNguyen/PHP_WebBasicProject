@@ -1,0 +1,56 @@
+* {
+    font-family: 'Poppins';
+    font-size: 16px;
+}
+
+.fluid-container {
+    background-image: url('https://www.cotrang.org/public/images/menu/nha-hang-view-bien-da-nang-ttgt-01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+
+#layout {
+    opacity: 0.9;
+    /* background-color: rgba(255, 255, 255, 0.9); */
+    border-radius: 8px;
+    padding: 20px;
+}
+i{
+  color: black;
+}
+
+.text-final {
+    color: #ffffff;
+}
+
+.input-group-text {
+    background-color: #FFA500;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.btn-warning {
+    background-color: #FFA500;
+    border-color: #FFA500;
+}
+
+.btn-google {
+    color: black;
+    background-color: #ffff;
+
+}
+
+.btn-google img {
+    margin-right: 8px;
+}
+
+.text-final a {
+    color: #FFA500;
+    text-decoration: none;
+}
+
+.text-final a:hover {
+    text-decoration: underline;
+}
