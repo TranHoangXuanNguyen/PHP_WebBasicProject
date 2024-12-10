@@ -1,8 +1,9 @@
 <?php
         require_once'./app/assets/css/header.css.php';
         require_once'./app/assets/css/bootstrap.php';
-
 ?>
+    <!-- Navigation -->  
+
     <header>
         <nav class="navbar navbar-expand-lg bg-dark">
             <div class="container-fluid">
@@ -10,10 +11,10 @@
                     <img src="./app/assets/img/logoFinal.png" alt="Logo" width="30" height="24" class="d-inline-block logo">
                 </a>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class=navbar1>
+                    <div class="navbar1" >
                         <ul class="navbar-nav ms-5 ps-5">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/Home">Home</a>
+                            <li class="nav-item ">
+                                <a class="nav-link active " aria-current="page" href="/Home">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/Blog">Blog</a>
@@ -42,3 +43,4 @@
             </div>
         </nav>
     </header>
+  

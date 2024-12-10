@@ -1,4 +1,10 @@
 <style>
+*{
+                margin:0px;
+                padding:0px;
+                color:white;
+                font-family: arial;
+        }
     .navbar-brand {
   padding-left: 100px;
 }
@@ -9,7 +15,11 @@
 }
 
 .nav-link {
-  color: white;
+  color: white !important;
+}
+.nav-item{
+  margin-bottom: 0px !important;
+
 }
 
 .nav-link:hover {
