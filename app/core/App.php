@@ -17,6 +17,7 @@ class App{
             '/' => 'homeController.php',
             '/Home' => 'homeController.php',
             '/AboutUs' => 'homeController.php',
+            '/Login'=>'loginController.php'
 
         ];
         if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin') {

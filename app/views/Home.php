@@ -12,4 +12,5 @@
 </html>
 <?php
   include_once("app/components/header.php");
+  session_unset();
 ?>
