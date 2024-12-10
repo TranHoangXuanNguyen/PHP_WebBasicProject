@@ -5,6 +5,7 @@
     <!-- Navigation -->  
 
     <header>
+  
         <nav class="navbar navbar-expand-lg bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/Home">
@@ -42,5 +43,6 @@
                 </div>
             </div>
         </nav>
+ 
     </header>
   

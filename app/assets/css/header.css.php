@@ -6,7 +6,7 @@
                 font-family: arial;
         }
     .navbar-brand {
-  padding-left: 100px;
+  padding-left: 130px;
 }
 
 #navbarNav {

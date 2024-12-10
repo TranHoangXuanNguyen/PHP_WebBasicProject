@@ -11,12 +11,11 @@
                
         }
         .container {
-                padding: 20px 30px 0px 30px; 
-                width: 1300px; 
+                width: 100%; 
                 margin: 0 auto; 
         }
 
-        .row:first-child {
+        .rowfirst-child {
                 border-bottom: 1px solid orange; /* Tạo đường gạch dưới */
                 padding-bottom: 10px; /* Thêm khoảng cách  */
                 margin-top: 15px;
@@ -95,16 +94,14 @@
         ul li a:hover {
                 color: orange; /* Thêm hiệu ứng màu khi hover */
         }
-        .row:last-child{
+        .rowlast-child{
                 display:flex;
                 justify-content: space-around;
                 align-items: center; /* Căn giữa theo chiều dọc */
                 background-color: orange;
-                width: 100vw; /* Full toàn bộ chiều ngang màn hình */
+                width: calc(100vw - 10px); /* Full toàn bộ chiều ngang màn hình */
                 margin-left: calc(-50vw + 50%); /* Đưa phần tử ra khỏi giới hạn container */
-                padding: 10px 30px; /* Thêm khoảng cách padding */
                 text-align: center; /* Giúp căn giữa nội dung text */
-
         }
        .icon-right {
                 display: flex;
