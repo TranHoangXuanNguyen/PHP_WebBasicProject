@@ -4,20 +4,41 @@
 }
 
 .fluid-container {
-    background-image: url('https://www.cotrang.org/public/images/menu/nha-hang-view-bien-da-nang-ttgt-01.jpg');
+    background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/ed/ab/87/outdoor.jpg?w=1400&h=800&s=1');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     height: 100vh;
 }
+.text-black{
+    font-size: 18px;
+}
+.error-container {
+    position: relative;
+    margin-bottom: 10px; 
+}
 
+.error-message {
+    position: absolute; 
+    top: -80px; 
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #f8d7da; 
+    color: #842029; 
+    border: 1px solid #f5c2c7;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    z-index: 10;
+}
 #layout {
     opacity: 0.9;
     /* background-color: rgba(255, 255, 255, 0.9); */
     border-radius: 8px;
     padding: 20px;
-}
-i{
+}   
+.input-group-text i{
   color: black;
 }
 

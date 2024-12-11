@@ -34,7 +34,9 @@ CREATE TABLE `user` (
   `passWord` varchar(100) NOT NULL,
   `avataImg` longtext DEFAULT NULL,
   `address` longtext DEFAULT NULL,
-  `role` varchar(10) NOT NULL DEFAULT 'user'
+  `role` varchar(10) NOT NULL DEFAULT 'user',
+  `phoneNum` varchar(11) DEFAULT NULL,
+  `dob` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
