@@ -6,8 +6,10 @@ require_once __DIR__ . '/../config/config.php';
 global $conn;
 // session_unset();
 // session_start();
-class loginController extends Controller {
-    function userLogin($email, $passWord) {
+class loginController extends Controller
+{
+    function userLogin($email, $passWord)
+    {
         global $conn;
         if (!$conn) {
             die("Connection to database failed");
@@ -24,6 +26,7 @@ class loginController extends Controller {
         } elseif ($result) {
             session_unset();
             // Nếu đăng nhập thành công
+            $_SESSION['isLogin'] = true;
             $_SESSION['email'] = $result->email;
             $_SESSION['userId'] = $result->userId;
             $_SESSION['role'] = $result->role;
@@ -50,4 +53,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     $loginControllerObj->view('Login', []);
 }
-?>

@@ -14,7 +14,6 @@
   <?php
   require_once("app/components/header.php");
   ?>
-
   <div class="banner">
     <div class="container">
       <div class="row px-5">
@@ -22,14 +21,11 @@
           <h1 class="display-5 fw-bold text-start mb-5 paddingTop70">The Art of speed
             food Qualitys</h1>
           <p class="text-start mb-5 chuto">We will provide you with the best service.</p>
-
           <button class="btn">Book Table</button>
         </div>
         <div class="col-sm-7 caibaobo">
-
           <img class="imgSlide1" src="./app/assets/img/slide6.png" alt="">
           <img class="imgSlide2" src="./app/assets/img/lief.png" alt="">
-
         </div>
       </div>
     </div>
@@ -106,5 +102,5 @@
   include_once("app/components/footer.php");
   ?>
 </body>
-</html>
 
+</html>

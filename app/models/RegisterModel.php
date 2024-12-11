@@ -28,15 +28,15 @@ class RegisterModel
         if ($result->num_rows > 0) {
             $error = "Email already use!";
             return $error;
-        } 
+        }
 
 
-        $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+        // $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
 
 
         $query = "INSERT INTO user (fullName, email, phoneNum, passWord, dob) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sssss", $fullName, $email, $phoneNum, $passwordHashed, $dob);
+        $stmt->bind_param("sssss", $fullName, $email, $phoneNum, $password, $dob);
 
         if ($stmt->execute()) {
             return true;

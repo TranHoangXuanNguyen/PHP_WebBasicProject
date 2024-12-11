@@ -20,22 +20,22 @@ class RegisterController extends Controller
         $this->conn = $dbConnection;
     }
     public function registerController($fullName, $email, $phone, $password, $dob)
-{
-    $registerModel = new RegisterModel($this->conn);
-    $result = $registerModel->registerUser($fullName, $email, $phone, $password, $dob);
+    {
+        $registerModel = new RegisterModel($this->conn);
+        $result = $registerModel->registerUser($fullName, $email, $phone, $password, $dob);
 
-    if ($result === true) {
-        WelcomeMailer::sendWelcomeEmail($fullName, $email, $password);
-        header('Location: /Login');
-        exit();
-    } else {
-        $_SESSION['error_message'] = $result;
-        header('Location: /Register');
-        exit();
+        if ($result === true) {
+            WelcomeMailer::sendWelcomeEmail($fullName, $email, $password);
+            header('Location: /Login');
+            exit();
+        } else {
+            $_SESSION['error_message'] = $result;
+            header('Location: /Register');
+            exit();
+        }
     }
-}
 
-public function validateInput($email, $phone, $password, $confirmPassword)
+    public function validateInput($email, $phone, $password, $confirmPassword)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['error_message'] = "Email invalid!";
@@ -62,22 +62,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $confirmPassword = $_POST['confirmPassword'];
     $dob = $_POST['dob'];
 
-    
+
     $isValid = $registerController->validateInput($email, $phone, $password, $confirmPassword);
 
     if (!$isValid) {
         $registerController->view('Register', ['error' => $_SESSION['error_message']]);
         unset($_SESSION['error_message']);
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $registerController->registerController($fullName, $email, $phone, $hashedPassword, $dob);
+        // $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $registerController->registerController($fullName, $email, $phone, $password, $dob);
     }
 } else {
     $registerController->view('Register', []);
 }
 class WelcomeMailer
 {
-
     public static function sendWelcomeEmail($fullName, $email, $password)
     {
         $mail = new PHPMailer(true);
@@ -92,11 +91,11 @@ class WelcomeMailer
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            
+
             $mail->setFrom('be.y26@student.passerellesnumeriques.org', 'MaMa Kitchen');
             $mail->addAddress($email, $fullName);
 
-            
+
             $mail->isHTML(true);
             $mail->Subject = 'Welcome to MaMa Kitchen';
             $mail->Body    = 'Xin chào ' . $fullName . ',<br><br>Cảm ơn bạn đã đăng ký. Chúc bạn có trải nghiệm tuyệt vời!<br><br>'
@@ -106,7 +105,7 @@ class WelcomeMailer
 
 
 
-          
+
             $mail->send();
             echo 'Email đã được gửi thành công';
         } catch (Exception $e) {
