@@ -26,7 +26,6 @@ class RegisterController extends Controller
 
     if ($result === true) {
         WelcomeMailer::sendWelcomeEmail($fullName, $email, $password);
-
         header('Location: /Login');
         exit();
     } else {
@@ -48,7 +47,7 @@ public function validateInput($email, $phone, $password, $confirmPassword)
             $_SESSION['error_message'] = "Password and confirm password do not match!";
             return false;
         }
-        return true; // Không có lỗi
+        return true;
     }
 }
 
@@ -56,7 +55,6 @@ public function validateInput($email, $phone, $password, $confirmPassword)
 $registerController = new RegisterController($conn);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Lấy dữ liệu từ form
     $fullName = $_POST['fullname'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -64,20 +62,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $confirmPassword = $_POST['confirmPassword'];
     $dob = $_POST['dob'];
 
-    // Kiểm tra dữ liệu nhập vào
     
     $isValid = $registerController->validateInput($email, $phone, $password, $confirmPassword);
 
     if (!$isValid) {
-        // Nếu có lỗi, giữ lại thông báo lỗi và chuyển hướng về form đăng ký
         $registerController->view('Register', ['error' => $_SESSION['error_message']]);
-        unset($_SESSION['error_message']); // Xóa thông báo lỗi sau khi hiển thị
+        unset($_SESSION['error_message']);
     } else {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $registerController->registerController($fullName, $email, $phone, $hashedPassword, $dob);
     }
 } else {
-    // Khi không phải là POST request, hiển thị trang đăng ký
     $registerController->view('Register', []);
 }
 class WelcomeMailer
@@ -97,11 +92,11 @@ class WelcomeMailer
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            // Thông tin người gửi và người nhận
+            
             $mail->setFrom('be.y26@student.passerellesnumeriques.org', 'MaMa Kitchen');
             $mail->addAddress($email, $fullName);
 
-            // Nội dung email
+            
             $mail->isHTML(true);
             $mail->Subject = 'Welcome to MaMa Kitchen';
             $mail->Body    = 'Xin chào ' . $fullName . ',<br><br>Cảm ơn bạn đã đăng ký. Chúc bạn có trải nghiệm tuyệt vời!<br><br>'
@@ -111,7 +106,7 @@ class WelcomeMailer
 
 
 
-            // Gửi email
+          
             $mail->send();
             echo 'Email đã được gửi thành công';
         } catch (Exception $e) {

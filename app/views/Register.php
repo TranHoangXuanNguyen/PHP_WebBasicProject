@@ -19,6 +19,14 @@
                         <h4 class=" text-white"><strong style="color: white">Welcome to</strong></h4>
                         <h4 class="text-warning"><strong>MaMa's Kitchen</strong></h4>
                     </div>
+                    <?php if (isset($_SESSION['error_message'])): ?>
+                        <div class="alert">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <strong>Error!</strong> <?= $_SESSION['error_message'] ?><strong>Please enter data again!</strong> 
+                        </div>
+                        <?php unset($_SESSION['error_message']); 
+                        ?>
+                    <?php endif; ?>
                     <form action="/Register" method="POST">
                         <div class="mb-3">
                             <div class="input-group">
@@ -77,15 +85,6 @@
                             Already have an account? <a href="/Login">Login</a>
                         </div>
                     </form>
-                    <?php if (isset($_SESSION['error_message'])): ?>
-                        <div class="error-container">
-                            <div class="alert alert-danger error-message">
-                                <?= $_SESSION['error_message'] ?>
-                            </div>
-                        </div>
-                        <?php unset($_SESSION['error_message']); // Xóa thông báo lỗi sau khi hiển thị 
-                        ?>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>

@@ -1,77 +1,99 @@
 * {
-    font-family: 'Poppins';
-    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
 }
 
-.fluid-container {
+body {
     background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/ed/ab/87/outdoor.jpg?w=1400&h=800&s=1');
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
-}
-.text-black{
-    font-size: 18px;
-}
-.error-container {
-    position: relative;
-    margin-bottom: 10px; 
-}
-
-.error-message {
-    position: absolute; 
-    top: -80px; 
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    background-color: #f8d7da; 
-    color: #842029; 
-    border: 1px solid #f5c2c7;
-    border-radius: 5px;
-    font-size: 14px;
-    text-align: center;
-    z-index: 10;
-}
-#layout {
-    opacity: 0.9;
-    /* background-color: rgba(255, 255, 255, 0.9); */
-    border-radius: 8px;
-    padding: 20px;
-}   
-.input-group-text i{
-  color: black;
-}
-
-.text-final {
+    /* height: 100vh; */
     color: #ffffff;
+}
+
+#layout {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    /* box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); */
 }
 
 .input-group-text {
     background-color: #FFA500;
-    font-size: 14px;
+    border: none;
     color: #ffffff;
+}
+.input-group-text i{
+    color: black;
+}
+
+.form-control {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-control:focus {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    outline: none;
 }
 
 .btn-warning {
     background-color: #FFA500;
-    border-color: #FFA500;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: #e59400;
+    transform: translateY(-2px);
 }
 
 .btn-google {
-    color: black;
-    background-color: #ffff;
-
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    color: #333333;
+    font-weight: bold;
 }
 
+.btn-google:hover {
+    background-color: #f1f1f1;
+    /* color: black; */
+}
 .btn-google img {
     margin-right: 8px;
-}
+    margin-top: -2px;
 
+}
 .text-final a {
     color: #FFA500;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .text-final a:hover {
     text-decoration: underline;
+}
+
+.alert {
+    padding: 10px;
+    background-color: #f44336; /* Màu đỏ */
+    color: white;
+    margin-bottom: 15px;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.closebtn:hover {
+    color: black;
 }
