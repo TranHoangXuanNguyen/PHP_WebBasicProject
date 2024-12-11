@@ -1,27 +1,20 @@
 <!-- code base -->
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Footer Example</title>
-  <!-- Thêm liên kết đến Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/footer.css">
-</head>
-<body>
+<?php
+        require_once'./app/assets/css/footer.css.php';
+        require_once'./app/assets/css/bootstrap.php';
+
+?>
   <!-- Footer -->
   <footer class="footer">
         <div class="container">
                 <div class="row ">
-                        <div class="col-md-6 text-left">
+                        <div class="col-md-6 text-left rowfirst-child">
                               <div class="title">
                                     <h6><b>Still You Need Our Support ?</b></h6>
                                     <p>Don't wait make a smart & logical quote here. Its pretty easy.</p>
                               </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 rowfirst-child">
                                 <div class="subscribe-form">
                                     <input type="email" placeholder="Enter Your Email" class="email-input">
                                     <button>Subscribe Now</button>
@@ -69,8 +62,8 @@
                         
                 </div>
 
-                <div class="row">
-                        <div class="col-md-6 text-under">
+                <div class="rowlast-child">
+                        <div class="col-md-6">
                                 <p>Myteam © 2024 by Mama's Kitchen All Rights Reserved.</p>
                         </div>
                         <div class="col-md-6 icon-right">
@@ -87,5 +80,3 @@
   </footer>
 
 
-</body>
-</html>
