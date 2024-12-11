@@ -36,8 +36,8 @@
                     </div>
                     <div class="navbar2 ms-5">
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-user"></i></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-user"></i></a></li>
+                            <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
                 </div>
