@@ -133,6 +133,7 @@ justify-content: center;
 color: black;
 position: absolute;
 left: 0px; /* Icon sát mép trái */
+border-radius: 5px 0px 0px 5px;
 
 }
 .eyse-icon{
@@ -150,5 +151,16 @@ right: 0px; /* Icon sát mép phải */
 width: 100%; /* Đảm bảo input chiếm đủ chiều rộng */
 padding-left: 70px; /* Chừa khoảng trống để không bị icon che */
 border: none;
-border-radius: 0 5px 5px 0; /* Góc bo tròn bên phải */
+border-radius: 5px; /* Góc bo tròn bên phải */
+}
+.message{
+    background-color: rgb(228, 216, 216);
+    display:flex;
+    flex-direction: column; /* Đặt các thành phần con theo cột */
+   margin-bottom: 15px;
+   position:relative;
+   border-radius: 5px;
+   text-align: center;
+   color:rgb(143, 54, 54);
+   font-size:17px;
 }
