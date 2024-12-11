@@ -149,6 +149,7 @@
         width: 85%;
     }
 
+    /* edit here */
     .image-container img {
         width: 100%;
         height: auto;
