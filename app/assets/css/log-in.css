@@ -1,0 +1,166 @@
+body {
+    background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/ed/ab/87/outdoor.jpg?w=1400&h=800&s=1');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    /* filter: blur(5px); */
+    }
+    .container{
+        border-radius: 5px;
+       margin-top: 60px;
+        width: 45%;
+        height:auto;
+    }
+    h1{
+        text-align: center;
+        color:white;
+      
+    }
+    form{
+        margin:20px;
+    }
+    input{
+        padding:15px;
+        border-radius: 5px;
+        border:none;
+    }
+    h2{
+        text-align: center;
+        /* margin-top: 0px; */
+    }
+   .mb-3{
+    display:flex;
+     flex-direction: column; /* Đặt các thành phần con theo cột */
+    margin-bottom: 15px;
+    position:relative;
+   }
+   .mb-3 label{
+        color:white;
+        font-size: 18px;
+   }
+   .emai-icon{
+    position:absolute;
+    background-color: orange;
+   }
+   .form-check{
+     display: inline;
+
+   }
+   .form-check label {
+         color:white;
+         font-size: 17px;
+   }
+
+   form  label{
+    margin-bottom: 10px; /* Thêm khoảng cách giữa label và input */
+    color: white; /* Nếu cần chữ trắng */
+
+   }
+   .btn-login{
+    width:100%;
+    background-color: orange;
+    color:white;
+    padding:11px;
+    border-radius: 5px;
+    border:none;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px; 
+   }
+   hr{
+    margin-bottom: 25px;
+    margin-top: 25px;
+   }
+  .social-login-btn{
+     display: block;
+     width:100%;
+    background-color: white;
+    color:black;
+    padding:10px;
+    border-radius: 5px;
+    border:none;
+    font-size: 18px;
+    /* font-weight: bold; */
+    margin-top: 20px; 
+    margin-bottom: 10px;
+  } 
+  button i{
+    margin-right: 10px; /* Thêm khoảng cách giữa label và input */
+  }
+  .footer-text p{
+      text-align: center;
+      color: white;
+      font-size: 18px;
+  }
+  .footer-text p a{
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+   
+  }
+  .footer-text p a:hover {
+    color: orange;
+    transform: scale(2); /* Phóng to cả theo trục x và y */
+}
+
+  ._icon_1fnot_21 {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    left: 16px;
+
+}
+.posisionrelative{
+position: relative;
+}
+.input-wrapper {
+position: relative;
+display: flex;
+align-items: center; /* Căn giữa icon và input theo chiều dọc */
+}
+
+.email-icon, .key-icon {
+width: 50px; 
+height: 45px; 
+background-color: orange;
+display: flex;
+align-items: center;
+justify-content: center;
+color: black;
+position: absolute;
+left: 0px; /* Icon sát mép trái */
+border-radius: 5px 0px 0px 5px;
+
+}
+.eyse-icon{
+width: 50px; 
+height: 36px; 
+display: flex;
+align-items: center;
+justify-content: center;
+color: black;
+border-radius: none;
+position: absolute;
+right: 0px; /* Icon sát mép phải */
+}
+.input-wrapper input {
+width: 100%; /* Đảm bảo input chiếm đủ chiều rộng */
+padding-left: 70px; /* Chừa khoảng trống để không bị icon che */
+border: none;
+border-radius: 5px; /* Góc bo tròn bên phải */
+}
+.message{
+    background-color: rgb(228, 216, 216);
+    display:flex;
+    flex-direction: column; /* Đặt các thành phần con theo cột */
+   margin-bottom: 15px;
+   position:relative;
+   border-radius: 5px;
+   text-align: center;
+   color:rgb(143, 54, 54);
+   font-size:17px;
+}

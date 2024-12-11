@@ -106,5 +106,5 @@
   include_once("app/components/footer.php");
   ?>
 </body>
-
 </html>
+
