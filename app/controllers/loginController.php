@@ -8,6 +8,11 @@ global $conn;
 // session_start();
 class loginController extends Controller
 {
+    public function index()
+    {
+        $data = ['default'];
+        $this->view('Login', $data);
+    }
     function userLogin($email, $passWord)
     {
         global $conn;
@@ -45,11 +50,10 @@ class loginController extends Controller
 
 $loginControllerObj = new loginController();
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $passWord = htmlspecialchars($_POST['passWord']);
     $loginControllerObj->userLogin($email, $passWord);
 } else {
-    $loginControllerObj->view('Login', []);
+    $loginControllerObj->index();
 }

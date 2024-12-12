@@ -1,41 +1,44 @@
 <?php
-class App{
-    public function __construct() {
+class App
+{
+    public function __construct()
+    {
         $this->handleUrl();
     }
-    public function getUrl() {
+
+    public function getUrl()
+    {
         if (!empty($_SERVER['PATH_INFO'])) {
             $url = $_SERVER['PATH_INFO'];
         } else {
-            $url = '/Home';
+            $url = '/home/index';
         }
-        return $url;
+        return trim($url, '/');
     }
-    public function handleUrl() {
-        $url = $this->getUrl();  
-        $routes = [
-            '/' => 'homeController.php',
-            '/Home' => 'homeController.php',
-            '/AboutUs' => 'homeController.php',
-            '/Register'=>'RegisterController.php',
-            '/Login'=> 'LoginController.php'
-        ];
-        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin') {
-            $routes = array_merge($routes, [
-                '/AdminDashboard' => 'adminDashboardController.php',
-                '/AdminUsers' => 'adminUsersController.php',
-                '/AdminProducts' => 'adminProductsController.php',
-                '/AdminOrders' => 'adminOrdersController.php',
-                '/' => 'homeController.php',
-                '/Home' => 'homeController.php',
-            ]);
-        }
-        foreach ($routes as $route => $controllerFile) {
-            if (isset($routes[$url])) {
-                require_once './app/controllers/' . $routes[$url];
+
+    public function handleUrl()
+    {
+        $url = $this->getUrl();
+        $urlParts = explode('/', $url);
+
+        $controllerName = ucfirst($urlParts[0]) . 'Controller';
+        $action = isset($urlParts[1]) ? $urlParts[1] : 'index';
+        $params = array_slice($urlParts, 2);
+
+        if (file_exists('./app/controllers/' . $controllerName . '.php')) {
+            require_once './app/controllers/' . $controllerName . '.php';
+            if (class_exists($controllerName)) {
+                $controller = new $controllerName();
+                if (method_exists($controller, $action)) {
+                    call_user_func_array([$controller, $action], $params);
+                } else {
+                    echo "404 - Action not found";
+                }
             } else {
-                echo "404 - Page not found";
+                echo "404 - Controller class not found";
             }
+        } else {
+            echo "404 - Controller file not found";
         }
-    }}
-?>
+    }
+}
