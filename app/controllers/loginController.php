@@ -34,7 +34,11 @@ class loginController extends Controller
             $_SESSION['isLogin'] = true;
             $_SESSION['email'] = $result->email;
             $_SESSION['userId'] = $result->userId;
-            $_SESSION['role'] = $result->role;
+            $_SESSION['fullName'] = $result->fullName;
+            $_SESSION['avataImg'] = $result->avataImg;
+            $_SESSION['address'] = $result->address;
+            $_SESSION['phoneNum'] = $result->phoneNum;
+            $_SESSION['dob'] = $result->dob;
             if ($result->role == 'admin') {
                 header("Location: /AdminDashboard.php");
                 exit;
@@ -51,7 +55,7 @@ class loginController extends Controller
 $loginControllerObj = new loginController();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $email = $_POST['email'];
     $passWord = htmlspecialchars($_POST['passWord']);
     $loginControllerObj->userLogin($email, $passWord);
 } else {
