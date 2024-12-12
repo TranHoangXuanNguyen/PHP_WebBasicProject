@@ -2,7 +2,7 @@
 require_once './app/core/Controller.php';
 require_once './app/models/RegisterModel.php';
 require_once __DIR__ . '/../config/config.php';
-global $conn;
+global $connect;
 
 require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
@@ -15,9 +15,16 @@ class RegisterController extends Controller
 {
     private $conn;
 
-    public function __construct($dbConnection)
+    public function __construct()
     {
-        $this->conn = $dbConnection;
+        global $connect;
+        $this->conn = $connect;
+    }
+
+    public function index()
+    {
+        $data = ['default'];
+        $this->view('Register', $data);
     }
     public function registerController($fullName, $email, $phone, $password, $dob)
     {
@@ -50,10 +57,7 @@ class RegisterController extends Controller
         return true;
     }
 }
-
-// Khởi tạo đối tượng controller
-$registerController = new RegisterController($conn);
-
+$registerController = new RegisterController();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $fullName = $_POST['fullname'];
     $email = $_POST['email'];
@@ -73,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $registerController->registerController($fullName, $email, $phone, $password, $dob);
     }
 } else {
-    $registerController->view('Register', []);
+    $registerController->index();
 }
 class WelcomeMailer
 {
