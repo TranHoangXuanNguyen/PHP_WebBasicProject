@@ -13,6 +13,7 @@ class loginController extends Controller
         $data = ['default'];
         $this->view('Login', $data);
     }
+    
     function userLogin($email, $passWord)
     {
         global $conn;
@@ -20,7 +21,7 @@ class loginController extends Controller
             die("Connection to database failed");
         }
 
-        $loginmodel = new loginModel($conn);
+        $loginmodel = new loginModel();
         $result = $loginmodel->login($email, $passWord);
         if ($result === false) {
             // Nếu mật khẩu hoặc email sai

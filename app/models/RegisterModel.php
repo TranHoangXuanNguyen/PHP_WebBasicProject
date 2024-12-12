@@ -1,19 +1,14 @@
 <?php
-
+require_once __DIR__ . '/../config/config.php';
+global $conn;
 class RegisterModel
 {
-    public $userId;
-    public $fullName;
-    public $email;
-    public $phone;
-    public $password;
-    public $dob;
-
     private $conn;
 
-    public function __construct($dbConnection)
+    public function __construct()
     {
-        $this->conn = $dbConnection;
+        global $conn;
+        $this->conn = $conn;
     }
 
     public function registerUser($fullName, $email, $phoneNum, $password, $dob)

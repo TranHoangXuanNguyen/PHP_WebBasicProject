@@ -28,7 +28,7 @@ class RegisterController extends Controller
     }
     public function registerController($fullName, $email, $phone, $password, $dob)
     {
-        $registerModel = new RegisterModel($this->conn);
+        $registerModel = new RegisterModel();
         $result = $registerModel->registerUser($fullName, $email, $phone, $password, $dob);
 
         if ($result === true) {

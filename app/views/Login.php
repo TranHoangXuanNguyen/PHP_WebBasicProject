@@ -13,9 +13,6 @@
 </head>
 
 <body>
-    <?php
-    require_once("app/components/header.php");
-    ?>
     <div class="container">
         <h1>Hi</h1>
         <h2 style="color:orange">Welcome back!</h2>
