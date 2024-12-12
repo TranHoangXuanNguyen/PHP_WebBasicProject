@@ -12,12 +12,18 @@
     <style>
         body {
             font-family:arial;
-            /* background-color: #f8f9fa; */
+ 
+        }
+        .profile-contain {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color:  #f9f9f9; 
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+            padding: 20px;
         }
         .pf-edit{
-            /* display:none; */
             box-shadow: 0 0 10px #f8f9fa;
-             /* background-color: #f8f9fa; */
         }
         .profile-header {
             padding: 10px;
@@ -26,7 +32,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
             border-bottom: 1px solid grey;
-            /* box-shadow: 0 0 10px #F5E1BD; */
+        
         }
         .profile-header img {
             width: 50px;
@@ -40,9 +46,11 @@
            }
            .view:hover{
             color:orange;
+            cursor:pointer;
            }
            .edit:hover{
             color:orange;
+            cursor:pointer;
            }
         .profile{
             display: flex;
@@ -65,64 +73,65 @@
             margin-bottom: 15px;
         }
         .btn-save:hover {
-            background-color: #cc5200;
+            background-color: orange;
         } 
 
-
-        /* View Profile */
         .view-profile {
-            /* background-color: #f8f9fa; */
             border-radius: 10px;
-            /* box-shadow: 0 0 7px #F5E1BD; */
             font-size: 15px;
             color:black;
-            
+        }
 
+        .px-5 {
+            padding:0px !important;
         }
-        .profile-header_view{
-            /* background-color: #f8f9fa; */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 1px solid grey; 
-            box-shadow: 0 0 10px #F9F4EE;
-        }
-        .header-vie img{
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-left: 30px;
-            border:2px solid #DFA8A4;
-        }
+
         .header-vie {
             padding:10px;
             margin-left: 350px;
-      
         }
-        
-        
+        . form{
+            padding:0px !important;
+        }
+        .pf-edit{
+            display:none;
+        }
+        .view-profile{
+            margin-top: 0px !important;
+        }
+        .sign-button:hover{
+            background-color: orange;
+            border:1px solid white;
+        }
+ 
     </style>
 </head>
 <body>
     <!-- Edit Profile -->
-    <div class="container mt-5 pf-edit">
+    <div class="container mt-5 profile-contain">
             <!-- Header -->
             <div class="profile-header">
                 <div class="d-flex align-items-center header-inf">
-                    <img src="https://i.pinimg.com/736x/c0/b2/6b/c0b26bc673d7e709a42b87f96268bf32.jpg" alt="Profile Picture">
+                        <div class="img_upload">
+                                <?php if (!empty($_SESSION['avataImg'])): ?>
+                                    <img src="<?php echo htmlspecialchars($_SESSION['avataImg']); ?>" alt="User Avatar">
+                                <?php else: ?>
+                                        <img src="https://i.pinimg.com/236x/e6/60/85/e66085932a4b3b411854aff54574ecd6.jpg" >
+                                <?php endif; ?>
+                    </div>
                     <div class="ms-3">
-                        <h5 class="mb-0">Hồ Thị Duyên Hà</h5>
-                        <p class="text-muted mb-0" >hothiduyenha2005@gmail.com</p>
+                        <h5 class="mb-0"><?php echo isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName']) : ''; ?>" </h5>
+                        <p class="text-muted mb-0" ><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" </p>
                     </div>
                 </div>
-                <button class="btn btn-outline-secondary btn-md">Sign out</button>
+                <button class="btn btn-outline-secondary btn-md sign-button">Sign out</button>
             </div>
 
-            <div class="row px-5 big-box " style="padding:0px">
-                <div class="col-sm-7">
+            <div class="row px-5 big-box edit-box" >
+                <div class="col-sm-7 form">
                             <!-- Form -->
-                    <form>
+                             <div class="pf-edit">
+                             <form>
                             <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter your name">
@@ -141,17 +150,33 @@
                         </div>
                         <button type="submit" class="btn btn-save">Save</button>
                     </form>
+                             </div>
+                             <div class="container mt-5 view-profile">
+            <div class="row px-5 big-box " >
+                <div class="col-sm-7 form">
+                        <h3>Personal information </h3>
+                        <p><span>Full Name: <?php echo isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName']) : ''; ?>" </span></p>
+                        <p><span>Email: <?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" </span></p>
+                        <p><span>Phone Number:<?php echo isset($_SESSION['phoneNum']) ? htmlspecialchars($_SESSION['phoneNum']) : ''; ?>" </span></p>
+                        <p><span>Date of Birth<?php echo isset($_SESSION['dob']) ? htmlspecialchars($_SESSION['dob']) : ''; ?>" </span></p>
+                        <p><span>Address: <?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?>" </span></p>
+                        <p><span></span></p>
+                </div>
+            </div>                  
+                   
+        </div>
+                    
                 </div>
         
                 <div class="col-sm-5">
                         <div class="profile">
-                                <div class="view">
+                                <div class="view" >
                                         <i style="font-size:24px;" class="fa">&#xf2be;</i> 
-                                        <p class="text">View Profile</p>
+                                        <p class="text" id="viewBtn">View Profile</p>
                                 </div>
                                 <div class="edit">
                                         <i class="fa-solid fa-pencil"></i>
-                                        <p class="text"> Edit profile</p>
+                                        <p class="text" id="editBtn"> Edit profile</p>
                                 </div>
                         </div>
 
@@ -159,45 +184,25 @@
     </div>
     </div>
     <!-- View Profile -->
-     <div class="container mt-5 view-profile ">
-                <div class="profile-header_view">
-                            <div class="d-flex align-items-center header-vie">
-                                <img src="https://i.pinimg.com/736x/c0/b2/6b/c0b26bc673d7e709a42b87f96268bf32.jpg" alt="Profile Picture">
-                                <div class="ms-3">
-                                    <h3 class="mb-0"><strong>Hồ Thị Duyên Hà</strong></h3>
-                                    <p class="text-muted mb-0" style="color:white">hothiduyenha2005@gmail.com</p>
-                                </div>
-                            </div>
-                </div>
+    
 
-            <div class="row px-5 big-box " >
-                <div class="col-sm-7">
-                        <h3>Personal information </h3>
-                        <p><span>Full Name: </span></p>
-                        <p><span>Email: </span></p>
-                        <p><span>Phone Number: </span></p>
-                        <p><span>Date of Birth</span></p>
-                        <p><span>Address: </span></p>
-                        <p><span></span></p>
-                </div>
+        <script>
+                const viewBtn = document.getElementById("viewBtn");
+                const editBtn = document.getElementById("editBtn");
 
-                <div class="col-sm-5">
-                                <div class="profile">
-                                        <div class="view">
-                                                <i style="font-size:24px;" class="fa">&#xf2be;</i> 
-                                                <p class="text">View Profile</p>
-                                        </div>
-                                        <div class="edit">
-                                                <i class="fa-solid fa-pencil"></i>
-                                                <p class="text"> Edit profile</p>
-                                        </div>
-                                </div>
+                const viewSession = document.querySelector(".view-profile");
+                const editSession = document.querySelector(".pf-edit");
 
-                        </div>
-            </div>                  
-                   
-        </div>
+                viewBtn.addEventListener("click", () => {
+                    viewSession.style.display = 'block';
+                    editSession.style.display = 'none';
+                });
 
+                editBtn.addEventListener("click", () => {
+                    viewSession.style.display = 'none';
+                    editSession.style.display = 'block';
+                });
+</script>
 
 
 
