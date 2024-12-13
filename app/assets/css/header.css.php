@@ -2,7 +2,6 @@
   * {
     margin: 0px;
     padding: 0px;
-    color: white;
     font-family: arial;
   }
 
