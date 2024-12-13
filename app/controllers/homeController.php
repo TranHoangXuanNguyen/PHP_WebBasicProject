@@ -3,7 +3,13 @@
 
 require_once('./app/core/Controller.php');
 require_once('./app/models/homeModel.php');
-class homeController extends Controller {}
-$Home = new homeController();
-$Home->view("Home", ["ád" => "s"]);
+class HomeController extends Controller
+{
+    public function index()
+    {
+        $data = ['default'];
+        $this->view('home', $data);
+    }
+}
+
 ?>

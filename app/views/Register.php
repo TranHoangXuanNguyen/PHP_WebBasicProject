@@ -12,7 +12,7 @@
     </head>
 
     <body>
-        <div class="fluid-container">
+        <div class="container">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-md-6" id="layout">
                     <div class="text-center mb-0">
@@ -22,9 +22,9 @@
                     <?php if (isset($_SESSION['error_message'])): ?>
                         <div class="alert">
                             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <strong>Error!</strong> <?= $_SESSION['error_message'] ?><strong>Please enter data again!</strong> 
+                            <strong>Error!</strong> <?= $_SESSION['error_message'] ?><strong>Please enter data again!</strong>
                         </div>
-                        <?php unset($_SESSION['error_message']); 
+                        <?php unset($_SESSION['error_message']);
                         ?>
                     <?php endif; ?>
                     <form action="/Register" method="POST">
