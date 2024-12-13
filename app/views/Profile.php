@@ -29,6 +29,11 @@
             box-shadow: 0 0 10px #f8f9fa;
         }
 
+        .inforText>span,
+        .inforTitle {
+            color: black;
+        }
+
         .profile-header {
             padding: 10px;
             display: flex;
@@ -47,6 +52,17 @@
 
         .view,
         .edit {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .fa-pencil {
+            font-size: 20px;
+        }
+
+        .view_session,
+        .edit_session {
+            width: 20%;
             display: flex;
             right: 0;
             margin-left: auto;
@@ -117,8 +133,28 @@
         }
 
         .sign-button:hover {
-            background-color: orange;
+            background-color: orange !important;
             border: 1px solid white;
+        }
+
+        .blackIco {
+            color: orange;
+        }
+
+        #editBtn,
+        #viewBtn {
+            color: black;
+            font-weight: 500;
+        }
+
+        #editBtn:hover,
+        #viewBtn:hover {
+            color: orange;
+        }
+
+        .pricolor {
+            background-color: #ff6600;
+            border: 1px solid black !important;
         }
     </style>
 </head>
@@ -130,7 +166,7 @@
     <!-- Edit Profile -->
     <div class="container mt-5 profile-contain">
         <!-- Header -->
-        <div class="profile-header">    
+        <div class="profile-header">
             <div class="d-flex align-items-center header-inf">
                 <div class="img_upload">
                     <?php if (!empty($_SESSION['avataImg'])): ?>
@@ -140,47 +176,47 @@
                     <?php endif; ?>
                 </div>
                 <div class="ms-3">
-                    <h5 class="mb-0"><?php echo isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName']) : ''; ?>" </h5>
-                    <p class="text-muted mb-0"><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" </p>
+                    <h5 class="mb-0 inforTitle"><?php echo isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName']) : ''; ?> </h5>
+                    <p class="text-muted mb-0"><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?> </p>
                 </div>
             </div>
-            <button class="btn btn-outline-secondary btn-md sign-button">Sign out</button>
+            <a class="btn btn-outline-secondary btn-md sign-button" href="/Profile/Signout">Sign out</a>
         </div>
 
         <div class="row px-5 big-box edit-box">
             <div class="col-sm-7 form">
                 <!-- Form -->
                 <div class="pf-edit">
-                    <form>
+                    <form action="/Profile/EditAccount" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                            <input type="text" name="editname" class="form-control" id="name" placeholder="Enter your name">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            <input type="email" name="editemail" class="form-control" id="email" placeholder="Enter your email">
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" placeholder="Enter your address">
+                            <input type="text" name="editaddress" class="form-control" id="address" placeholder="Enter your address">
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob">
+                            <input type="date" name="editdate" class="form-control" id="dob">
                         </div>
-                        <button type="submit" class="btn btn-save">Save</button>
+                        <button type="submit" class="btn btn-save pricolor">Save</button>
                     </form>
                 </div>
                 <div class="container mt-5 view-profile">
                     <div class="row px-5 big-box ">
                         <div class="col-sm-7 form">
-                            <h3>Personal information </h3>
-                            <p><span>Full Name: <?php echo isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName']) : ''; ?>" </span></p>
-                            <p><span>Email: <?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" </span></p>
-                            <p><span>Phone Number:<?php echo isset($_SESSION['phoneNum']) ? htmlspecialchars($_SESSION['phoneNum']) : ''; ?>" </span></p>
-                            <p><span>Date of Birth<?php echo isset($_SESSION['dob']) ? htmlspecialchars($_SESSION['dob']) : ''; ?>" </span></p>
-                            <p><span>Address: <?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?>" </span></p>
-                            <p><span></span></p>
+                            <h3 class="inforTitle">Personal information </h3>
+                            <p class="inforText"><span>Full Name: <?php echo isset($_SESSION['fullName']) ? htmlspecialchars($_SESSION['fullName']) : ''; ?> </span></p>
+                            <p class="inforText"><span>Email: <?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?> </span></p>
+                            <p class="inforText"><span>Phone Number: <?php echo isset($_SESSION['phoneNum']) ? htmlspecialchars($_SESSION['phoneNum']) : ''; ?> </span></p>
+                            <p class="inforText"><span>Date of Birth: <?php echo isset($_SESSION['dob']) ? htmlspecialchars($_SESSION['dob']) : ''; ?> </span></p>
+                            <p class="inforText"><span>Address: <?php echo isset($_SESSION['address']) ? htmlspecialchars($_SESSION['address']) : ''; ?> </span></p>
+                            <p class="inforText"><span></span></p>
                         </div>
                     </div>
 
@@ -190,13 +226,17 @@
 
             <div class="col-sm-5">
                 <div class="profile">
-                    <div class="view">
-                        <i style="font-size:24px;" class="fa">&#xf2be;</i>
-                        <p class="text" id="viewBtn">View Profile</p>
+                    <div class="view_session">
+                        <div class="view">
+                            <i style="font-size:24px;" class="fa blackIco">&#xf2be;</i>
+                            <p class="text" id="viewBtn">View Profile</p>
+                        </div>
                     </div>
-                    <div class="edit">
-                        <i class="fa-solid fa-pencil"></i>
-                        <p class="text" id="editBtn"> Edit profile</p>
+                    <div class="edit_session">
+                        <div class="edit">
+                            <i class="fa-solid fa-pencil blackIco"></i>
+                            <p class="text" id="editBtn"> Edit profile</p>
+                        </div>
                     </div>
                 </div>
 
