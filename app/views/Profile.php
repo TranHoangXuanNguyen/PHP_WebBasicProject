@@ -246,7 +246,7 @@
 
 
     <?php
-    include_once("app/components/footer.php");
+    require_once("app/components/footer.php");
     ?>
 
 

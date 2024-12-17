@@ -1,6 +1,6 @@
 <?php
-require_once './app/assets/css/header.css.php';
-require_once './app/assets/css/bootstrap.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/header.css.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/bootstrap.php';
 ?>
 <!-- Navigation -->
 
@@ -9,7 +9,7 @@ require_once './app/assets/css/bootstrap.php';
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/Home">
-                <img src="./app/assets/img/logoFinal.png" alt="Logo" width="30" height="24" class="d-inline-block logo">
+                <img src="<?php  echo $_SERVER['DOCUMENT_ROOT'].'/app/assets/img/logoFinal.png' ?>" alt="Logo" width="30" height="24" class="d-inline-block logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar1">

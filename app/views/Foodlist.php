@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body{
-            font-family:Arial, Helvetica, sans-serif;
+            /* font-family:Arial, Helvetica, sans-serif; */
         }
-        .search{
+        .search-food{
             display:flex;
             justify-content:flex-end;
         }
@@ -21,15 +21,14 @@
             border-radius: 3px;
             
         }
-        .input-wrapper{
+        .search-box{
             position: relative;
             display: flex;
             align-items: center; /* Căn giữa icon và input theo chiều dọc */
-            margin: 1px 15px;
+            margin: 1px 11px;
         }
         
-        .input-wrapper input {
-            width: 100%; /* Đảm bảo input chiếm đủ chiều rộng */
+        .search-box input {
             height: 35px;
             padding-left: 70px; /* Chừa khoảng trống để không bị icon che */
             border:1px solid #DDDD;
@@ -37,13 +36,14 @@
             text-align: left;
             background-color: #fdf0da;
             }
-        .research{
+        .research-icon{
             width: 35px;
             height: 35px;
             background-color: orange;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
             color: white;
             position: absolute;
             right: 0px; /* Icon sát mép trái */
@@ -54,7 +54,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border-radius: 10px;
-           
+            max-width: 335px;
         }
         .food-item img{
             border-top-left-radius: 5px;
@@ -70,6 +70,10 @@
             font-weight: bold;
             margin-bottom: 0px;
         
+        }
+        .food-title,.price{
+            text-align: left;
+            margin-left: 10px;
         }
         .price{
             color:#FF9F0D;
@@ -89,12 +93,13 @@
     </style>
 </head>
 <body>
+
         <div class="container py-5 menu-list">
             <!--  Ô tìm kiếm-->
-             <div class="row mb-4 search">
-                    <div class="input-wrapper">
+             <div class="row mb-4 search-food">
+                    <div class="input-wrapper search-box">
                         <input type="text" class="search-pd"placeholder="Search Product" name="search" >
-                        <i class="fa fa-search research"></i> <!-- Icon hình chìa khóa -->
+                        <i class="fa fa-search research-icon"></i> <!-- Icon hình chìa khóa -->
                  </div>
              </div>
              <!--  -->
@@ -226,6 +231,8 @@
 
         </div>
        
-
+<?php
+  require_once("app/components/footer.php");
+  ?>
 </body>
 </html>
