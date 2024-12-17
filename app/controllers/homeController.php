@@ -10,6 +10,8 @@ class HomeController extends Controller
         $data = ['default'];
         $this->view('home', $data);
     }
+
+
 }
 
 ?>
