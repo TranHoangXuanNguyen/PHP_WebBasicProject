@@ -8,7 +8,6 @@ class ProfileController extends Controller
         $data = ['default'];
         $this->view('Profile', $data);
     }
-
     public function Signout()
     {
         session_unset();
