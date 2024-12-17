@@ -13,7 +13,7 @@
             height: 100px;
             padding: 0px;
         } */
-        .menufood-container {
+        .menufood {
             padding-left: 150px;
             padding-top: 50px;
         }
@@ -66,18 +66,20 @@
             height: 100%;
             border-radius: 15px;
             transition: transform 0.4s ease, filter 0.3s ease;
+            overflow: hidden;
+
         }
 
         .image-container:hover {
             transform: scale(1.05);
             border-radius: 15px;
-
+            overflow: hidden;
         }
 
         .image-container:hover img {
             transform: scale(1.1);
             border-radius: 15px;
-
+            overflow: hidden;
         }
 
         .nameFood {
@@ -111,7 +113,7 @@
                 <h1 class="">MENU FOOD</h1>
                 <img src="https://images.pexels.com/photos/17320991/pexels-photo-17320991/free-photo-of-a-bowl-of-soup-with-shrimp-lime-and-herbs.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
     </div> -->
-    <div class="menufood-container">
+    <div class="menufood container">
         <?php if (isset($data) && is_array($data) && !empty($data)): ?>
             <?php
             $categories = [];

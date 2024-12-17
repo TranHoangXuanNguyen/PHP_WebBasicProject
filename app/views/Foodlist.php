@@ -104,6 +104,9 @@
     </style>
 </head>
 <body>
+<?php
+  require_once("app/components/header.php");
+  ?>
 <div class="container py-5">
         <!-- Ô tìm kiếm -->
         <div class="row mb-4 search-food">
@@ -120,8 +123,8 @@
                         <div class="card food-item">
                             <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Food Image">
                             <div class="card-body">
-                                <a href="#blabla" class="food-title"><?php echo $food['foodName']; ?></a>
-                                <a href="#blabla" class="price"><?php echo $food['price']; ?> VNĐ</a>
+                                <a href=<?php echo '/detail/show/' . $food['foodId'] ?> class="food-title"><?php echo $food['foodName']; ?></a>
+                                <a href=<?php echo '/detail/show/' . $food['foodId'] ?> class="price"><?php echo $food['price']; ?> VNĐ</a>
                             </div>
                         </div>
                     </div>
@@ -131,5 +134,8 @@
             <p class="text-center">Không có món ăn nào được tìm thấy.</p>
         <?php endif; ?>
     </div>
+    <?php
+  require_once("app/components/footer.php");
+  ?>
 </body>
 </html>

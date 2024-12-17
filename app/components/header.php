@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/bootstrap.php';
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/Home">
-                <img src="<?php  echo $_SERVER['DOCUMENT_ROOT'].'/app/assets/img/logoFinal.png' ?>" alt="Logo" width="30" height="24" class="d-inline-block logo">
+                <img src='/app/assets/img/logoFinal.png' alt="Logo" width="30" height="24" class="d-inline-block logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar1">
@@ -27,7 +27,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/bootstrap.php';
                             <a class="nav-link" href="/About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Shop">Shop</a>
+                            <a class="nav-link" href="/Menu">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Contact">Contact</a>
