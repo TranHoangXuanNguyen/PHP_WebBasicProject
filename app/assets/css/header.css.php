@@ -23,7 +23,7 @@
 
   }
 
-  .nav-link:hover {
+  .nav-link:hover{
     color: #ff9f0d;
   }
 

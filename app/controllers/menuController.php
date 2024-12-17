@@ -1,5 +1,7 @@
-<!-- code base for sprint 3 -->
- <?php
+
+<?php
+require_once(__DIR__ . '/../core/Controller.php');
+require_once( __DIR__ . '/../models/MenuFoodModel.php');  
 require_once __DIR__ . '/../core/Controller.php';
 require_once __DIR__ . '/../models/foodlistModel.php';
 require_once __DIR__ . '/../config/config.php';
@@ -8,6 +10,13 @@ global $conn;
 
 class MenuController extends Controller
 {
+   public function index()
+    {
+        $foodModel = new FoodModel();
+        $data = $foodModel->getAllFoodItems(); 
+        
+        $this->view('MenuFood', $data);
+    }
    
     function foodList($categoryId)
     {
@@ -25,5 +34,6 @@ class MenuController extends Controller
         }
 
     }
+  
    
 }
