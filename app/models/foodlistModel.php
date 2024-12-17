@@ -13,13 +13,13 @@ class FoodlistModel
         $this->conn = $conn;
     }
 
-    public function foodListByCategory()
+    public function foodListByCategory($categoryId)
     {
         // Lấy danh sách các món ăn
         $sql = "SELECT fooditems.foodImg, fooditems.foodName, fooditems.price 
                 FROM fooditems 
-                JOIN categories ON fooditems.categoryId = categories.categoryId";
-                // -- WHERE categories.categoryId = $categoryId";
+                JOIN categories ON fooditems.categoryId = categories.categoryId
+                WHERE categories.categoryId = $categoryId";
 
         $result = mysqli_query($this->conn, $sql);
 

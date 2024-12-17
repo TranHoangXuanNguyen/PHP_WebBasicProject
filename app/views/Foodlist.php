@@ -54,7 +54,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border-radius: 10px;
-            max-width: 335px;
+            /* max-width: 335px; */
+            min-height: 420px;
         }
         .food-item img{
             border-top-left-radius: 5px;
@@ -65,6 +66,7 @@
         .food-item:hover {
             transform: scale(1.1); 
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
         }
         .food-title{
             font-weight: bold;
@@ -74,6 +76,12 @@
         .food-title,.price{
             text-align: left;
             margin-left: 10px;
+            display: block;
+            /* text-decoration: none; */
+        }
+        .food-title:hover{
+            color:black !important;
+            text-decoration: none;
         }
         .price{
             color:#FF9F0D;
@@ -89,7 +97,10 @@
         .mb-4, .my-4 {
             margin-bottom: 2.5rem !important;
         }
-
+        .price:hover{
+            color:#FF9F0D !important;
+            text-decoration: none !important;
+        }
     </style>
 </head>
 <body>
@@ -107,10 +118,10 @@
                 <?php foreach ($data['items'] as $food): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card food-item">
-                            <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Hình ảnh món ăn">
+                            <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Food Image">
                             <div class="card-body">
-                                <p class="food-title"><?php echo $food['foodName']; ?></p>
-                                <p class="price"><?php echo $food['price']; ?> VNĐ</p>
+                                <a href="#blabla" class="food-title"><?php echo $food['foodName']; ?></a>
+                                <a href="#blabla" class="price"><?php echo $food['price']; ?> VNĐ</a>
                             </div>
                         </div>
                     </div>
