@@ -93,146 +93,32 @@
     </style>
 </head>
 <body>
-
-        <div class="container py-5 menu-list">
-            <!--  Ô tìm kiếm-->
-             <div class="row mb-4 search-food">
-                    <div class="input-wrapper search-box">
-                        <input type="text" class="search-pd"placeholder="Search Product" name="search" >
-                        <i class="fa fa-search research-icon"></i> <!-- Icon hình chìa khóa -->
-                 </div>
-             </div>
-             <!--  -->
-             <div class="row food-list">
-                        <!-- Food Item 1 -->
-                        <div class="col-md-4 mb-4 ">
-                                <div class="card h-100 food-item">
-                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTU2jj4SVOuplodXhMcbhOpSOgSgGGKV08QjfB6A8j7ATOc0kuA" class="card-img-top" alt="Beef Jerky">
-                                    <div class="card-body food">
-                                        <p class="food-title">Beef Jerky</p>
-                                        <p class="price">30.000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        <!-- Food Item 2 -->
-                        <div class="col-md-4 mb-4">
-                                <div class="card h-100 food-item">
-                                    <img src="https://images.immediate.co.uk/production/volatile/sites/2/2024/05/GurdeepBacalhausaltCodFrittersSaffron-076-f07f1be.gif?quality=90&webp=true&resize=375,341" class="card-img-top" alt="Bread Pan">
-                                    <div class="card-body food">
-                                        <p class="food-title">Bread Pan</p>
-                                        <p class="price">21.000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        <!-- Food Item 3 -->
-                        <div class="col-md-4 mb-4">
-                                <div class="card h-100 food-item">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                <div class="card-body food">
-                                        <p class="food-title">Bread Pan</p>
-                                        <p class="price">21.000</p>
-                                    </div>
-                                </div>
-                        </div>
-                        <!-- Food Item 4 -->
-                        <div class="col-md-4 mb-4">
-                                <div class="card h-100 food-item">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                    <div class="card-body food">
-                                        <p class="food-title">Bread Pan</p>
-                                        <p class="price">21.000</p>
-                                    </div>
-                                </div>
-                        </div>
-                 
-                             <!-- Food Item 5 -->
-                             <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <!-- Food Item 6-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                            </div>
-                            <!-- Food Item 7-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <!-- Food Item 8-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-             
-                            <!-- Food Item 9-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                            </div>
-                            <!-- Food Item 10-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <!-- Food Item 11-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <!-- Food Item 12-->
-                            <div class="col-md-4 mb-4">
-                                    <div class="card h-100 food-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6ZyFcSW30W1KDFKgxlx6umg9H1qe_EIqcQ&s" class="card-img-top" alt="Bread Pan">
-                                        <div class="card-body food">
-                                            <p class="food-title">Bread Pan</p>
-                                            <p class="price">21.000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            
+<div class="container py-5">
+        <!-- Ô tìm kiếm -->
+        <div class="row mb-4 search-food">
+            <div class="search-box">
+                <input type="text" placeholder="Search Product..." name="search">
+                <i class="fa fa-search research-icon"></i>
             </div>
-
         </div>
-       
-<?php
-  require_once("app/components/footer.php");
-  ?>
+        
+        <?php if (!empty($data['items'])): ?>
+            <div class="row">
+                <?php foreach ($data['items'] as $food): ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card food-item">
+                            <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Hình ảnh món ăn">
+                            <div class="card-body">
+                                <p class="food-title"><?php echo $food['foodName']; ?></p>
+                                <p class="price"><?php echo $food['price']; ?> VNĐ</p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="text-center">Không có món ăn nào được tìm thấy.</p>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
