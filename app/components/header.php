@@ -9,7 +9,7 @@ require_once './app/assets/css/bootstrap.php';
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/Home">
-                <img src="<?php echo ASSETS_URL . '/img/logoFinal.png'; ?>" alt="Logo" width="30" height="24" class="d-inline-block logo">
+                <img src='./app/assets/img/logoFinal.png' alt="Logo" width="30" height="24" class="d-inline-block logo">
 
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">

@@ -29,12 +29,14 @@ class AdminController extends Controller
     public function fetchdata($page)
     {
 
-        $allowed_pages = ['AdminDashboard', 'AdminFoodItem', 'profile'];
+        $allowed_pages = ['AdminDashboard', 'AdminFoodItem'];
         if ($page == 'AdminDashboard') {
             $data = ['default123123123'];
         }
         if ($page == 'AdminFoodItem') {
-            $data = ['defaultaaaaa'];
+            $objData = new AdminModelFooditem();
+            $listdata = $objData->getAllFoodItem();
+            $data = ['allfooditems' => $listdata];
         }
         if (in_array($page, $allowed_pages)) {
             $this->view('/adminview/' . $page, $data);

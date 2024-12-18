@@ -1,6 +1,7 @@
 <style>
     .adminsidebar {
         background-color: #000;
+        height: 120vh;
     }
 
     .adminsidebar_header__title {
