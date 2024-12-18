@@ -94,8 +94,11 @@
             text-align: center;
             margin-bottom: 15px;
         }
-        .mb-4, .my-4 {
-            margin-bottom: 2.5rem !important;
+        .row>* {
+            padding-right: 15px !important;
+        }
+        .mb-4 {
+           margin-bottom: 2.5rem !important;
         }
         .price:hover{
             color:#FF9F0D !important;

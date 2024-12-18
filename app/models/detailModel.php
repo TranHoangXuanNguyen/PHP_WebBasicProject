@@ -38,6 +38,30 @@ class FoodDetailModel
        }
     
 }
+    // Hiển thị 4 món ăn liên quan
+    public function relevantFood($foodId){
+        $sql = "SELECT
+        fooditems.foodImg,
+        fooditems.foodName,
+        fooditems.price,
+        fooditems.foodId
+        FROM fooditems 
+        WHERE fooditems.categoryId =(SELECT categoryId FROM fooditems WHERE fooditems.foodId=$foodId)
+        LIMIT 4";
 
+            $result = mysqli_query($this->conn, $sql);
+            
+            $foodrelevant=[];
+            // Kiểm tra nếu có món ăn
+           if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $foodrelevant[] = $row; 
+            }
+        }
 
+        return    $foodrelevant; // Trả về danh sách món ăn
+    }
 }
+
+
+    

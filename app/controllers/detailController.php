@@ -19,14 +19,20 @@ class DetailController extends Controller
         $foodDetailModel = new FoodDetailModel();
         
         $fooddetail=  $foodDetailModel ->detailFood($foodId);
+
         
         // Nếu tìm thấy món ăn
         if ($fooddetail!=null) {
-              // Hiển thị thông tin chi tiết của 1 món ăn 
-              $this->view('DetailFood', ['fooddetail'=> $fooddetail]);
+            $relevant=$foodDetailModel ->relevantFood($foodId);
+
+        $this->view('DetailFood', ['fooddetail'=> $fooddetail,'relevantfood'=> $relevant]);   
+                     // Hiển thị thông tin chi tiết của 1 món ăn 
         } else {
             echo "No food items found";
         }
+
+        
+
 
     }
   
