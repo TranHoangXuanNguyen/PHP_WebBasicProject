@@ -8,11 +8,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <style>
-        /* .menu-banner{
+        .menu-banner {
+            position: relative;
             width: 100%;
-            height: 100px;
-            padding: 0px;
-        } */
+            height: 200px;
+            margin-bottom: 20px;
+        }
+
+        .banner-image {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            filter: brightness(0.6);
+        }
+
+        .banner-title {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .menufood {
             padding-left: 150px;
             padding-top: 50px;
@@ -106,13 +122,13 @@
 </head>
 
 <body>
-    <?php
+<?php
     require_once("app/components/header.php");
     ?>
-    <!-- <div class="menu-banner">
-                <h1 class="">MENU FOOD</h1>
-                <img src="https://images.pexels.com/photos/17320991/pexels-photo-17320991/free-photo-of-a-bowl-of-soup-with-shrimp-lime-and-herbs.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
-    </div> -->
+    <div class="menu-banner d-flex align-items-center justify-content-center position-relative">
+        <img src="\app\assets\img\Shop List.png " alt="Menu Banner" class="w-100 h-100 banner-image">
+        <h1 class="position-absolute text-light text-center banner-title">MENU FOOD</h1>
+    </div>
     <div class="menufood container">
         <?php if (isset($data) && is_array($data) && !empty($data)): ?>
             <?php
@@ -141,7 +157,7 @@
                         ?>
                             <div class="nameFood">
                                 <div class="row-content d-flex justify-content-between">
-                                    <div class="item"><a href=""><?php echo htmlspecialchars($item['item'] ?? 'No Name'); ?></a></div>
+                                    <div class="item"><a href='<?php echo '/detail/show/' . $item['foodId'] ?>'><?php echo htmlspecialchars($item['item'] ?? 'No Name'); ?></a></div>
                                     <div class="price"><?php echo htmlspecialchars($item['price'] ?? '0.00'); ?></div>
                                 </div>
                             </div>
