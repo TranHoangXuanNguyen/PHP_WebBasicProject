@@ -41,7 +41,11 @@ require_once './app/assets/css/bootstrap.php';
                         if (!isset($_SESSION['isLogin']) || $_SESSION['isLogin'] != 'true') {
                             echo '<li class="nav-item"><a class="nav-link" href="/Login"><i class="fa fa-user"></i></a></li>';
                         } else {
-                            echo '<li class="nav-item"><a class="nav-link" href="/Profile"><i class="fa fa-user"></i></a></li>';
+                            if (isset($_SESSION['role']) && $_SESSION['role'] != 'user') {
+                                echo '<li class="nav-item"><a class="nav-link" href="/Profile"><i class="fa fa-user"></i></a></li>';
+                            } else {
+                                echo '<li class="nav-item"><a class="nav-link" href="/Admin"><i class="fa fa-user"></i></a></li>';
+                            }
                         }
                         ?>
 

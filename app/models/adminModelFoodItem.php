@@ -96,6 +96,22 @@ class AdminModelFooditem
             return false;
         }
     }
+    public function getFoodById($id)
+    {
+        $sql = "SELECT * FROM fooditems WHERE foodId = $id";
+        $result = mysqli_query($this->connect, $sql);
+        return $result;
+    }
+    public function countItemBycategory()
+    {
+        $sql = "SELECT categoryId, COUNT(*) as count FROM fooditems GROUP BY categoryId;";
+        $result = mysqli_query($this->connect, $sql);
 
-    
+        $countByCategory = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $countByCategory[$row['categoryId']] = $row['count'];
+        }
+
+        return $countByCategory;
+    }
 }

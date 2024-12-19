@@ -1,17 +1,14 @@
 <?php
-$totalUsers = 900;
-$totalFoodItems = 58;
-$chartData = [
-    'labels' => ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
-    'data' => [12, 19, 3, 52, 2]
-];
+$totalUsers =    (count($data['allusers']));
+$totalFoodItems = (count($data['allfooditems']));
+
 ?>
 
 <body onload="showChart()">
     <div class="admin__dashboard__container container">
         <div class="row row-cols-2">
             <div class="col">
-                <div class="inforbox"  onclick="showChart()">
+                <div class="inforbox">
                     <div class="inforboxTitle">Total users:</div>
                     <div class="inforboxinfor">
                         <?php echo $totalUsers; ?> <i class="bi bi-people"></i>
@@ -19,7 +16,7 @@ $chartData = [
                 </div>
             </div>
             <div class="col">
-                <div class="inforbox">
+                <div class="inforbox" onclick="showChart()">
                     <div class="inforboxTitle">Total food items:</div>
                     <div class="inforboxinfor">
                         <?php echo $totalFoodItems; ?> <i class="bi bi-egg-fried"></i>

@@ -74,7 +74,7 @@ class AdminModelUser
         }
     }
 
-    public function updateFood($id, $user)
+    public function updateUser($id, $user)
     {
         $fullName = $user->fullName;
         $email = $user->email;
@@ -95,11 +95,11 @@ class AdminModelUser
         }
     }
 
-    public function deleteFood($id)
+    public function deleteUser($id)
     {
         $sql = "
         delete from user
-        WHERE foodId = $id";
+        WHERE userId = $id";
 
         if (mysqli_query($this->connect, $sql)) {
             return true;

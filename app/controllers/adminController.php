@@ -11,7 +11,12 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $data = ['default'];
+        $objDataF = new AdminModelFooditem();
+        $objDataU = new AdminModelUser();
+        $listdataF = $objDataF->getAllFoodItem();
+        $listdataU = $objDataU->getAllUser();
+        $listdataFcoount = $objDataF->countItemBycategory();
+        $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU, 'countbycategory' => $listdataFcoount];
         $this->view('AdminDashboard', $data);
     }
     public function Signout()
@@ -75,7 +80,11 @@ class AdminController extends Controller
 
         $allowed_pages = ['AdminDashboard', 'AdminFoodItem', 'AdminUser'];
         if ($page == 'AdminDashboard') {
-            $data = ['default123123123'];
+            $objDataF = new AdminModelFooditem();
+            $objDataU = new AdminModelUser();
+            $listdataF = $objDataF->getAllFoodItem();
+            $listdataU = $objDataU->getAllUser();
+            $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU];
         }
         if ($page == 'AdminFoodItem') {
             $objData = new AdminModelFooditem();
@@ -109,22 +118,27 @@ class AdminController extends Controller
     public static function createUser()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $foodName = $_POST['foodName'];
-            $foodImg = $_POST['foodImg'];
-            $description = $_POST['description'];
-            $detail = $_POST['detail'];
-            $price = $_POST['price'];
-            $categoryId = $_POST['categoryId'];
-            $objData = new AdminModelFooditem();
-            $objtransfer = new AdminModelFooditem();
+            $userName = $_POST['userName'];
+            $userImg = $_POST['userImg'];
+            $passWord = $_POST['passWord'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $role = $_POST['role'];
+            $phoneNum = $_POST['phone'];
+            $birthDay = $_POST['birthDay'];
+            $objData = new AdminModelUser();
+            $objtransfer = new AdminModelUser();
 
-            $objData->foodName = ($foodName);
-            $objData->description = ($description);
-            $objData->detail = ($detail);
-            $objData->price = ($price);
-            $objData->categoryId = ($categoryId);
-            $objData->foodImg = $foodImg;
-            $objtransfer->createFood($objData);
+            $objData->fullName = ($userName);
+            $objData->passWord = ($passWord);
+            $objData->email = ($email);
+            $objData->address = ($address);
+            $objData->role = ($role);
+            $objData->phoneNum = ($phoneNum);
+            $objData->role = ($role);
+            $objData->dob = ($birthDay);
+            $objData->avataImg = $userImg;
+            $objtransfer->createUser($objData);
         }
         header('Location: /admin');
         exit();
@@ -132,26 +146,43 @@ class AdminController extends Controller
     public static function updateUser($id)
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $foodName1 = $_POST['foodName1'];
-            $foodImg1 = $_POST['foodImg1'];
-            $description1 = $_POST['description1'];
-            $detail1 = $_POST['detail1'];
-            $price1 = $_POST['price1'];
-            $objData1 = new AdminModelFooditem();
-            $objtransfer1 = new AdminModelFooditem();
+            $userName = $_POST['userName'];
+            $userImg = $_POST['userImg'];
+            $passWord = $_POST['passWord'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $role = $_POST['role'];
+            $phoneNum = $_POST['phone'];
+            $birthDay = $_POST['birthDay'];
+            $objData = new AdminModelUser();
+            $objtransfer = new AdminModelUser();
 
-            $objData1->foodName = ($foodName1);
-            $objData1->description = ($description1);
-            $objData1->detail = ($detail1);
-            $objData1->price = ($price1);
-            $objData1->foodImg = $foodImg1;
-            $resule = $objtransfer1->updateFood($id, $objData1);
+            $objData->fullName = ($userName);
+            $objData->passWord = ($passWord);
+            $objData->email = ($email);
+            $objData->address = ($address);
+            $objData->role = ($role);
+            $objData->phoneNum = ($phoneNum);
+            $objData->role = ($role);
+            $objData->dob = ($birthDay);
+            $objData->avataImg = $userImg;
+            $resule = $objtransfer->updateUser($id, $objData);
         }
         if ($resule) {
             header('Location: /admin');
             exit();
         } else {
             echo 'Update failed';
+        }
+    }
+    public function deleteUser($id)
+    {
+        $objtransfer1 = new AdminModelUser();
+        $result = $objtransfer1->deleteUser($id);
+        if ($result) {
+            echo 'bla';
+        } else {
+            echo 'blibli';
         }
     }
 }

@@ -27,7 +27,8 @@
 
         .inforbox {
             width: 80%;
-            background: linear-gradient(to right, rgb(175, 235, 175), rgb(181, 123, 102));
+            /* background: linear-gradient(to right, rgb(26, 28, 26), rgb(232, 135, 8)); */
+            background-color: orange;
             margin: auto;
             padding: 10px 20px;
             text-align: center;
@@ -166,7 +167,7 @@
                     <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminDashboard">Dashboard</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminFoodItem">Manager food items</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminUser">Manager User Account</a>
-
+                    <a href="/admin/Signout" class="btn btn-warning mt-3">Log out</a>
                 </div>
             </div>
             <div class="col-10 content__session">
@@ -216,37 +217,7 @@
     </script>
 
 
-    <script>
-        function showChart() {
-            console.log('showChart');
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const chartData = <?php echo json_encode($chartData); ?>;
-            console.log(chartData);
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        label: '# of Votes',
-                        data: chartData.data,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-        // document.addEventListener("onload", function() {
-
-        // });
-        // try dom reload
-    </script>
     <!-- function update/delete/create -->
     <script>
         function addNewItem() {
@@ -347,6 +318,9 @@
                 });
         };
 
+        // function modify User
+
+
         function closeModal() {
             document.querySelector('.modalPopup').style.display = 'none';
             document.querySelector('.formUpdateFoodItem').style.display = "none";
@@ -354,20 +328,148 @@
         }
     </script>
 
-    <!-- function render chart -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- function modify User -->
+    <script>
+        function addNewUser() {
+            const form = `
+        <form action='/admin/createUser' method='POST' class='formUpdateFoodItem'>
+            <div class='row rowForInput'>
+                <div class='inputFoodName'>
+                    <label for='userName' class='form-label'>User Name</label>
+                    <input type='text' class='form-control' id='userName' name='userName' required>
+                </div>
+                <div class='inputFoodImg'>
+                    <label for='userImg' class='form-label'>Avata img</label>
+                    <input type='text' class='form-control' id='userImg' name='userImg' required>
+                </div>
+            </div>
+            <div class='mb-3'>
+                <label for='passWord' class='form-label'>passWord</label>
+                <textarea class='form-control' id='passWord' name='passWord' rows='3' required></textarea>
+            </div>
+            <div class='mb-3'>
+                <label for='Email' class='form-label'>Email</label>
+                <textarea class='form-control' id='Email' name='email' rows='3' required></textarea>
+            </div>
+            <div class='mb-3'>
+                <label for='address' class='form-label'>address</label>
+                <input type='text' class='form-control' id='address' name='address' required>
+            </div>
+            <div class='mb-3'>
+                <label for='role' class='form-label'>Role</label>
+                <select class='form-control' id='role' name='role' required>
+                    <option value='admin'>Admin</option>
+                    <option value='user'>User</option>
+                </select>
+            </div>
+             <div class='mb-3'>
+                <label for='phone' class='form-label'>phone</label>
+                <input type='text' class='form-control' id='phone' name='phone' required>
+            </div>
+             <div class='mb-3'>
+                <label for='birthDay' class='form-label'>birthDay</label>
+                <input type='text' class='form-control' id='birthDay' name='birthDay' required>
+            </div>
+            <button type='submit' class='btn btn-primary'>Create New User</button>
+        </form>
+        `;
+            console.log('hello')
+            document.querySelector('.modalContent').innerHTML = form;
+            document.querySelector('.modalPopup').style.display = 'block';
+        }
+
+        function updateUser(id) {
+            const form = `
+        <form action='/admin/updateUser/${id}' method='POST' class='formUpdateFoodItem'>
+            <div class='row rowForInput'>
+                <div class='inputFoodName'>
+                    <label for='userName' class='form-label'>User Name</label>
+                    <input type='text' class='form-control' id='userName' name='userName' required>
+                </div>
+                <div class='inputFoodImg'>
+                    <label for='userImg' class='form-label'>Avata img</label>
+                    <input type='text' class='form-control' id='userImg' name='userImg' required>
+                </div>
+            </div>
+            <div class='mb-3'>
+                <label for='passWord' class='form-label'>passWord</label>
+                <textarea class='form-control' id='passWord' name='passWord' rows='3' required></textarea>
+            </div>
+            <div class='mb-3'>
+                <label for='Email' class='form-label'>Email</label>
+                <textarea class='form-control' id='Email' name='Email' rows='3' required></textarea>
+            </div>
+            <div class='mb-3'>
+                <label for='address' class='form-label'>address</label>
+                <input type='text' class='form-control' id='address' name='address' required>
+            </div>
+            <div class='mb-3'>
+                <label for='role' class='form-label'>Role</label>
+                <select class='form-control' id='role' name='role' required>
+                    <option value='admin'>Admin</option>
+                    <option value='user'>User</option>
+                </select>
+            </div>
+             <div class='mb-3'>
+                <label for='phone' class='form-label'>phone</label>
+                <input type='text' class='form-control' id='phone' name='phone' required>
+            </div>
+             <div class='mb-3'>
+                <label for='birthDay' class='form-label'>birthDay</label>
+                <input type='text' class='form-control' id='birthDay' name='birthDay' required>
+            </div>
+            <button type='submit' class='btn btn-primary'>Update User Information</button>
+        </form>
+        `;
+            console.log('hello')
+            document.querySelector('.modalContent').innerHTML = form;
+            document.querySelector('.modalPopup').style.display = 'block';
+
+            // fetch(`getFoodItem.php?id=${id}`)
+            // .then(response => response.json())
+            // .then(data => {
+            // document.querySelector('#foodName').value = data.foodName;
+            // document.querySelector('#foodImg').value = data.foodImg;
+            // document.querySelector('#description').value = data.description;
+            // document.querySelector('#detail').value = data.detail;
+            // document.querySelector('#price').value = data.price;
+            // document.querySelector('#categoryId').value = data.categoryId;
+            // });
+        }
+
+        function deleteUser(id) {
+            fetch(`/admin/deleteUser/${id}`)
+                .then(function(response) {
+                    if (response.ok) {
+                        alert('User item deleted successfully');
+                        window.location.reload();
+                    } else {
+                        alert('Failed to delete User');
+                    }
+                });
+        };
+    </script>
+
+    <!-- function render chart-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
 
     <script>
         function showChart() {
             const ctx = document.getElementById('myChart');
-
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: ['Start Food', 'Main Corse', 'Desert', 'Drink'],
                     datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
+                        label: 'Food item by category',
+                        data: [
+                            <?php echo $data['countbycategory'][1]; ?>,
+                            <?php echo $data['countbycategory'][2]; ?>,
+                            <?php echo $data['countbycategory'][3]; ?>,
+                            <?php echo $data['countbycategory'][4]; ?>
+                        ],
                         borderWidth: 1
                     }]
                 },
@@ -379,14 +481,7 @@
                     }
                 }
             });
-
         }
-
-
-        // document.addEventListener("onload", function() {
-
-        // });
-        // try dom reload
     </script>
 </body>
 
