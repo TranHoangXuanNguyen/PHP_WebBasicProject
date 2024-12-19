@@ -1,19 +1,45 @@
+
 <!-- code base for sprint 3 -->
 <?php
 
-require_once('./app/core/Controller.php');
+
+
+<?php
+require_once(__DIR__ . '/../core/Controller.php');
+require_once( __DIR__ . '/../models/MenuFoodModel.php');  
+require_once __DIR__ . '/../core/Controller.php';
+require_once __DIR__ . '/../models/foodlistModel.php';
+require_once __DIR__ . '/../config/config.php';
+
+global $conn;
+
 class MenuController extends Controller
 {
-    public function index()
+   public function index()
     {
-        $data = ['default'];
-        $this->view('menuFood', $data);
+        $foodModel = new FoodModel();
+        $data = $foodModel->getAllFoodItems(); 
+        
+        $this->view('MenuFood', $data);
     }
-    public function FoodList()
+   
+    function foodList($categoryId)
     {
-        $data = ['default'];
-        $this->view('FoodList', $data);
+        global $conn;
+        if (!$conn) {
+            die("Connection to database failed");
+        }
+
+        $foodlistModel = new FoodlistModel();
+        $foods=  $foodlistModel ->foodListByCategory($categoryId);
+        if(!empty( $foods)){
+            $this->view('Foodlist', ['items' => $foods]);
+        }else{
+            echo" No food items found for this  category";
+        }
+
     }
+  
+   
 }
 
-?>

@@ -11,6 +11,7 @@ define('COMPONENTS_URL', BASE_URL . '/app/components');
 define('ASSETS_PATH', BASE_PATH . '/app/assets');
 define('COMPONENTS_PATH', BASE_PATH . '/app/components');
 
+
 // Create connection
 $conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 

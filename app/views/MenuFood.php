@@ -8,8 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <style>
-        .menufood-container {
-            padding-left: 120px;
+
+        /* .menu-banner{
+            width: 100%;
+            height: 100px;
+            padding: 0px;
+        } */
+        .menufood {
+            padding-left: 150px;
+
             padding-top: 50px;
         }
 
@@ -46,18 +53,36 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+
+            height: 300px;
+            width: 100px;
+            overflow: hidden;
+            border-radius: 15px;
+            /* border: 2px solid rgba(0, 0, 0, 0.1); */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* background-color: #f9f9f9; */
         }
 
         .image-container img {
-            object-fit: contain;
-            max-height: 300px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px;
+            object-fit: cover;
+            width: 300px;
+            height: 100%;
+            border-radius: 15px;
+            transition: transform 0.4s ease, filter 0.3s ease;
+            overflow: hidden;
+
+        }
+
+        .image-container:hover {
+            transform: scale(1.05);
+            border-radius: 15px;
+            overflow: hidden;
         }
 
         .image-container:hover img {
-            max-height: 320px;
+            transform: scale(1.1);
+            border-radius: 15px;
+            overflow: hidden;
 
         }
 
@@ -75,7 +100,8 @@
 
         .row-content a {
             text-decoration: none;
-            color: black
+            color: black;
+
         }
 
         .row-content:hover a {
@@ -88,122 +114,53 @@
     <?php
     require_once("app/components/header.php");
     ?>
-    <div class="menufood-container container">
-        <!-- Row 1 -->
-        <div class="row mb-5 ">
-            <div class="col-sm-4 image-container">
-                <img src="https://images.immediate.co.uk/production/volatile/sites/2/2024/05/GurdeepBacalhausaltCodFrittersSaffron-076-f07f1be.gif?quality=90&webp=true&resize=375,341" alt="Check Icon">
-            </div>
-            <div class="col-sm-6 ms-5">
-                <div class="category"><a href="">STARTER MENU</a></div>
-                <div class="nameFood">
-                    <div class="row-content d-flex justify-content-between">
-                        <div class="item"><a href="">Fish Cake Rolled In Green Rice</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Dumplings</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Grilled Spring Rolls</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Vegetable Salad</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Row 2 -->
-        <div class="row mb-5 ">
-            <div class="col-sm-4 image-container">
-                <img src="https://images.immediate.co.uk/production/volatile/sites/2/2024/05/GurdeepBacalhausaltCodFrittersSaffron-076-f07f1be.gif?quality=90&webp=true&resize=375,341" alt="Check Icon">
-            </div>
-            <div class="col-sm-6 ms-5">
-                <div class="category"><a href="">MAIN COURSE</a></div>
-                <div class="nameFood">
-                    <div class="row-content d-flex justify-content-between">
-                        <div class="item"><a href="">Fish Cake Rolled In Green Rice</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Dumplings</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Grilled Spring Rolls</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Vegetable Salad</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- <div class="menu-banner">
+                <h1 class="">MENU FOOD</h1>
+                <img src="https://images.pexels.com/photos/17320991/pexels-photo-17320991/free-photo-of-a-bowl-of-soup-with-shrimp-lime-and-herbs.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
+    </div> -->
+    <div class="menufood container">
+        <?php if (isset($data) && is_array($data) && !empty($data)): ?>
+            <?php
+            $categories = [];
+            // Group products by categoryId
+            foreach ($data as $item) {
+                if (isset($item['categoryId'])) {
+                    $categories[$item['categoryId']][] = $item;
+                }
+            }
 
-        <!-- Row 3 -->
-        <div class="row mb-5 ">
-            <div class="col-sm-4 image-container">
-                <img src="https://images.immediate.co.uk/production/volatile/sites/2/2024/05/GurdeepBacalhausaltCodFrittersSaffron-076-f07f1be.gif?quality=90&webp=true&resize=375,341" alt="Check Icon">
-            </div>
-            <div class="col-sm-6 ms-5">
-                <div class="category"><a href="">DESSERT</a></div>
-                <div class="nameFood">
-                    <div class="row-content d-flex justify-content-between">
-                        <div class="item"><a href="">Fish Cake Rolled In Green Rice</a></div>
-                        <div class="price">$10</div>
+            foreach ($categories as $categoryId => $items):
+                $categoryName = htmlspecialchars($items[0]['category']);
+            ?>
+                <div class="row mb-5">
+                    <div class="col-sm-4 image-container">
+                        <img src="<?php echo htmlspecialchars($items[0]['image_url'] ?? 'default.jpg'); ?>" alt="Food image">
                     </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Dumplings</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Grilled Spring Rolls</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Vegetable Salad</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Row 4 -->
-        <div class="row mb-5 ">
-            <div class="col-sm-4 image-container">
-                <img src="https://images.immediate.co.uk/production/volatile/sites/2/2024/05/GurdeepBacalhausaltCodFrittersSaffron-076-f07f1be.gif?quality=90&webp=true&resize=375,341" alt="Check Icon">
-            </div>
-            <div class="col-sm-6 ms-5">
-                <div class="category"><a href="">DRINK MENU</a></div>
-                <div class="nameFood">
-                    <div class="row-content d-flex justify-content-between">
-                        <div class="item"><a href="">Fish Cake Rolled In Green Rice</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Dumplings</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Grilled Spring Rolls</a></div>
-                        <div class="price">$10</div>
-                    </div>
-                    <div class="row-content d-flex justify-content-between align-items-center">
-                        <div class="item"><a href="">Vegetable Salad</a></div>
-                        <div class="price">$10</div>
+                    <div class="col-sm-6 ms-5">
+                        <div class="category"><a href='<?php echo '/menu/foodlist/' . $categoryId ?>'><?php echo $categoryName; ?></a></div>
+                        <?php
+                        $itemCount = 0;
+                        foreach ($items as $item):
+                            if ($itemCount >= 4) break;
+                            $itemCount++;
+                        ?>
+                            <div class="nameFood">
+                                <div class="row-content d-flex justify-content-between">
+                                    <div class="item"><a href=""><?php echo htmlspecialchars($item['item'] ?? 'No Name'); ?></a></div>
+                                    <div class="price"><?php echo htmlspecialchars($item['price'] ?? '0.00'); ?></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
-        </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
+    <?php
+    include_once("app/components/footer.php");
+    ?>
 </body>
-<?php
-include_once("app/components/footer.php");
-?>
+
 
 </html>
