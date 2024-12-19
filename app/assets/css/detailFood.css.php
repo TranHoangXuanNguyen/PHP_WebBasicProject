@@ -14,7 +14,7 @@
     .menu-banner {
         position: relative;
         width: 100%;
-        height: 200px;
+        height: 50hv;
         margin-bottom: 20px;
     }
 
@@ -67,8 +67,9 @@
         font-weight: bold;
         animation: pulse 2s infinite;
     }
-
     .quantity-buttons button {
+        width: 35px;
+        height: 40px;
         background-color: #ff9800;
         color: white;
         border: none;
@@ -128,14 +129,10 @@
         font-weight: bold;
         background: linear-gradient(90deg, #ff9800, #ffa726);
         -webkit-background-clip: text;
-        /* Để áp dụng gradient cho text */
         color: transparent;
-        /* Màu chữ trong suốt để gradient hiển thị */
         margin-bottom: 20px;
         text-transform: uppercase;
-        /* Chuyển chữ sang in hoa */
         display: inline-block;
-        /* Đảm bảo gradient áp dụng chuẩn */
     }
 
     .md-desc {
@@ -148,15 +145,15 @@
         border-left: 4px solid #ff9f0d;
     }
 
-    .relevant-food .relevant-img {
+    .card.food-item .relevant-img {
         height: 250px;
         object-fit: cover;
         border-radius: 10px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .relevant-food .relevant-img:hover {
+    .card.food-item .relevant-img:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
     }
