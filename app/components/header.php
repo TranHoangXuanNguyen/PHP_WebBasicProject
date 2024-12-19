@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/header.css.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/bootstrap.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/header.css.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
 ?>
 <!-- Navigation -->
 
@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/bootstrap.php';
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/Home">
-                <img src='./app/assets/img/logoFinal.png' alt="Logo" width="30" height="24" class="d-inline-block logo">
+                <img src='/app/assets/img/logoFinal.png' alt="Logo" width="30" height="24" class="d-inline-block logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar1">
@@ -40,7 +40,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/app/assets/css/bootstrap.php';
                         if (!isset($_SESSION['isLogin']) || $_SESSION['isLogin'] != 'true') {
                             echo '<li class="nav-item"><a class="nav-link" href="/Login"><i class="fa fa-user"></i></a></li>';
                         } else {
-                            if (isset($_SESSION['role']) && $_SESSION['role'] != 'user') {
+                            if (isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
                                 echo '<li class="nav-item"><a class="nav-link" href="/Profile"><i class="fa fa-user"></i></a></li>';
                             } else {
                                 echo '<li class="nav-item"><a class="nav-link" href="/Admin"><i class="fa fa-user"></i></a></li>';
