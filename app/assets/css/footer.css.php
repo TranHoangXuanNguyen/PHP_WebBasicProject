@@ -31,7 +31,6 @@
                margin-bottom: 25px;
                margin-top: 15px;
         }
-
         .footer-container .subscribe-form input{
                 padding: 8px;
                 border: none;

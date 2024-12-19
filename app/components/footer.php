@@ -22,7 +22,7 @@ require_once './app/assets/css/bootstrap.php';
                         </div>
                 </div>    
                 <div class="row">
-                        <div class="col-md-4">
+        <div class="col-md-4">
                                <h6><b>About Us</b></h6>
                                <p>Mama's kitchen, best choice for you</p>
                                <div class="time">
@@ -57,6 +57,7 @@ require_once './app/assets/css/bootstrap.php';
                                    <li><a href="#">Support Policy</a></li>
                                    <li><a href="#">Privacy</a></li>
                                </ul>
+
                         </div>
                 </div>
 
