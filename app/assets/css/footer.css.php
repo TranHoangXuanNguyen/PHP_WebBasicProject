@@ -9,6 +9,7 @@
         footer {
                 background-color: black;
         }
+
         .rowfirst-child {
                 border-bottom: 1px solid orange;
                 /* Tạo đường gạch dưới */
@@ -16,7 +17,8 @@
                 /* Thêm khoảng cách  */
                 margin-top: 15px;
         }
-        .subscribe-form {
+
+        .subscribe--form {
                 padding: 0px;
                 font-size: 13px;
                 display: flex;
@@ -30,7 +32,6 @@
         .title p {
                 margin-bottom: 25px;
                 margin-top: 15px;
-
         }
 
         .formSub {
@@ -45,7 +46,7 @@
 
         }
 
-        .subscribe-form button {
+        .subscribe--form button {
                 color: orange;
                 background-color: white;
                 border-radius: 0px 5px 5px 0px;
@@ -57,9 +58,8 @@
 
         }
 
-        .row:nth-child(2) {
+        .row2nd {
                 margin-top: 40px;
-                /* Thêm khoảng cách 20px phía trên hàng giữa */
                 margin-bottom: 25px;
 
         }
@@ -90,11 +90,11 @@
 
         }
 
-        ul {
+        .ulist {
                 list-style: none;
         }
 
-        ul li {
+        .liItem {
                 margin-bottom: 15px;
                 /* Tạo khoảng cách giữa các mục trong danh sách */
         }

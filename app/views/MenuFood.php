@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <style>
+
         /* .menu-banner{
             width: 100%;
             height: 100px;
@@ -15,6 +16,7 @@
         } */
         .menufood {
             padding-left: 150px;
+
             padding-top: 50px;
         }
 
@@ -51,6 +53,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
             height: 300px;
             width: 100px;
             overflow: hidden;
@@ -80,6 +83,7 @@
             transform: scale(1.1);
             border-radius: 15px;
             overflow: hidden;
+
         }
 
         .nameFood {
@@ -97,6 +101,7 @@
         .row-content a {
             text-decoration: none;
             color: black;
+
         }
 
         .row-content:hover a {
@@ -109,6 +114,7 @@
     <?php
     require_once("app/components/header.php");
     ?>
+
     <!-- <div class="menu-banner">
                 <h1 class="">MENU FOOD</h1>
                 <img src="https://images.pexels.com/photos/17320991/pexels-photo-17320991/free-photo-of-a-bowl-of-soup-with-shrimp-lime-and-herbs.jpeg?auto=compress&cs=tinysrgb&w=600" alt="">
@@ -155,5 +161,6 @@
     include_once("app/components/footer.php");
     ?>
 </body>
+
 
 </html>
