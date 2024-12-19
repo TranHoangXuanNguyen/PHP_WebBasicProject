@@ -12,6 +12,7 @@
             width: 100%;
             height: 50hv;
             margin-bottom: 20px;
+
         }
 
         .banner-image {
@@ -52,6 +53,7 @@
         .image-container {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
+
         }
 
         .image-container:hover {
@@ -59,6 +61,7 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             border-radius: 8px;
             transition: all .5s ease;
+
 
         }
         .nameFood {
@@ -68,6 +71,7 @@
             margin-top: 8px;
             gap: 20px;
         }
+
     </style>
 </head>
 <body>
@@ -78,6 +82,7 @@
         <img src="\app\assets\img\Shop List.png" alt="Menu Banner" class="w-100 h-100 banner-image">
         <h1 class="position-absolute text-light text-center banner-title">MENU FOOD</h1>
     </div>
+
     <div class="menufood container">
         <?php if (isset($data) && is_array($data) && !empty($data)):
             $categories = [];

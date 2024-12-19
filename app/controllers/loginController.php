@@ -13,7 +13,7 @@ class loginController extends Controller
         $data = ['default'];
         $this->view('Login', $data);
     }
-    
+
     function userLogin($email, $passWord)
     {
         global $conn;
@@ -41,7 +41,7 @@ class loginController extends Controller
             $_SESSION['phoneNum'] = $result->phoneNum;
             $_SESSION['dob'] = $result->dob;
             if ($result->role == 'admin') {
-                header("Location: /AdminDashboard.php");
+                header("Location: /admin");
                 exit;
             } elseif ($result->role == 'user') {
                 header("Location: /Home");
