@@ -23,29 +23,86 @@ class AdminModelUser
         $this->connect = $conn;
     }
 
-    public function login($email, $passWord)
+    public function getAllUser()
     {
-        $sql = "SELECT * FROM user WHERE email='{$email}'";
+        $sql = "SELECT * FROM user ";
         $result = mysqli_query($this->connect, $sql);
 
-        // Kiểm tra nếu có kết quả
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
+        $listUser = [];
 
-            if ($passWord == $row['passWord']) {
-                $loginObject = new loginModel();
-                $loginObject->userId = $row['userId'];
-                $loginObject->fullName = $row['fullName'];
-                $loginObject->email = $row['email'];
-                $loginObject->avataImg = $row['avataImg'];
-                $loginObject->address = $row['address'];
-                $loginObject->role = $row['role'];
-                $loginObject->phoneNum = $row['phoneNum'];
-                $loginObject->dob = $row['dob'];
-                return $loginObject;
-            } else {
-                return false;
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $user = new AdminModelUser();
+                $user->userId = $row['userId'];
+                $user->fullName = $row['fullName'];
+                $user->email = $row['email'];
+                $user->passWord = $row['passWord'];
+                $user->avataImg = $row['avataImg'];
+                $user->address = $row['address'];
+                $user->role = $row['role'];
+                $user->phoneNum = $row['phoneNum'];
+                $user->dob = $row['dob'];
+                $listUser[] = $user;
             }
+            return $listUser;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    public function createUser($user)
+    {
+        $fullName = $user->fullName;
+        $email = $user->email;
+        $passWord = $user->passWord;
+        $avataImg = $user->avataImg;
+        $address = $user->address;
+        $role = $user->role;
+        $phoneNum = $user->phoneNum;
+        $dob = $user->dob;
+
+
+        $sql = "insert INTO user (fullName, email, passWord, avataImg, address, role,phoneNum,dob) 
+        VALUES ('$fullName', '$email', '$passWord', '$avataImg', '$address', '$role','$phoneNum','$dob')";
+
+        if (mysqli_query($this->connect, $sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateFood($id, $user)
+    {
+        $fullName = $user->fullName;
+        $email = $user->email;
+        $passWord = $user->passWord;
+        $avataImg = $user->avataImg;
+        $address = $user->address;
+        $role = $user->role;
+        $phoneNum = $user->phoneNum;
+        $dob = $user->dob;
+        $sql = "UPDATE user
+        SET fullName = '$fullName', email = '$email', passWord = '$passWord', avataImg = '$avataImg', address = '$address' ,role = '$role', phoneNum = '$phoneNum' , dob = '$dob'  
+        WHERE userId = $id";
+
+        if (mysqli_query($this->connect, $sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteFood($id)
+    {
+        $sql = "
+        delete from user
+        WHERE foodId = $id";
+
+        if (mysqli_query($this->connect, $sql)) {
+            return true;
         } else {
             return false;
         }

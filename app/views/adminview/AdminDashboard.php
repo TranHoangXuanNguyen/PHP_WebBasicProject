@@ -11,7 +11,7 @@ $chartData = [
     <div class="admin__dashboard__container container">
         <div class="row row-cols-2">
             <div class="col">
-                <div class="inforbox">
+                <div class="inforbox"  onclick="showChart()">
                     <div class="inforboxTitle">Total users:</div>
                     <div class="inforboxinfor">
                         <?php echo $totalUsers; ?> <i class="bi bi-people"></i>
@@ -28,7 +28,7 @@ $chartData = [
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col" id="chart">
                 <canvas id="myChart"></canvas>
             </div>
         </div>

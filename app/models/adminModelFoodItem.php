@@ -44,4 +44,58 @@ class AdminModelFooditem
             return false;
         }
     }
+
+
+
+    public function createFood($fooditem)
+    {
+        $foodName = $fooditem->foodName;
+        $foodImg = $fooditem->foodImg;
+        $description = $fooditem->description;
+        $detail = $fooditem->detail;
+        $price = $fooditem->price;
+        $categoryId = $fooditem->categoryId;
+
+        $sql = "insert INTO fooditems (foodName, foodImg, price, categoryId, detail, description) 
+        VALUES ('$foodName', '$foodImg', '$price', '$categoryId', '$detail', '$description')";
+
+        if (mysqli_query($this->connect, $sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateFood($id, $fooditem)
+    {
+        $foodName = $fooditem->foodName;
+        $foodImg = $fooditem->foodImg;
+        $description = $fooditem->description;
+        $detail = $fooditem->detail;
+        $price = $fooditem->price;
+        $sql = "UPDATE fooditems
+        SET foodName = '$foodName', foodImg = '$foodImg', price = '$price', detail = '$detail', description = '$description' 
+        WHERE foodId = $id";
+
+        if (mysqli_query($this->connect, $sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteFood($id)
+    {
+        $sql = "
+        delete from fooditems
+        WHERE foodId = $id";
+
+        if (mysqli_query($this->connect, $sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
 }

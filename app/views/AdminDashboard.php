@@ -74,6 +74,7 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
+            z-index: 9999;
         }
 
         .formUpdateFoodItem .form-label {
@@ -164,6 +165,8 @@
                 <div class="list-group">
                     <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminDashboard">Dashboard</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminFoodItem">Manager food items</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminUser">Manager User Account</a>
+
                 </div>
             </div>
             <div class="col-10 content__session">
@@ -211,11 +214,44 @@
                 });
         }
     </script>
-    <!-- function update -->
+
+
     <script>
-        function updateFoodItem(id) {
+        function showChart() {
+            console.log('showChart');
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const chartData = <?php echo json_encode($chartData); ?>;
+            console.log(chartData);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: '# of Votes',
+                        data: chartData.data,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        // document.addEventListener("onload", function() {
+
+        // });
+        // try dom reload
+    </script>
+    <!-- function update/delete/create -->
+    <script>
+        function addNewItem() {
             const form = `
-            <form action='' method='POST' class='formUpdateFoodItem'>
+            <form action='/admin/createFood' method='POST' class='formUpdateFoodItem'>
                 <div class='row rowForInput'>
                     <div class='inputFoodName'>
                         <label for='foodName' class='form-label'>Food Name</label>
@@ -247,11 +283,44 @@
                         <option value='4'>Drink</option>
                     </select>
                 </div>
+                <button type='submit' class='btn btn-primary'>Create new item</button>
+            </form>
+        `;
+            console.log('hello')
+            document.querySelector('.modalContent').innerHTML = form;
+            document.querySelector('.modalPopup').style.display = 'block';
+        }
+
+        function updateFoodItem(id) {
+            const form = `
+            <form action='/admin/updateFood/${id}' method='POST' class='formUpdateFoodItem'>
+                <div class='row rowForInput'>
+                    <div class='inputFoodName'>
+                        <label for='foodName' class='form-label'>Food Name</label>
+                        <input type='text' class='form-control' id='foodName' name='foodName1' required>
+                    </div>
+                    <div class='inputFoodImg'>
+                        <label for='foodImg' class='form-label'>Food Image</label>
+                        <input type='text' class='form-control' id='foodImg' name='foodImg1' required>
+                    </div>
+                </div>
+                <div class='mb-3'>
+                    <label for='description' class='form-label'>Description</label>
+                    <textarea class='form-control' id='description' name='description1' rows='3' required></textarea>
+                </div>
+                <div class='mb-3'>
+                    <label for='detail' class='form-label'>Detail</label>
+                    <textarea class='form-control' id='detail' name='detail1' rows='3' required></textarea>
+                </div>
+                <div class='mb-3'>
+                    <label for='price' class='form-label'>Price</label>
+                    <input type='number' class='form-control' id='price' name='price1' required>
+                </div>
                 <button type='submit' class='btn btn-primary'>Update Food Item</button>
             </form>
         `;
             console.log('hello')
-            document.querySelector('.modalPopup').innerHTML = form;
+            document.querySelector('.modalContent').innerHTML = form;
             document.querySelector('.modalPopup').style.display = 'block';
 
             // fetch(`getFoodItem.php?id=${id}`)
@@ -266,39 +335,58 @@
             //     });
         }
 
+        function deleteFoodItem(id) {
+            fetch(`/admin/deleteFood/${id}`)
+                .then(function(response) {
+                    if (response.ok) {
+                        alert('Food item deleted successfully');
+                        window.location.reload();
+                    } else {
+                        alert('Failed to delete food item');
+                    }
+                });
+        };
+
         function closeModal() {
             document.querySelector('.modalPopup').style.display = 'none';
+            document.querySelector('.formUpdateFoodItem').style.display = "none";
+            console.log('click in modal')
         }
     </script>
-    <!-- function render chart -->
-    <script>
-        console.log('showChart');
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const chartData = <?php echo json_encode($chartData); ?>;
-        console.log(chartData);
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: '# of Votes',
-                    data: chartData.data,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+    <!-- function render chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        function showChart() {
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
+
+        }
+
 
         // document.addEventListener("onload", function() {
 
         // });
+        // try dom reload
     </script>
 </body>
 

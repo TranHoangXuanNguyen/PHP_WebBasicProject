@@ -3,6 +3,9 @@ $fooditems = $data['allfooditems'];
 ?>
 
 <body>
+    <div class="addFoodIitem__session__admin">
+        <button class="btn btn-success" onclick="addNewItem()">Add food item</button>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -29,8 +32,8 @@ $fooditems = $data['allfooditems'];
         <td>{$fooditem->categoryId}</td>
         <td>{$fooditem->detail}</td>
         <td>
-            <button type='button' class='updatebtn btn-warning btn' onclick='updateFoodItem({$fooditem->foodId})'>Update</button>
-            <button type='button' class='deletebtn btn-success btn' >Delete</button>
+            <button type='button' class='updatebtn btn-warning btn' onclick='updateFoodItem({$fooditem->foodId})'><i class='bi bi-file-earmark-plus-fill'></i></button>
+            <button type='button' class='deletebtn btn-success btn' onclick='deleteFoodItem({$fooditem->foodId})' ><i class='bi bi-trash3-fill'></i></button>
         </td>
     </tr>
     ";
@@ -40,9 +43,9 @@ $fooditems = $data['allfooditems'];
         </tbody>
     </table>
 
-    <div class="modalPopup" onclick="closeModal()" style="display: none;">
-        <div class="modalContent">
-            <span class="closeBtn" onclick="closeModal()">X</span>
-        </div>
+    <div class="modalPopup" onclick="closeModal()"> </div>
+    <div class="modalContent">
+        <span class="closeBtn" onclick="closeModal()">X</span>
     </div>
+
 </body>
