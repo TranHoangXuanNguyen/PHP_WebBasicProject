@@ -13,6 +13,7 @@
                 SELECT 
                     categories.categoryId, 
                     categories.categoryName AS category, 
+                    fooditems.foodId, 
                     fooditems.foodName AS item, 
                     fooditems.price, 
                     fooditems.foodImg AS image_url
