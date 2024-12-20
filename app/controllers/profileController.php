@@ -23,13 +23,17 @@ class ProfileController extends Controller
             $editemail = $_POST['editemail'];
             $editdate = $_POST['editdate'];
             $editaddress = $_POST['editaddress'];
+            $editphoneNum = $_POST['editphoneNum'];
+            $editavataUrl = $_POST['editavataUrl'];
             $profileModelObj = new ProfileModel();
-            $result = $profileModelObj->updateProfile($userId, $editname, $editemail, $editaddress, $editdate);
+            $result = $profileModelObj->updateProfile($userId, $editname, $editemail, $editaddress, $editdate, $editphoneNum, $editavataUrl);
             if ($result) {
                 $_SESSION['email'] = $editemail;
                 $_SESSION['fullName'] = $editname;
                 $_SESSION['address'] = $editaddress;
                 $_SESSION['dob'] = $editdate;
+                $_SESSION['phoneNum'] = $editphoneNum;
+                $_SESSION['avataImg'] = $editavataUrl;
                 header('Location: /Profile');
             } else {
                 $_SESSION['error_message'] = 'Cập nhật tài khoản thất bại!';

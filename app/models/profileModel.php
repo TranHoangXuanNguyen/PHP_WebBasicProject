@@ -10,13 +10,14 @@ class profileModel
         $this->conn = $conn;
     }
 
-    public function updateProfile($userId, $fullName, $email, $address, $dob)
+    public function updateProfile($userId, $fullName, $email, $address, $dob, $phoneNum, $avataImg)
     {
-        $sql = "UPDATE user SET fullname = ?, email= ?, address=?, dob=? WHERE userId = ?";
+        $sql = "UPDATE user SET fullname = ?, email = ?, address = ?, dob = ?, phoneNum = ?, avataImg = ? WHERE userId = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ssssi", $fullName,  $email, $address, $dob, $userId);
+        $stmt->bind_param("ssssisi", $fullName, $email, $address, $dob, $phoneNum, $avataImg, $userId);
         return $stmt->execute();
     }
+
 
     public function updateAvatarImg($userId, $avatarPath)
     {
