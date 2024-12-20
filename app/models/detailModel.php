@@ -47,7 +47,7 @@ class FoodDetailModel
         fooditems.foodId
         FROM fooditems 
         WHERE fooditems.categoryId =(SELECT categoryId FROM fooditems WHERE fooditems.foodId=$foodId)
-        LIMIT 4";
+        LIMIT 3";
 
             $result = mysqli_query($this->conn, $sql);
             

@@ -25,7 +25,7 @@
             <?php if (isset($fooddetail) && is_array($fooddetail) && !empty($fooddetail)) : ?>
                 <div class="row">
                     <div class="col-md-6 text-center">
-                        <img src="<?php echo htmlspecialchars($fooddetail['foodImg']); ?>" alt="Food Image" class="img-fluid rounded">
+                        <img src="<?php echo htmlspecialchars($fooddetail['foodImg']); ?>" alt="Food Image" class="image-detail">
                     </div>
                     <div class="col-md-6">
                         <div class="food-name"><?php echo htmlspecialchars($fooddetail['foodName']); ?></div>
@@ -57,10 +57,10 @@
                             <?php foreach ($relevantfood as $relevantitem): ?>
                                 <div class="col-md-4 mb-3">
                                     <div class="card food-item">
-                                        <img src="<?php echo $relevantitem['foodImg']; ?>" class="img-fluid rounded relevant-img" alt="Food Image">
+                                        <img src="<?php echo $relevantitem['foodImg']; ?>" class="card-img-top" alt="Food Image">
                                         <div class="card-body">
-                                            <a href=<?php echo '/detail/show/' . $relevantitem['foodId'] ?> class="food-title text-decoration-none text-dark"><?php echo $relevantitem['foodName']; ?></a>
-                                            <a href=<?php echo '/detail/show/' . $relevantitem['foodId'] ?> class="price text-decoration-none ms-5"><?php echo $relevantitem['price']; ?> VNĐ</a>
+                                            <a href=<?php echo '/detail/show/' . $relevantitem['foodId'] ?> class="food-title text-decoration-none text-dark text-center"><?php echo $relevantitem['foodName']; ?></a>
+                                            <a href=<?php echo '/detail/show/' . $relevantitem['foodId'] ?> class="r-price text-decoration-none ms-5"><?php echo $relevantitem['price']; ?> VNĐ</a>
                                         </div>
                                     </div>
                                 </div>
