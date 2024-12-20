@@ -42,9 +42,11 @@ class loginController extends Controller
             $_SESSION['dob'] = $result->dob;
             if ($result->role == 'admin') {
                 header("Location: /admin");
+                $_SESSION['role'] = 'admin';
                 exit;
             } elseif ($result->role == 'user') {
                 header("Location: /Home");
+                $_SESSION['role'] = 'user';
                 exit;
             } else {
                 echo "Role không hợp lệ";
