@@ -27,7 +27,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                             <a class="nav-link" href="/About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Menu">Shop</a>
+                            <a class="nav-link" href="/Shop">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Contact">Contact</a>

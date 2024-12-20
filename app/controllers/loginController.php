@@ -47,6 +47,7 @@ class loginController extends Controller
             } elseif ($result->role == 'user') {
                 header("Location: /Home");
                 $_SESSION['role'] = 'user';
+
                  exit;
             } else {
                 echo "Role không hợp lệ";
