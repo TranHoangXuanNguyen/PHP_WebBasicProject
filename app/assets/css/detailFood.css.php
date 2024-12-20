@@ -40,7 +40,6 @@
     .image-detail {
         width: 100%;
         height: 350px;
-        /* Chiều cao cố định */
         overflow: hidden;
         border-radius: 8px;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
@@ -51,17 +50,13 @@
         width: 100%;
         height: 100%;
         max-height: 350px;
-        /* Prevent it from growing too large */
         object-fit: cover;
-        /* This will keep the image ratio intact and crop if necessary */
         border-radius: 8px;
     }
 
     .image-detail:hover {
         transform: scale(1.05);
-        /* Phóng to nhẹ khi hover */
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        /* Độ bóng lớn hơn khi hover */
     }
 
 
@@ -180,9 +175,7 @@
         height: 300px;
         width: 100%;
         object-fit: cover;
-        /* Đảm bảo ảnh vừa khung và cắt phần thừa */
         display: block;
-        /* Loại bỏ khoảng cách giữa các ảnh do inline-block */
     }
 
     .food-item:hover {
@@ -195,9 +188,7 @@
         font-weight: bold;
         margin-bottom: 0px;
         white-space: nowrap;
-        /* Ngăn văn bản xuống dòng */
         overflow: hidden;
-        /* Ẩn phần vượt quá */
         text-overflow: ellipsis;
         text-transform: capitalize;
     }
