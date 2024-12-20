@@ -2,10 +2,10 @@
         *{
                 margin:0px;
                 padding:0px;
-                color:white;
                 font-family: arial;
         }
         .footer-container {
+                color: white;
                 background-color: black;
         }
         .footer-container .container {

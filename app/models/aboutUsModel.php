@@ -26,7 +26,7 @@ class AboutUsModel
             ON 
                 categories.categoryId = fooditems.categoryId
             WHERE 
-                fooditems.foodId IN (12, 15, 32, 41) -- Chỉ lấy món ăn có foodId cụ thể
+                fooditems.foodId IN (12, 15, 32, 23) -- Chỉ lấy món ăn có foodId cụ thể
             GROUP BY 
                 categories.categoryId;
 

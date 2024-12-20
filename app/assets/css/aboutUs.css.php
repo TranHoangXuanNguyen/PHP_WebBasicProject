@@ -14,7 +14,7 @@
             }
             .imagefood1{
                 height: -webkit-fill-available;
-                object-fit:fill;
+                object-fit:cover !important;
             }
             .about-text{
                 text-align: left;

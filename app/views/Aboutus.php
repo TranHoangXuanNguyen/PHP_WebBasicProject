@@ -30,11 +30,11 @@
                     <div class="col-6 about-foodimage">
                             <div class="row  image-grid">
                                     <div class="col-6 img1">
-                                        <img src="https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat-1.jpg" class="img-fluid imagefood1" alt="Food 1">
+                                        <img src="<?php echo($foodItems[0]['image_url']) ?>" class="img-fluid imagefood1" alt="Food 1">
                                     </div>
                                     <div class="col-6 img1">
-                                        <img src="https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat-1.jpg" class="img-fluid imagefood2" alt="Food 2">
-                                        <img src="https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat-1.jpg" class="img-fluid imagefood3" alt="Food 3">
+                                        <img src="<?php echo($foodItems[1]['image_url']) ?>" class="img-fluid imagefood2" alt="Food 2">
+                                        <img src="<?php echo($foodItems[2]['image_url']) ?>" class="img-fluid imagefood3" alt="Food 3">
                                     </div>
                             </div>
                                 
@@ -85,7 +85,7 @@
             </div>
             <div class="col-md-4">
                 <i class="fa-solid fa-mug-hot" style="font-size:28px"></i>
-                <h5>120 Item Food</h5>
+                <h5><?php echo($totalFoodItems); ?> Item Food</h5>
                 <p>With the diverse menu at the restaurant, we believe it will meet all the needs of our customers.</p>
             </div>
             <div class="col-md-4">
@@ -114,8 +114,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     </div>
+    <div class="mt-5">
     <?php
     include_once("app/components/footer.php");
     ?>
+    </div>
+
 </body>
 </html>
