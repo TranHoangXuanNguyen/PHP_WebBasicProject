@@ -37,15 +37,33 @@
         padding: 20px;
     }
 
-    .img-fluid {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease;
+    .image-detail {
+        width: 100%;
+        height: 350px;
+        /* Chiều cao cố định */
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .img-fluid:hover {
-        transform: scale(1.05);
+    .image-detail {
+        width: 100%;
+        height: 100%;
+        max-height: 350px;
+        /* Prevent it from growing too large */
+        object-fit: cover;
+        /* This will keep the image ratio intact and crop if necessary */
+        border-radius: 8px;
     }
+
+    .image-detail:hover {
+        transform: scale(1.05);
+        /* Phóng to nhẹ khi hover */
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        /* Độ bóng lớn hơn khi hover */
+    }
+
 
     .food-name {
         font-size: 2rem;
@@ -67,6 +85,7 @@
         font-weight: bold;
         animation: pulse 2s infinite;
     }
+
     .quantity-buttons button {
         width: 35px;
         height: 40px;
@@ -145,22 +164,83 @@
         border-left: 4px solid #ff9f0d;
     }
 
-    .card.food-item .relevant-img {
-        height: 250px;
-        object-fit: cover;
+    .food-item {
+        border: none !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
         border-radius: 10px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        min-height: 420px;
+        margin-bottom: 15px;
+        margin-left: 15px;
     }
 
-    .card.food-item .relevant-img:hover {
+    .food-item img {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        /* Đảm bảo ảnh vừa khung và cắt phần thừa */
+        display: block;
+        /* Loại bỏ khoảng cách giữa các ảnh do inline-block */
+    }
+
+    .food-item:hover {
         transform: scale(1.05);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
     }
 
-    .relevant-food .col-md-4 {
-        margin-bottom: 20px;
+    .food-title {
+        font-weight: bold;
+        margin-bottom: 0px;
+        white-space: nowrap;
+        /* Ngăn văn bản xuống dòng */
+        overflow: hidden;
+        /* Ẩn phần vượt quá */
+        text-overflow: ellipsis;
+        text-transform: capitalize;
     }
+
+    .food-title,
+    .price {
+        text-align: left;
+        margin-left: 10px;
+        display: block;
+    }
+
+    .food-title:hover {
+        color: black !important;
+        text-decoration: none;
+    }
+
+    .r-price {
+        color: #FF9F0D;
+        margin-top: 0px;
+        color: orange !important;
+        ;
+        padding-left: 50px;
+    }
+
+    .food {
+        border: none !important;
+        padding: 0px;
+        margin-top: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .r-price:hover {
+        color: #FF9F0D !important;
+        text-decoration: none !important;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        padding: 2rem 2rem !important;
+        ;
+    }
+
 
     @media (max-width: 768px) {
         .menu-banner {
