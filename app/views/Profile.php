@@ -190,19 +190,27 @@
                     <form action="/Profile/EditAccount" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" name="editname" class="form-control" id="name" placeholder="Enter your name">
+                            <input type="text" name="editname" class="form-control" id="name" placeholder="Enter your name" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="editemail" class="form-control" id="email" placeholder="Enter your email">
+                            <input type="email" name="editemail" class="form-control" id="email" placeholder="Enter your email" required>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" name="editaddress" class="form-control" id="address" placeholder="Enter your address">
+                            <input type="text" name="editaddress" class="form-control" id="address" placeholder="Enter your address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNum" class="form-label">phoneNum</label>
+                            <input type="text" name="editphoneNum" class="form-control" id="phoneNum" placeholder="Enter your phoneNum"required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="avataUrl" class="form-label">avataUrl</label>
+                            <input type="text" name="editavataUrl" class="form-control" id="avataUrl" placeholder="Enter your avataUrl"required>
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" name="editdate" class="form-control" id="dob">
+                            <input type="date" name="editdate" class="form-control" id="dob"require_once>
                         </div>
                         <button type="submit" class="btn btn-save pricolor">Save</button>
                     </form>
