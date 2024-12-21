@@ -1,18 +1,14 @@
-<!-- blabla -->
 <!-- Admin Controller -->
 <?php
 
 require_once('./app/core/Controller.php');
-require_once('./app/models/adminModelUser.php');
 require_once('./app/models/adminModelFoodItem.php');
-require_once('./app/models/adminModelOrder.php');
-
 class AdminController extends Controller
 {
     public function index()
     {
         $objDataF = new AdminModelFooditem();
-        $objDataU = new AdminModelUser();
+        $objDataU = new AdminModelFooditem();
         $listdataF = $objDataF->getAllFoodItem();
         $listdataU = $objDataU->getAllUser();
         $listdataFcoount = $objDataF->countItemBycategory();
@@ -81,7 +77,7 @@ class AdminController extends Controller
         $allowed_pages = ['AdminDashboard', 'AdminFoodItem', 'AdminUser'];
         if ($page == 'AdminDashboard') {
             $objDataF = new AdminModelFooditem();
-            $objDataU = new AdminModelUser();
+            $objDataU = new AdminModelFooditem();
             $listdataF = $objDataF->getAllFoodItem();
             $listdataU = $objDataU->getAllUser();
             $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU];
@@ -92,7 +88,7 @@ class AdminController extends Controller
             $data = ['allfooditems' => $listdata];
         }
         if ($page == 'AdminUser') {
-            $objData = new AdminModelUser();
+            $objData = new AdminModelFooditem();
             $listdata = $objData->getAllUser();
             $data = ['allusers' => $listdata];
         }
@@ -126,8 +122,8 @@ class AdminController extends Controller
             $role = $_POST['role'];
             $phoneNum = $_POST['phone'];
             $birthDay = $_POST['birthDay'];
-            $objData = new AdminModelUser();
-            $objtransfer = new AdminModelUser();
+            $objData = new AdminModelFooditem();
+            $objtransfer = new AdminModelFooditem();
 
             $objData->fullName = ($userName);
             $objData->passWord = ($passWord);
@@ -154,8 +150,8 @@ class AdminController extends Controller
             $role = $_POST['role'];
             $phoneNum = $_POST['phone'];
             $birthDay = $_POST['birthDay'];
-            $objData = new AdminModelUser();
-            $objtransfer = new AdminModelUser();
+            $objData = new AdminModelFooditem();
+            $objtransfer = new AdminModelFooditem();
 
             $objData->fullName = ($userName);
             $objData->passWord = ($passWord);
@@ -177,7 +173,7 @@ class AdminController extends Controller
     }
     public function deleteUser($id)
     {
-        $objtransfer1 = new AdminModelUser();
+        $objtransfer1 = new AdminModelFooditem();
         $result = $objtransfer1->deleteUser($id);
         if ($result) {
             echo 'bla';

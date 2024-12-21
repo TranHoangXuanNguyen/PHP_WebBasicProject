@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
         <link rel="stylesheet" href="/app/assets/css/Register.css">
     </head>
+
     <body>
         <div class="container">
             <div class="row justify-content-center align-items-center h-100">
@@ -26,7 +27,7 @@
                         <?php unset($_SESSION['error_message']);
                         ?>
                     <?php endif; ?>
-                    <form action="/Register" method="POST">
+                    <form action="/user/userRegister" method="POST">
                         <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
@@ -81,7 +82,7 @@
                             </div>
                         </div>
                         <div class="text-center text-final">
-                            Already have an account? <a href="/Login">Login</a>
+                            Already have an account? <a href="/user/Login">Login</a>
                         </div>
                     </form>
                 </div>

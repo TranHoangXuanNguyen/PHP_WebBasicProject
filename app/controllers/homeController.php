@@ -10,8 +10,6 @@ class HomeController extends Controller
         $data = ['default']; //init data but dont use, it only use to call function view
         $this->view('home', $data);
     }
-
-
 }
 
 ?>

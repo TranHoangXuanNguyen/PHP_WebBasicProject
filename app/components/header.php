@@ -38,10 +38,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                     <ul class="navbar-nav">
                         <?php
                         if (!isset($_SESSION['isLogin']) || $_SESSION['isLogin'] != 'true') {
-                            echo '<li class="nav-item"><a class="nav-link" href="/Login"><i class="fa fa-user"></i></a></li>';
+                            echo '<li class="nav-item"><a class="nav-link" href="user/Login"><i class="fa fa-user"></i></a></li>';
                         } else {
                             if (isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
-                                echo '<li class="nav-item"><a class="nav-link" href="/Profile"><i class="fa fa-user"></i></a></li>';
+                                echo '<li class="nav-item"><a class="nav-link" href="user/Profile"><i class="fa fa-user"></i></a></li>';
                             } else {
                                 echo '<li class="nav-item"><a class="nav-link" href="/Admin"><i class="fa fa-user"></i></a></li>';
                             }

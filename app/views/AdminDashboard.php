@@ -425,7 +425,7 @@
             document.querySelector('.modalContent').innerHTML = form;
             document.querySelector('.modalPopup').style.display = 'block';
 
-            // fetch(`getFoodItem.php?id=${id}`)
+            // fetch(`menu/getdetail/${id}`)
             // .then(response => response.json())
             // .then(data => {
             // document.querySelector('#foodName').value = data.foodName;
