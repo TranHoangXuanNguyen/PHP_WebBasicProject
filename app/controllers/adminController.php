@@ -15,6 +15,7 @@ class AdminController extends Controller
         $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU, 'countbycategory' => $listdataFcoount];
         $this->view('AdminDashboard', $data);
     }
+    
     public function Signout()
     {
         session_unset();

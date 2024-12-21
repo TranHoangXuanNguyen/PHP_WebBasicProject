@@ -7,9 +7,21 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $data = ['default']; //init data but dont use, it only use to call function view
+        $data = ['default']; 
         $this->view('home', $data);
     }
+    public function aboutUs()
+    {
+        $aboutUsModel = new HomeModel(); 
+        $foodItems = $aboutUsModel->getfoodImg();
+        $totalFoodItems = $aboutUsModel->getQtyFood();
+        $data = [
+            'foodItems' => $foodItems,
+            'totalFoodItems' => $totalFoodItems
+        ];
+        $this->view('AboutUs', $data);
+    }
 }
+
 
 ?>

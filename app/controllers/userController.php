@@ -1,13 +1,10 @@
 <?php
 require_once __DIR__ . '/../core/Controller.php';
-require_once __DIR__ . '/../models/loginModel.php';
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../models/RegisterModel.php';
+require_once __DIR__ . '/../models/userModel.php';
 require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
 require_once __DIR__ . '/../mailler/src/SMTP.php';
 global $conn;
-
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -29,8 +26,8 @@ class userController extends Controller
         if (!$conn) {
             die("Connection to database failed");
         }
-        $loginmodel = new loginModel();
-        $result = $loginmodel->login($email, $passWord);
+        $userModel = new userModel();
+        $result = $userModel->login($email, $passWord);
         if ($result === false) {
             // Nếu mật khẩu hoặc email sai
             $_SESSION['error_message'] = "Invalid email or password. Please try again.";
@@ -87,7 +84,7 @@ class userController extends Controller
         } else {
 
 
-            $registerModel = new RegisterModel();
+            $registerModel = new userModel();
             $result = $registerModel->registerUser($fullName, $email, $phone, $password, $dob);
             if ($result === true) {
                 WelcomeMailer::sendWelcomeEmail($fullName, $email, $password);
@@ -141,7 +138,7 @@ class userController extends Controller
             $editaddress = $_POST['editaddress'];
             $editphoneNum = $_POST['editphoneNum'];
             $editavataUrl = $_POST['editavataUrl'];
-            $profileModelObj = new ProfileModel();
+            $profileModelObj = new userModel();
             $result = $profileModelObj->updateProfile($userId, $editname, $editemail, $editaddress, $editdate, $editphoneNum, $editavataUrl);
             if ($result) {
                 $_SESSION['email'] = $editemail;
