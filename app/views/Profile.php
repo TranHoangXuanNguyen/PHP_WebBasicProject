@@ -180,14 +180,14 @@
                     <p class="text-muted mb-0"><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?> </p>
                 </div>
             </div>
-            <a class="btn btn-outline-secondary btn-md sign-button" href="/Profile/Signout">Sign out</a>
+            <a class="btn btn-outline-secondary btn-md sign-button" href="/user/Signout">Sign out</a>
         </div>
 
         <div class="row px-5 big-box edit-box">
             <div class="col-sm-7 form">
                 <!-- Form -->
                 <div class="pf-edit">
-                    <form action="/Profile/EditAccount" method="POST">
+                    <form action="/user/EditAccount" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" name="editname" class="form-control" id="name" placeholder="Enter your name" required>
@@ -202,15 +202,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="phoneNum" class="form-label">phoneNum</label>
-                            <input type="text" name="editphoneNum" class="form-control" id="phoneNum" placeholder="Enter your phoneNum"required>
+                            <input type="text" name="editphoneNum" class="form-control" id="phoneNum" placeholder="Enter your phoneNum" required>
                         </div>
                         <div class="mb-3">
                             <label for="avataUrl" class="form-label">avataUrl</label>
-                            <input type="text" name="editavataUrl" class="form-control" id="avataUrl" placeholder="Enter your avataUrl"required>
+                            <input type="text" name="editavataUrl" class="form-control" id="avataUrl" placeholder="Enter your avataUrl" required>
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" name="editdate" class="form-control" id="dob"require_once>
+                            <input type="date" name="editdate" class="form-control" id="dob" require_once>
                         </div>
                         <button type="submit" class="btn btn-save pricolor">Save</button>
                     </form>

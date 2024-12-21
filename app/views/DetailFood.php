@@ -59,8 +59,8 @@
                                     <div class="card food-item">
                                         <img src="<?php echo $relevantitem['foodImg']; ?>" class="card-img-top" alt="Food Image">
                                         <div class="card-body">
-                                            <a href=<?php echo '/detail/show/' . $relevantitem['foodId'] ?> class="food-title text-decoration-none text-dark text-center"><?php echo $relevantitem['foodName']; ?></a>
-                                            <a href=<?php echo '/detail/show/' . $relevantitem['foodId'] ?> class="r-price text-decoration-none ms-5"><?php echo $relevantitem['price']; ?> VNĐ</a>
+                                            <a href=<?php echo '/menu/show/' . $relevantitem['foodId'] ?> class="food-title text-decoration-none text-dark text-center"><?php echo $relevantitem['foodName']; ?></a>
+                                            <a href=<?php echo '/menu/show/' . $relevantitem['foodId'] ?> class="r-price text-decoration-none ms-5"><?php echo $relevantitem['price']; ?> VNĐ</a>
                                         </div>
                                     </div>
                                 </div>
