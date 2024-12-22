@@ -164,9 +164,9 @@
                     <h1 class="adminsidebar_header__title mt-3 mb-3">MASTER ADMIN</h>
                 </div>
                 <div class="list-group">
-                    <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminDashboard">Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminFoodItem">Manager food items</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="AdminUser">Manager User Account</a>
+                    <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" data-page="Dashboard">Dashboard</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="FoodItem">Manager food items</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="User">Manager User Account</a>
                     <a href="/admin/Signout" class="btn btn-warning mt-3">Log out</a>
                 </div>
             </div>
@@ -215,8 +215,6 @@
                 });
         }
     </script>
-
-
 
     <!-- function update/delete/create -->
     <script>

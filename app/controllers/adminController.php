@@ -15,7 +15,7 @@ class AdminController extends Controller
         $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU, 'countbycategory' => $listdataFcoount];
         $this->view('AdminDashboard', $data);
     }
-    
+
     public function Signout()
     {
         session_unset();
@@ -75,26 +75,26 @@ class AdminController extends Controller
     public function fetchdata($page)
     {
 
-        $allowed_pages = ['AdminDashboard', 'AdminFoodItem', 'AdminUser'];
-        if ($page == 'AdminDashboard') {
+        $allowed_pages = ['Dashboard', 'FoodItem', 'User'];
+        if ($page == 'Dashboard') {
             $objDataF = new AdminModelFooditem();
             $objDataU = new AdminModelFooditem();
             $listdataF = $objDataF->getAllFoodItem();
             $listdataU = $objDataU->getAllUser();
             $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU];
         }
-        if ($page == 'AdminFoodItem') {
+        if ($page == 'FoodItem') {
             $objData = new AdminModelFooditem();
             $listdata = $objData->getAllFoodItem();
             $data = ['allfooditems' => $listdata];
         }
-        if ($page == 'AdminUser') {
+        if ($page == 'User') {
             $objData = new AdminModelFooditem();
             $listdata = $objData->getAllUser();
             $data = ['allusers' => $listdata];
         }
         if (in_array($page, $allowed_pages)) {
-            $this->view('/adminview/' . $page, $data);
+            $this->view('/admin/' . $page, $data);
         } else {
             echo 'Page not found.';
         }
