@@ -99,4 +99,70 @@ class userModel
             return false;
         }
     }
+
+    // Cart order
+    public function getPendingOrderId($userId)
+    {
+        $sql = "SELECT order_id FROM orders WHERE userId = ? AND status = 'pending'";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc()['order_id'];
+        }
+
+        return null;
+    }
+
+    public function createPendingOrder($userId)
+    {
+        $sql = "INSERT INTO orders (userId, status, created_at) VALUES (?, 'pending', NOW())";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        return $this->connect->insert_id;
+    }
+
+
+    public function getOrderItemsByOrderId($orderId)
+    {
+        $sql = "SELECT order_items.order_id, fooditems.foodId, fooditems.foodName, fooditems.foodImg, order_items.quantity, order_items.price
+            FROM order_items
+            JOIN fooditems ON order_items.foodId = fooditems.foodId
+            WHERE order_items.order_id = ?";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("i", $orderId);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getOrderItem($orderId, $foodId)
+    {
+        $sql = "SELECT * FROM order_items WHERE order_id = ? AND foodId = ?";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("ii", $orderId, $foodId);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function updateOrderItemQuantity($orderId, $foodId, $quantity)
+    {
+        $sql = "UPDATE order_items SET quantity = ? WHERE order_id = ? AND foodId = ?";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("iii", $quantity, $orderId, $foodId);
+        return $stmt->execute();
+    }
+
+    public function addOrderItem($orderId, $foodId, $quantity, $price)
+    {
+        $sql = "INSERT INTO order_items (order_id, foodId, quantity, price) VALUES (?, ?, ?, ?)";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("iiid", $orderId, $foodId, $quantity, $price);
+        return $stmt->execute();
+    }
 }

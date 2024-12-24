@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/../core/Controller.php';
-require_once __DIR__ . '/../models/userModel.php';
+// require_once __DIR__ . '/../models/menuFoodController.php';
 require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
 require_once __DIR__ . '/../mailler/src/SMTP.php';
+require_once(__DIR__ . '/../models/userModel.php');
+
 global $conn;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -98,6 +100,44 @@ class userController extends Controller
             }
         }
     }
+
+    public function cart()
+{
+    $userId = $_SESSION['userId'] ?? null;
+    if (!$userId) {
+        die("User not logged in");
+    }
+
+    $userModel = new UserModel();
+    
+    $orderId = $userModel->getPendingOrderId($userId);
+    if (!$orderId) {
+        die("Không tìm thấy giỏ hàng của bạn!");
+    }
+
+    $orderItems = $userModel->getOrderItemsByOrderId($orderId);
+
+    $totalAmount = 0;
+    foreach ($orderItems as &$item) {
+
+        $item['total_price'] = $item['quantity'] * $item['price'];
+
+        $totalAmount += $item['total_price'];
+    }
+
+    $data = [
+        'order' => $orderId,
+        'orderItems' => $orderItems,
+        'total_amount' => $totalAmount, // Total value of the cart
+    ];
+
+    // Call the view to display the cart
+    $this->view('Cart', $data);
+}
+
+
+
+
     public function validateInput($email, $phone, $password, $confirmPassword)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -154,6 +194,43 @@ class userController extends Controller
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class WelcomeMailer
 {
     public static function sendWelcomeEmail($fullName, $email, $password)
