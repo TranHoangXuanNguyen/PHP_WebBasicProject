@@ -8,12 +8,21 @@
         }
         .payment-method{
             border: none !important;
-            max-height: 38px; /* Đảm bảo chiều cao tương đương với chữ */
-            padding: 0; /* Loại bỏ padding thừa */
-            margin: 0; /* Loại bỏ khoảng cách */
-            max-width: 90px;
+            max-height: 40px; 
+            padding: 0; 
+            margin: 0; 
+            max-width: 96px;
+}
+.food-order{
+    padding:0px !important;
 }
 .payment-button{
         margin-left: 230px;
+}
+.orderprice{
+    margin-bottom: 5px !important;
+}
+.orderquantity{
+        margin-top: 5px!important;
 }
 </style>

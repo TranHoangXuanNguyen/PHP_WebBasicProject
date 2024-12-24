@@ -100,25 +100,32 @@ class userModel
         }
     }
     // Lấy sản phẩm để thêm vào trang thanh toán
-        public function Order(){
+        public function getOrder(){
             $sql = "SELECT 
-                        f.foodName, 
-                        f.foodImg,
-                        oi.price, 
-                        oi.foodId, 
-                        oi.order_id 
-                    FROM orders o JOIN order_items oi 
-                    ON o.order_id = oi.order_id JOIN fooditems f 
-                    ON oi.foodId = f.foodId WHERE o.status = 'pending' ";
+                        f.foodName, f.foodImg, oi.price, oi.quantity, oi.foodId, oi.order_id
+                        FROM orders o JOIN order_items oi 
+                        ON o.order_id = oi.order_id JOIN fooditems f 
+                        ON oi.foodId = f.foodId WHERE o.status = 'pending' ";
             
             $result = mysqli_query($this->connect, $sql);
-         
+
+            $items = [];
             if ($result) {
-                $items = [];
+                
                 while ($row = $result->fetch_assoc()) {
                     $items[] = $row;
                 }
             }
             return $items;
     }      
-}  
+    public function updateStatus($status){
+            
+        $sql = "UPDATE orders SET status = '$status' WHERE status = 'pending' ";
+
+
+        $result = mysqli_query($this->connect, $sql);
+    
+        return $result;
+
+        }  
+}

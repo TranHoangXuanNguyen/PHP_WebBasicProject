@@ -156,26 +156,32 @@ class userController extends Controller
         }
         
     }
-    public function UserOrder()
+    public function checkout()
     {
         $orderModel = new userModel(); 
-        $order = $orderModel->Order(); 
+        $order = $orderModel->getOrder(); 
         $subtotal = 0; 
     
-      
         if (!empty($order) && is_array($order)) {
-            foreach ($order as $item) {
-                $subtotal += $item['price'];
+            foreach ($order as $items) {
+                $subtotal+= ($items['price']*$items['quantity']);
             }
 
             $this->view('Checkout', ['items' => $order, 'subtotal' => $subtotal]);
-            
+
         } else {
             echo "No food items";
         }
+        
+    }
+
+    public function confirmOrder() {
+        $confirmModel = new userModel(); 
+        $confirm = $confirmModel->updateStatus('processing'); 
+
+    }
     }
     
-    }
     
 
 
