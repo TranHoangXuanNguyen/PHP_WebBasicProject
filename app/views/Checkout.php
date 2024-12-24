@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MenuFood</title>
+    <title>Check Out</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,9 +14,10 @@
 </head>
 
 <body>
+
 <?php
     require_once("app/components/header.php");
-    ?>
+?>
 
     <!-- Banner -->
     <div class="menu-banner d-flex align-items-center justify-content-center position-relative">
@@ -28,7 +29,7 @@
         <div class="row">
             <!-- Shipping Address -->
             <div class="col-md-6">
-                <h4>Shipping Address</h4>
+                <h4 style="margin-bottom:15px"><strong>Shipping Address</strong></h4>
                 <form>
                     <div class="mb-3">
                         <label for="fullName" class="form-label">Full name</label>
@@ -46,7 +47,7 @@
                         <label for="phone" class="form-label">Phone number</label>
                         <input type="text" class="form-control" id="phone" placeholder="Enter your phone number">
                     </div>
-                    <button type="button" class="btn btn-warning payment-button"><i class="fa-solid fa-arrow-left"></i> Back to cart</button>
+                    <button type="button" class="btn btn-warning payment-button" style="background-color:orange; color:white;"><i class="fa-solid fa-arrow-left"></i> Back to cart</button>
                 </form>
             </div>
 
@@ -55,45 +56,54 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Item List -->
-                        <div class="card-food">
-                                <img src="https://hopdungthucan.com/wp-content/uploads/2022/05/hinh-anh-tra-sua-dep-tuyet.jpg" class="foodselect" alt="...">
-                                <div class="card-body food-order">
-                                    <h5 class="card-title">Bread Pan</h5>
-                                    <p class="card-text"><small class="text-body-secondary">50.000VNĐ</small></p>
+                        <?php if (isset($items) && is_array($items) && !empty($items)) : ?>
+                            <?php foreach ($items as $order): ?>
+                                <div class="card-food d-flex mb-3">
+                                    <img src="<?php echo htmlspecialchars( $order['foodImg']); ?>" class="foodselect" alt="Food Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 15px;">
+                                    <div class="card-body food-order">
+                                        <h5 class="card-title"><?php echo htmlspecialchars( $order['foodName']); ?></h5>
+                                        <p class="card-text"><small class="text-body-secondary"><?php echo number_format( $order['price'], 0, ',', '.'); ?> VNĐ</small></p>
+                                    </div>
                                 </div>
-                        </div>
-                       <hr>
-                        <div class="d-flex justify-content-between">
+                            <?php endforeach; ?>
+                            <hr>
+                            <div class="d-flex justify-content-between">
                                 <span>Sub-total</span>
-                                <span>130.000 VNĐ</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
+                                <span><?php echo number_format( $subtotal['subtotal'], 0, ',', '.'); ?> VNĐ</span> 
+                            </div>
+                            <div class="d-flex justify-content-between">
                                 <span>Shipping</span>
                                 <span>Free</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
                                 <span>Payment Method</span>
                                 <select class="form-select payment-method">
                                     <option value="1">COD</option>
                                     <option value="2">MoMo</option>
                                 </select>
                             </div>
-
-                        <hr>
-                        <div class="d-flex justify-content-between">
+                            <hr>
+                            <div class="d-flex justify-content-between">
                                 <strong>Total</strong>
-                                <strong>430.000 VNĐ</strong>
-                        </div>
-                        <button class="btn btn-warning w-100 mt-3">Place an order <i class="fa-solid fa-arrow-right"></i></button>
-                       
+                                <strong><?php echo number_format( $subtotal['subtotal'], 0, ',', '.'); ?></strong>
+                            </div>
+                            <button class="btn btn-warning w-100 mt-3" style="background-color:orange; color:white ">Place an order <i class="fa-solid fa-arrow-right"></i></button>
+                        <?php else: ?>
+                            <p>No items in the cart.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 
+    <div class="mt-5">
     <?php
     include_once("app/components/footer.php");
     ?>

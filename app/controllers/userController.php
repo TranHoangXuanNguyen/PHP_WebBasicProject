@@ -151,9 +151,34 @@ class userController extends Controller
             } else {
                 $_SESSION['error_message'] = 'Cập nhật tài khoản thất bại!';
             }
+
+            
+        }
+        
+    }
+    public function UserOrder()
+    {
+        $orderModel = new userModel(); 
+        $order = $orderModel->Order(); 
+        $subtotal = 0; 
+    
+      
+        if (!empty($order) && is_array($order)) {
+            foreach ($order as $item) {
+                $subtotal += $item['price'];
+            }
+
+            $this->view('Checkout', ['items' => $order, 'subtotal' => $subtotal]);
+            
+        } else {
+            echo "No food items";
         }
     }
-}
+    
+    }
+    
+
+
 class WelcomeMailer
 {
     public static function sendWelcomeEmail($fullName, $email, $password)
