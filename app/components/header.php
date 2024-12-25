@@ -48,7 +48,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                         }
                         ?>
 
-                        <li class="nav-item"><a class="nav-link" href=""><i class="fa fa-shopping-cart"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/user/Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
             </div>

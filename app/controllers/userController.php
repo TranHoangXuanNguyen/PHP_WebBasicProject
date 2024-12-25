@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/../core/Controller.php';
-require_once __DIR__ . '/../models/userModel.php';
+// require_once __DIR__ . '/../models/menuFoodController.php';
 require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
 require_once __DIR__ . '/../mailler/src/SMTP.php';
+require_once(__DIR__ . '/../models/userModel.php');
+
 global $conn;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -144,6 +146,67 @@ class userController extends Controller
             }
         }
     }
+
+    public function cart()
+    {
+        $userId = $_SESSION['userId'] ?? null;
+        if (!$userId) {
+            die("User not logged in");
+        }
+        $userModel = new UserModel();
+        $status = 'pending';
+        $order = $userModel->getOrderBystatus($userId, $status);
+        $orderId = $order[0]['order_id'];
+        if (!$orderId) {
+            die("Không tìm thấy đơn hàng với trạng thái '{$status}'!");
+        }
+        $orderItems = $userModel->getOrderItemsByOrderId($orderId);
+        $totalAmount = 0;
+        foreach ($orderItems as &$item) {
+            $item['total_price'] = $item['quantity'] * $item['price'];
+            $totalAmount += $item['total_price'];
+        }
+        $orderProcessing = $userModel->getOrderBystatus($userId, 'processing');
+        $orderComplelted = $userModel->getOrderBystatus($userId, 'completed');
+        $orderCanceled = $userModel->getOrderBystatus($userId, 'canceled');
+
+        $data = [
+            'processingOrder' => $orderProcessing,
+            'completedOrder' => $orderComplelted,
+            'canceledOrder' => $orderCanceled,
+            'orderItems' => $orderItems,
+            'total_amount' => $totalAmount,
+        ];
+        $this->view('Cart', $data);
+    }
+    public function removeItem()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_item_id'])) {
+            $orderItemId = intval($_POST['order_item_id']);
+
+            $orderModel = new userModel();
+
+            $result = $orderModel->removeOrderItem($orderItemId);
+
+            if ($result) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Item removed successfully.',
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to remove item. Please try again.'
+                ]);
+            }
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Invalid request. Missing parameters.'
+            ]);
+        }
+    }
+
     public function validateInput($email, $phone, $password, $confirmPassword)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -198,6 +261,43 @@ class userController extends Controller
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class WelcomeMailer
 {
     public static function sendWelcomeEmail($fullName, $email, $password)
