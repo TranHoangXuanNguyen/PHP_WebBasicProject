@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./testChart.css" />
+  </head>
+  <body>
+    <div>
+      <button class="btn" onclick="showChart()">Nhấn vào</button>
+    </div>
+    <div id="container" style="display: none"></div>
+
+    <script type="module">
+      // Nhập thư viện D3
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+      // Khai báo kích thước và lề của biểu đồ
+      const width = 640;
+      const height = 400;
+      const marginTop = 20;
+      const marginRight = 20;
+      const marginBottom = 30;
+      const marginLeft = 40;
+
+      // Khai báo dữ liệu
+      const data = [
+        { category: "Jan", value: 30 },
+        { category: "Feb", value: 40 },
+        { category: "Mar", value: 50 },
+        { category: "Apr", value: 60 },
+        { category: "May", value: 70 },
+      ];
+
+      // Khai báo thang đo trục X và trục Y
+      const x = d3
+        .scaleBand() // Dùng scaleBand cho trục X để vẽ các cột
+        .domain(data.map((d) => d.category)) // Các giá trị trên trục X là các tên tháng
+        .range([marginLeft, width - marginRight])
+        .padding(0.1); // Khoảng cách giữa các cột
+
+      const y = d3
+        .scaleLinear() // Dùng scaleLinear cho trục Y để vẽ các giá trị
+        .domain([0, d3.max(data, (d) => d.value)]) // Dải giá trị trên trục Y
+        .nice() // Làm trơn dải giá trị của trục Y
+        .range([height - marginBottom, marginTop]);
+
+      // Hàm hiển thị biểu đồ
+      const showChart = () => {
+        const svg = d3
+          .create("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+        // Thêm trục X và trục Y
+        svg
+          .append("g")
+          .attr("transform", `translate(0,${height - marginBottom})`)
+          .call(d3.axisBottom(x));
+
+        svg
+          .append("g")
+          .attr("transform", `translate(${marginLeft},0)`)
+          .call(d3.axisLeft(y));
+
+        // Tạo gradient màu cho các cột
+        const gradient = svg
+          .append("defs")
+          .append("linearGradient")
+          .attr("id", "gradient1") // Đặt ID cho gradient
+          .attr("x1", "0%") // Điểm bắt đầu gradient
+          .attr("y1", "0%")
+          .attr("x2", "100%") // Điểm kết thúc gradient
+          .attr("y2", "100%");
+
+        gradient
+          .append("stop")
+          .attr("offset", "0%")
+          .attr("stop-color", "steelblue")
+          .attr("stop-opacity", 1);
+
+        gradient
+          .append("stop")
+          .attr("offset", "100%")
+          .attr("stop-color", "lightblue")
+          .attr("stop-opacity", 1);
+
+        // Vẽ các cột (rect)
+        svg
+          .selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", (d) => x(d.category)) // Xác định vị trí X của cột (theo tên tháng)
+          .attr("y", (d) => y(d.value)) // Xác định vị trí Y của cột (theo giá trị)
+          .attr("width", x.bandwidth()) // Độ rộng của mỗi cột
+          .attr("height", (d) => height - marginBottom - y(d.value)) // Chiều cao của cột (tính từ trục X)
+          .attr("fill", "url(#gradient1)"); // Màu của các cột
+
+        // Gắn phần tử SVG vào phần tử container
+        const container = document.querySelector("#container");
+        container.style.display = "block"; // Đảm bảo container được hiển thị
+        container.append(svg.node()); // Thêm phần tử SVG vào trong container
+      };
+    </script>
+  </body>
+</html>

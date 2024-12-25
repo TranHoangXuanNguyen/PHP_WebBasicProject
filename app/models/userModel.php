@@ -19,11 +19,11 @@ class userModel
         $this->connect = $conn;
     }
 
-    public function updateProfile($userId, $fullName, $email, $address, $dob, $phoneNum, $avataImg)
+    public function updateProfile($userId, $fullName, $address, $dob, $phoneNum, $avataImg)
     {
-        $sql = "UPDATE user SET fullname = ?, email = ?, address = ?, dob = ?, phoneNum = ?, avataImg = ? WHERE userId = ?";
+        $sql = "UPDATE user SET fullname = ?, address = ?, dob = ?, phoneNum = ?, avataImg = ? WHERE userId = ?";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("ssssisi", $fullName, $email, $address, $dob, $phoneNum, $avataImg, $userId);
+        $stmt->bind_param("ssssisi", $fullName,  $address, $dob, $phoneNum, $avataImg, $userId);
         return $stmt->execute();
     }
 
@@ -59,12 +59,13 @@ class userModel
         }
 
 
-        // $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
-
-
-        $query = "INSERT INTO user (fullName, email, phoneNum, passWord, dob) VALUES (?, ?, ?, ?, ?)";
+        $userId = bin2hex(random_bytes(8));
+        $query = "INSERT INTO user (userId, fullName, email, phoneNum, passWord, dob) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->connect->prepare($query);
-        $stmt->bind_param("sssss", $fullName, $email, $phoneNum, $password, $dob);
+        if ($stmt === false) {
+            die('MySQL prepare error: ' . $this->connect->error);
+        }
+        $stmt->bind_param("ssssss", $userId, $fullName, $email, $phoneNum, $password, $dob);
 
         if ($stmt->execute()) {
             return true;
@@ -97,6 +98,41 @@ class userModel
             }
         } else {
             return false;
+        }
+    }
+
+    public function userLoginByGoogle($idFromGoogle, $email, $username)
+    {
+        $sql = "SELECT * FROM user WHERE userId='{$idFromGoogle}'";
+        $result = mysqli_query($this->connect, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $loginObject = new userModel();
+            $loginObject->userId = $row['userId'];
+            $loginObject->fullName = $row['fullName'];
+            $loginObject->email = $row['email'];
+            $loginObject->avataImg = $row['avataImg'];
+            $loginObject->address = $row['address'];
+            $loginObject->role = $row['role'];
+            $loginObject->phoneNum = $row['phoneNum'];
+            $loginObject->dob = $row['dob'];
+            return $loginObject;
+        } else {
+            $sql = "INSERT INTO user (userId, fullName, email, passWord, role) VALUES ('{$idFromGoogle}', '{$username}', '{$email}', 'googleUser', 'user')";
+            if (mysqli_query($this->connect, $sql)) {
+                $loginObject = new userModel();
+                $loginObject->userId = $idFromGoogle;
+                $loginObject->fullName = $username;
+                $loginObject->email = $email;
+                $loginObject->avataImg = "";
+                $loginObject->address = "";
+                $loginObject->role = "user";
+                $loginObject->phoneNum = "";
+                $loginObject->dob = "";
+                return $loginObject;
+            } else {
+                return false;
+            }
         }
     }
 }

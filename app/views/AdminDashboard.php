@@ -167,6 +167,8 @@
                     <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" data-page="Dashboard">Dashboard</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="FoodItem">Manager food items</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="User">Manager User Account</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="Confirm">Confirm Order</a>
+
                     <a href="/admin/Signout" class="btn btn-warning mt-3">Log out</a>
                 </div>
             </div>
@@ -481,6 +483,25 @@
             });
         }
     </script>
+
+    <script>
+        const confirm = async (id, isConfirm) => {
+            try {
+                const response = await fetch(`/admin/confirmOrder/${id}/${isConfirm}`);
+                if (response.ok) {
+                    alert('Order confirmation updated successfully')
+                    console.log('Order confirmation updated successfully');
+                    window.location.reload();
+                } else {
+                    alert('Failed to update order confirmation', response.status)
+                    console.error('Failed to update order confirmation', response.status);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
