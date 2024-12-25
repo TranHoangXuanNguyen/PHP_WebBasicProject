@@ -22,6 +22,16 @@ class AdminModelFooditem
     public $role;
     public $phoneNum;
     public $dob;
+
+    public $order_id;
+
+    public $status;
+
+    public $total_amount;
+
+    public $created_at;
+
+
     public function __construct()
     {
         global $conn;
@@ -206,4 +216,53 @@ class AdminModelFooditem
             return false;
         }
     }
+
+    public function getOrder($status)
+    {
+        $sql = "
+        select * from orders
+        WHERE orders.status = '$status'";
+        $result = mysqli_query($this->connect, $sql);
+
+        $listOrder = [];
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $orderItem = new AdminModelFooditem();
+                $orderItem->userId = $row['userId'];
+                $orderItem->order_id = $row['order_id'];
+                $orderItem->status = $row['status'];
+                $orderItem->total_amount = $row['total_amount'];
+                $orderItem->created_at = $row['created_at'];
+                $listOrder[] = $orderItem;
+            }
+            return $listOrder;
+        }
+    }
+
+    public function confirmOrder($order_id, $isConfirm)
+    {
+        if ($isConfirm == 1) {
+            $status = 'completed';
+        } else {
+            $status = 'canceled';
+        }
+        $sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+        $stmt = $this->connect->prepare($sql);
+        if ($stmt === false) {
+            error_log("Error preparing SQL statement: " . $this->connect->error);
+            return false;
+        }
+        $stmt->bind_param("si", $status, $order_id); 
+        $result = $stmt->execute();
+        if ($result) {
+            return true;
+        } else {
+            error_log("Error executing SQL: " . $stmt->error);
+            return false;
+        }
+    
+        // Close the prepared statement
+        $stmt->close();
+    }
+    
 }

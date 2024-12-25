@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase App (Core) -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script>
     <style>
         body {
             font-family: arial;
@@ -180,7 +184,7 @@
                     <p class="text-muted mb-0"><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?> </p>
                 </div>
             </div>
-            <a class="btn btn-outline-secondary btn-md sign-button" href="/user/Signout">Sign out</a>
+            <a class="btn btn-outline-secondary btn-md sign-button" id="LogoutGG" >Sign out</a>
         </div>
 
         <div class="row px-5 big-box edit-box">
@@ -192,10 +196,10 @@
                             <label for="name" class="form-label">Name</label>
                             <input type="text" name="editname" class="form-control" id="name" placeholder="Enter your name" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="editemail" class="form-control" id="email" placeholder="Enter your email" required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" name="editaddress" class="form-control" id="address" placeholder="Enter your address" required>
@@ -279,7 +283,13 @@
         });
     </script>
 
+    <script type="module">
+        import {
+            signOutUser
+        } from '/app/firebaseAuthen/authen.js';
 
+        document.getElementById('LogoutGG').addEventListener('click', signOutUser);
+    </script>
 
 
 
