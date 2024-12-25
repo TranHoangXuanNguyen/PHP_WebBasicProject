@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="food-category mt-4">Category: <strong class="text-dark"><?php echo htmlspecialchars($fooddetail['categoryName']); ?></strong></div>
-                        <button class="btn-add-to-cart mt-4">Add to cart</button>
+                        <button class="btn-add-to-cart mt-4" onclick="addtocart(<?php echo htmlspecialchars($fooddetail['foodId']); ?>)">Add to cart</button>
                     </div>
                 </div>
                 <div class="description mt-5">
@@ -85,6 +85,14 @@
             if (currentValue > 1) {
                 quantityInput.value = currentValue - 1;
             }
+        }
+
+        function addtocart(foodId) {
+            const quantity = document.querySelector('#quantity').value;
+            console.log(quantity);
+            console.log(foodId);
+
+            window.location = `/menu/addtocart/${foodId}/${quantity}`;
         }
     </script>
     <?php

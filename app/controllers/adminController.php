@@ -75,7 +75,7 @@ class AdminController extends Controller
     public function fetchdata($page)
     {
 
-        $allowed_pages = ['Dashboard', 'FoodItem', 'User'];
+        $allowed_pages = ['Dashboard', 'FoodItem', 'User', 'Confirm'];
         if ($page == 'Dashboard') {
             $objDataF = new AdminModelFooditem();
             $objDataU = new AdminModelFooditem();
@@ -93,12 +93,19 @@ class AdminController extends Controller
             $listdata = $objData->getAllUser();
             $data = ['allusers' => $listdata];
         }
+        if ($page == 'Confirm') {
+            $objData = new AdminModelFooditem();
+            $listdata = $objData->getOrder('processing');
+            $data = ['listOrderProcess' => $listdata];
+        }
         if (in_array($page, $allowed_pages)) {
             $this->view('/admin/' . $page, $data);
         } else {
             echo 'Page not found.';
         }
     }
+
+
 
     public function deleteFood($id)
     {
@@ -181,6 +188,13 @@ class AdminController extends Controller
         } else {
             echo 'blibli';
         }
+    }
+
+    public function confirmOrder($order_id, $isConfirm)
+    {
+        $objtransfer1 = new AdminModelFooditem();
+        $result = $objtransfer1->confirmOrder($order_id, $isConfirm);
+        return $result;
     }
 }
 

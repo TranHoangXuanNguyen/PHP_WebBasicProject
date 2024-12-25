@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/../core/Controller.php';
-require_once __DIR__ . '/../models/userModel.php';
+// require_once __DIR__ . '/../models/menuFoodController.php';
 require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
 require_once __DIR__ . '/../mailler/src/SMTP.php';
+require_once(__DIR__ . '/../models/userModel.php');
+
 global $conn;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -32,7 +34,7 @@ class userController extends Controller
             // Nếu mật khẩu hoặc email sai
             $_SESSION['error_message'] = "Invalid email or password. Please try again.";
             $_SESSION['username_input'] = $email;
-            header("Location: user/Login");
+            header("Location: /user/Login");
             exit;
         } elseif ($result) {
             session_unset();
@@ -59,12 +61,58 @@ class userController extends Controller
         }
     }
 
+
+    function userLoginByGoogle()
+    {
+        session_start();
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+        if (isset($data['uid'], $data['email'], $data['displayName'])) {
+            $idFromGoogle = $data['uid'];
+            $email = $data['email'];
+            $username = $data['displayName'];
+            $userModel = new userModel();
+            $result = $userModel->userLoginByGoogle($idFromGoogle, $email, $username);
+            if ($result === false) {
+                $_SESSION['error_message'] = "Login by Google is not valid, try again.";
+                header("Location: /user/Login");
+            } elseif ($result) {
+                $_SESSION['isLogin'] = true;
+                $_SESSION['email'] = $result->email;
+                $_SESSION['userId'] = $result->userId;
+                $_SESSION['fullName'] = $result->fullName;
+                $_SESSION['avataImg'] = $result->avataImg;
+                $_SESSION['address'] = $result->address;
+                $_SESSION['phoneNum'] = $result->phoneNum;
+                $_SESSION['dob'] = $result->dob;
+                if ($result->role == 'admin') {
+                    $_SESSION['role'] = 'admin';
+                    header("Location: /admin");
+                    exit;
+                } elseif ($result->role == 'user') {
+                    $_SESSION['role'] = 'user';
+                    header("Location: /Home");
+                    exit;
+                } else {
+                    echo "Invalid role";
+                }
+            }
+        } else {
+            $_SESSION['error_message'] = "Invalid data received.";
+            header("Location: /user/Login");
+            exit;
+        }
+    }
+
+
     // register
     public function register()
     {
         $data = ['default'];
         $this->view('Register', $data);
     }
+
+
     public function userRegister()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -98,6 +146,67 @@ class userController extends Controller
             }
         }
     }
+
+    public function cart()
+    {
+        $userId = $_SESSION['userId'] ?? null;
+        if (!$userId) {
+            die("User not logged in");
+        }
+        $userModel = new UserModel();
+        $status = 'pending';
+        $order = $userModel->getOrderBystatus($userId, $status);
+        $orderId = $order[0]['order_id'];
+        if (!$orderId) {
+            die("Không tìm thấy đơn hàng với trạng thái '{$status}'!");
+        }
+        $orderItems = $userModel->getOrderItemsByOrderId($orderId);
+        $totalAmount = 0;
+        foreach ($orderItems as &$item) {
+            $item['total_price'] = $item['quantity'] * $item['price'];
+            $totalAmount += $item['total_price'];
+        }
+        $orderProcessing = $userModel->getOrderBystatus($userId, 'processing');
+        $orderComplelted = $userModel->getOrderBystatus($userId, 'completed');
+        $orderCanceled = $userModel->getOrderBystatus($userId, 'canceled');
+
+        $data = [
+            'processingOrder' => $orderProcessing,
+            'completedOrder' => $orderComplelted,
+            'canceledOrder' => $orderCanceled,
+            'orderItems' => $orderItems,
+            'total_amount' => $totalAmount,
+        ];
+        $this->view('Cart', $data);
+    }
+    public function removeItem()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_item_id'])) {
+            $orderItemId = intval($_POST['order_item_id']);
+
+            $orderModel = new userModel();
+
+            $result = $orderModel->removeOrderItem($orderItemId);
+
+            if ($result) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Item removed successfully.',
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to remove item. Please try again.'
+                ]);
+            }
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Invalid request. Missing parameters.'
+            ]);
+        }
+    }
+
     public function validateInput($email, $phone, $password, $confirmPassword)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -133,21 +242,19 @@ class userController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $userId = $_SESSION['userId'];
             $editname = $_POST['editname'];
-            $editemail = $_POST['editemail'];
             $editdate = $_POST['editdate'];
             $editaddress = $_POST['editaddress'];
             $editphoneNum = $_POST['editphoneNum'];
             $editavataUrl = $_POST['editavataUrl'];
             $profileModelObj = new userModel();
-            $result = $profileModelObj->updateProfile($userId, $editname, $editemail, $editaddress, $editdate, $editphoneNum, $editavataUrl);
+            $result = $profileModelObj->updateProfile($userId, $editname, $editaddress, $editdate, $editphoneNum, $editavataUrl);
             if ($result) {
-                $_SESSION['email'] = $editemail;
                 $_SESSION['fullName'] = $editname;
                 $_SESSION['address'] = $editaddress;
                 $_SESSION['dob'] = $editdate;
                 $_SESSION['phoneNum'] = $editphoneNum;
                 $_SESSION['avataImg'] = $editavataUrl;
-                header('Location: /Profile');
+                header('Location: /user/Profile');
             } else {
                 $_SESSION['error_message'] = 'Cập nhật tài khoản thất bại!';
             }
@@ -187,6 +294,9 @@ class userController extends Controller
     }
     
     
+
+}
+
 
 
 class WelcomeMailer
