@@ -23,7 +23,7 @@ class userModel
     {
         $sql = "UPDATE user SET fullname = ?, address = ?, dob = ?, phoneNum = ?, avataImg = ? WHERE userId = ?";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("ssssisi", $fullName,  $address, $dob, $phoneNum, $avataImg, $userId);
+        $stmt->bind_param("ssssiss", $fullName,  $address, $dob, $phoneNum, $avataImg, $userId);
         return $stmt->execute();
     }
 
@@ -40,7 +40,7 @@ class userModel
     {
         $sql = "UPDATE user SET password = ? WHERE userId = ?";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("si", $newPassword, $userId);
+        $stmt->bind_param("ss", $newPassword, $userId);
 
         return $stmt->execute();
     }
@@ -129,14 +129,14 @@ class userModel
         return $result;
 
         }  
-}
+
     // Cart order
     // Hàm kiểm tra tạo và lấy orderid của bảng orders
     public function getOrCreatePendingOrder($userId)
     {
         $sql = "SELECT order_id FROM orders WHERE userId = ? AND status = 'pending'";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("i", $userId);
+        $stmt->bind_param("s", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -145,7 +145,7 @@ class userModel
         }
         $sql = "INSERT INTO orders (userId, status, created_at) VALUES (?, 'pending', NOW())";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("i", $userId);
+        $stmt->bind_param("s", $userId);
         $stmt->execute();
         return $this->connect->insert_id;
     }
@@ -209,12 +209,13 @@ class userModel
     {
         $sql = "SELECT * FROM orders WHERE userId = ? AND status = ?";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("is", $userId, $status);
+        $stmt->bind_param("ss", $userId, $status);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             return $result->fetch_all(MYSQLI_ASSOC);
-
+        }
+        }
     public function userLoginByGoogle($idFromGoogle, $email, $username)
     {
         $sql = "SELECT * FROM user WHERE userId='{$idFromGoogle}'";

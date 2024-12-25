@@ -207,7 +207,7 @@
                     <strong>Total</strong>
                     <span><?= number_format($data['total_amount'], 0, ',', '.') ?> VND</span>
                 </div>
-                <button class="btn-checkout mt-3 mb-4">GO TO CHECKOUT</button>
+                <button class="btn-checkout mt-3 mb-4" onclick="gotocheckout()">GO TO CHECKOUT</button>
             </div>
         </div>
 
@@ -324,6 +324,10 @@
             });
         });
 
+        const gotocheckout = () => {
+            window.location.href = '/user/checkout';
+        }
+
         function increment(foodId) {
             const quantityInput = document.getElementById(`quantity-${foodId}`);
             let currentValue = parseInt(quantityInput.value);
@@ -364,18 +368,18 @@
 
             removeButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    e.preventDefault(); 
-                    const orderItemId = this.getAttribute('data-order_item_id'); 
+                    e.preventDefault();
+                    const orderItemId = this.getAttribute('data-order_item_id');
                     fetch('/user/removeItem', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
                             },
                             body: new URLSearchParams({
-                                orderItemId: orderItemId, 
+                                orderItemId: orderItemId,
                             }),
                         })
-                        .then(response => response.json()) 
+                        .then(response => response.json())
                         .then(data => {
                             if (data.success) {
                                 const cartItem = this.closest('.cart-item');
