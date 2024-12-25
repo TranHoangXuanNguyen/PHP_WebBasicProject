@@ -102,41 +102,64 @@ class userController extends Controller
     }
 
     public function cart()
-{
-    $userId = $_SESSION['userId'] ?? null;
-    if (!$userId) {
-        die("User not logged in");
+    {
+        $userId = $_SESSION['userId'] ?? null;
+        if (!$userId) {
+            die("User not logged in");
+        }
+        $userModel = new UserModel();
+        $status = 'pending';
+        $order = $userModel->getOrderBystatus($userId, $status);
+        $orderId = $order[0]['order_id'];
+        if (!$orderId) {
+            die("Không tìm thấy đơn hàng với trạng thái '{$status}'!");
+        }
+        $orderItems = $userModel->getOrderItemsByOrderId($orderId);
+        $totalAmount = 0;
+        foreach ($orderItems as &$item) {
+            $item['total_price'] = $item['quantity'] * $item['price'];
+            $totalAmount += $item['total_price'];
+        }
+        $orderProcessing = $userModel->getOrderBystatus($userId, 'processing');
+        $orderComplelted = $userModel->getOrderBystatus($userId, 'completed');
+        $orderCanceled = $userModel->getOrderBystatus($userId, 'canceled');
+
+        $data = [
+            'processingOrder' => $orderProcessing,
+            'completedOrder' => $orderComplelted,
+            'canceledOrder' => $orderCanceled,
+            'orderItems' => $orderItems,
+            'total_amount' => $totalAmount,
+        ];
+        $this->view('Cart', $data);
     }
+    public function removeItem()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_item_id'])) {
+            $orderItemId = intval($_POST['order_item_id']);
 
-    $userModel = new UserModel();
-    
-    $orderId = $userModel->getPendingOrderId($userId);
-    if (!$orderId) {
-        die("Không tìm thấy giỏ hàng của bạn!");
+            $orderModel = new userModel();
+
+            $result = $orderModel->removeOrderItem($orderItemId);
+
+            if ($result) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Item removed successfully.',
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to remove item. Please try again.'
+                ]);
+            }
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Invalid request. Missing parameters.'
+            ]);
+        }
     }
-
-    $orderItems = $userModel->getOrderItemsByOrderId($orderId);
-
-    $totalAmount = 0;
-    foreach ($orderItems as &$item) {
-
-        $item['total_price'] = $item['quantity'] * $item['price'];
-
-        $totalAmount += $item['total_price'];
-    }
-
-    $data = [
-        'order' => $orderId,
-        'orderItems' => $orderItems,
-        'total_amount' => $totalAmount, // Total value of the cart
-    ];
-
-    // Call the view to display the cart
-    $this->view('Cart', $data);
-}
-
-
-
 
     public function validateInput($email, $phone, $password, $confirmPassword)
     {
