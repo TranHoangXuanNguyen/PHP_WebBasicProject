@@ -11,10 +11,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            /* font-family:Arial, Helvetica, sans-serif; */
         }
 
-        .search {
+        .search-food {
             display: flex;
             justify-content: flex-end;
         }
@@ -25,17 +25,15 @@
 
         }
 
-        .input-wrapper {
+        .search-box {
             position: relative;
             display: flex;
             align-items: center;
             /* Căn giữa icon và input theo chiều dọc */
-            margin: 1px 15px;
+            margin: 1px 11px;
         }
 
-        .input-wrapper input {
-            width: 100%;
-            /* Đảm bảo input chiếm đủ chiều rộng */
+        .search-box input {
             height: 35px;
             padding-left: 70px;
             /* Chừa khoảng trống để không bị icon che */
@@ -46,13 +44,14 @@
             background-color: #fdf0da;
         }
 
-        .research {
+        .research-icon {
             width: 35px;
             height: 35px;
             background-color: orange;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
             color: white;
             position: absolute;
             right: 0px;
@@ -65,7 +64,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border-radius: 10px;
-
+            /* max-width: 335px; */
+            min-height: 420px;
         }
 
         .food-item img {
@@ -78,12 +78,26 @@
         .food-item:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
         }
 
         .food-title {
             font-weight: bold;
             margin-bottom: 0px;
 
+        }
+
+        .food-title,
+        .price {
+            text-align: left;
+            margin-left: 10px;
+            display: block;
+            /* text-decoration: none; */
+        }
+
+        .food-title:hover {
+            color: black !important;
+            text-decoration: none;
         }
 
         .price {
@@ -103,11 +117,16 @@
         .my-4 {
             margin-bottom: 2.5rem !important;
         }
+
+        .price:hover {
+            color: #FF9F0D !important;
+            text-decoration: none !important;
+        }
     </style>
 </head>
 
 <body>
-<?php
+    <?php
     require_once("app/components/header.php");
     ?>
     <div class="container py-5">
