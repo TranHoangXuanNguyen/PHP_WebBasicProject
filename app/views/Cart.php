@@ -7,141 +7,9 @@
     <title>Shopping Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        .cart-header div,
-        .cart-item div {
-            flex: 2;
-            text-align: center;
-        }
-
-        .cart-header .product-info,
-        .cart-item .product-info {
-            flex: 2;
-            display: flex;
-            align-items: center;
-            justify-content: start;
-        }
-
-        .cart-header .remove-btn,
-        .cart-item .remove-btn {
-            flex: 0.5;
-            text-align: center;
-        }
-
-        .quantity-control {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .quantity-control button {
-            border: 1px solid #ddd;
-            background-color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            color: #333;
-            transition: background-color 0.3s;
-        }
-
-        .quantity-control button:hover {
-            background-color: #ff8800;
-            color: white;
-        }
-
-        .quantity-control input {
-            width: 50px;
-            text-align: center;
-            height: 30px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .remove-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .remove-btn i {
-            color: #ff7700;
-        }
-
-        .remove-btn:hover i {
-            color: #d9534f;
-        }
-
-        .btn-checkout {
-            background-color: #ff8800;
-            color: white;
-            font-weight: bold;
-            font-size: 13px;
-            border: none;
-            padding: 10px 0;
-            width: 100%;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-checkout:hover {
-            background-color: #ff7700;
-        }
-
-        .cart-summary {
-            border-top: 2px solid #ddd;
-            padding-top: 15px;
-            margin-top: 20px;
-        }
-
-        .cart-summary .d-flex {
-            margin-bottom: 10px;
-        }
-
-        .cart-summary .d-flex:last-child {
-            margin-bottom: 0;
-        }
-
-        .cart-summary span {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .status-pagination .page-item.active .page-link {
-            background-color: #ff8800;
-            color: white;
-            font-weight: bold;
-            border-color: #ff7700;
-        }
-
-        .status-pagination .page-link {
-            color: #6c757d;
-            transition: color 0.3s, background-color 0.3s;
-        }
-
-        .status-pagination .page-item:not(.active) .page-link:hover {
-            color: #ff8800;
-            background-color: #f8f9fa;
-        }
-
-        .image {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        .status-pagination {
-            gap: 5px;
-        }
-    </style>
+    <?php
+    require_once(__DIR__ . '/../assets/css/cart.css.php');
+    ?>
 </head>
 
 <body onload="showpending()">
@@ -183,154 +51,230 @@
                 <div class="total"><strong>Total</strong></div>
                 <div class="remove-btn"><strong>Remove</strong></div>
             </div>
-
-            <?php foreach ($data['orderItems'] as $orderItem): ?>
-                <div id="itemId-<?= $orderItem['order_item_id'] ?>">
+            <?php if (isset($data['orderItems']) && !empty($data['orderItems'])  && is_array($data['orderItems'])): ?>
+                <?php foreach ($data['orderItems'] as $orderItem): ?>
                     <div class="cart-item d-flex align-items-center mt-4">
                         <div class="product-info d-flex align-items-center">
-                            <img src="<?= $orderItem['foodImg'] ?>" alt="" class="image">
-                            <span class="ms-3"><?= $orderItem['foodName'] ?></span>
+                            <img src="<?= htmlspecialchars($orderItem['foodImg']) ?>" alt="" class="image">
+                            <span class="ms-3"><?= htmlspecialchars($orderItem['foodName']) ?></span>
+
                         </div>
                         <div class="price-<?= $orderItem['foodId'] ?> me-4"><?= number_format($orderItem['price'], 0, ',', '.') ?> VND</div>
                         <div class="quantity-control">
                             <button class="btn btn-sm" onclick="decrement(<?= $orderItem['foodId'] ?>)">-</button>
-                            <input id="quantity-<?= $orderItem['foodId'] ?>" type="text" value="<?= $orderItem['quantity'] ?>" class="form-control mx-2">
+                            <input id="quantity-<?= $orderItem['foodId'] ?>" type="text" value="<?= htmlspecialchars($orderItem['quantity']) ?>" class="form-control mx-2">
                             <button class="btn btn-sm" onclick="increment(<?= $orderItem['foodId'] ?>)">+</button>
                         </div>
-                        <div class="subtotal-<?= $orderItem['foodId'] ?> subtotal"><?= number_format($orderItem['total_price'], 0, ',', '.') ?> VND</div>
-                        <button class="remove-btn" data-id="<?php echo $orderItem['order_item_id']; ?>"><i class="fa fa-trash"></i></button>
-                        <!-- <?php var_dump($orderItem['order_item_id']); ?> -->
+                        <div class="subtotal-<?= $orderItem['foodId'] ?>"><?= number_format($orderItem['total_price'], 0, ',', '.') ?> VND</div>
+                        <button class="remove-btn" data-id="<?= htmlspecialchars($orderItem['order_item_id']) ?>"><i class="fa fa-trash"></i></button>
                     </div>
+                <?php endforeach; ?>
+
+                <div class="cart-summary mt-4">
+                    <div class="d-flex justify-content-between mt-2" id="total">
+                        <strong>Total</strong>
+                        <span><?= number_format($data['total_amount'], 0, ',', '.') ?> VND</span>
+                    </div>
+                    <button class="btn-checkout mt-3 mb-4" onclick="gotocheckout()">GO TO CHECKOUT</button>
+
                 </div>
-
-            <?php endforeach; ?>
-
-            <div class="cart-summary mt-4">
-                <div class="d-flex justify-content-between mt-2" id="total">
-                    <strong>Total</strong>
-                    <span class="totalAmount"><?= number_format($data['total_amount'], 0, ',', '.') ?> VND<span>
-                </div>
-                <button class="btn-checkout mt-3 mb-4" onclick="gotocheckout()">GO TO CHECKOUT</button>
-            </div>
-        </div>
-
-    </div>
-    <!-- Processing -->
-    <div id="processing">
-        <div class="cart-content m-5">
-            <div class="cart-header d-flex border-bottom pb-2">
-                <div class="OrderId"><strong>Order ID</strong></div>
-                <div class="userId"><strong>User Id</strong></div>
-                <div class="total"><strong>Total Amount</strong></div>
-                <div class="remove-btn"><strong>CanCel</strong></div>
-
-            </div>
-
-            <?php foreach ($data['processingOrder'] as $orderProcessing): ?>
-                <div class="cart-item d-flex align-items-center mt-4">
-                    <div class="OrderId d-flex align-items-center"><?= $orderProcessing['order_id'] ?></div>
-                    <div class="userId me-4"> <?= $orderProcessing['userId'] ?></div>
-                    <div class="total"><?= number_format($orderProcessing['total_amount'], 0, ',', '.') ?> VND</div>
-                    <button class="remove-btn"><i class="fa fa-times"></i></button>
-                </div>
-            <?php endforeach; ?>
-
-
+            <?php else: ?>
+            <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
+            <?php endif; ?>
         </div>
     </div>
 
+            <!-- Processing -->
+            <div id="processing">
+                <div class="cart-content m-5">
+                    <div class="cart-header d-flex border-bottom pb-2">
+                        <div class="OrderId"><strong>Order ID</strong></div>
+                        <div class="userId"><strong>User Id</strong></div>
+                        <div class="total"><strong>Total Amount</strong></div>
+                        <div class="remove-btn"><strong>CanCel</strong></div>
 
-    <!-- Completed -->
-    <div id="completed">
-        <div class="cart-content m-5">
-            <div class="cart-header d-flex border-bottom pb-2">
-                <div class="OrderId"><strong>Order ID</strong></div>
-                <div class="userId"><strong>User Id</strong></div>
-                <div class="total"><strong>Total Amount</strong></div>
+                    </div>
+            <?php if (isset($data['processingOrder']) && !empty($data['processingOrder'])): ?>
+                    <?php foreach ($data['processingOrder'] as $orderProcessing): ?>
+                        <div class="cart-item d-flex align-items-center mt-4 border-bottom">
+                            <div class="OrderId d-flex align-items-center justify-content-center"><?= $orderProcessing['order_id'] ?></div>
+                            <div class="userId me-4"> <?= $orderProcessing['userId'] ?></div>
+                            <div class="total"><?= number_format($orderProcessing['total_amount'], 0, ',', '.') ?> VND</div>
+                            <button class="remove-btn"><i class="fa fa-times"></i></button>
+                        </div>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+            <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
 
+            <?php endif; ?>
+                </div>
             </div>
 
-            <?php foreach ($data['completedOrder'] as $orderComplete): ?>
-                <div class="cart-item d-flex align-items-center mt-4">
-                    <div class="OrderId d-flex align-items-center"><?= $orderComplete['order_id'] ?></div>
-                    <div class="userId me-4"> <?= $orderComplete['userId'] ?></div>
-                    <div class="total"><?= number_format($orderComplete['total_amount'], 0, ',', '.') ?> VND</div>
+
+            <!-- Completed -->
+            <div id="completed">
+                <div class="cart-content m-5">
+                    <div class="cart-header d-flex border-bottom pb-2">
+                        <div class="OrderId"><strong>Order ID</strong></div>
+                        <div class="userId"><strong>User Id</strong></div>
+                        <div class="total"><strong>Total Amount</strong></div>
+
+                    </div>
+            <?php if (isset($data['completedOrder']) && !empty($data['completedOrder'])): ?>
+                    <?php foreach ($data['completedOrder'] as $orderComplete): ?>
+                        <div class="cart-item d-flex align-items-center mt-4 border-bottom">
+                            <div class="OrderId d-flex align-items-center justify-content-center"><?= $orderComplete['order_id'] ?></div>
+                            <div class="userId me-4"> <?= $orderComplete['userId'] ?></div>
+                            <div class="total"><?= number_format($orderComplete['total_amount'], 0, ',', '.') ?> VND</div>
+                        </div>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                 <div class="alert alert-warning text-center">Cart is empty!</div>
+
+            <?php endif; ?>
+
                 </div>
-            <?php endforeach; ?>
+            </div>
+            <!-- Cancel -->
+            <div id="canceled">
+                <div class="cart-content m-5">
+                    <div class="cart-header d-flex border-bottom pb-2">
+                        <div class="OrderId"><strong>Order ID</strong></div>
+                        <div class="userId"><strong>User Id</strong></div>
+                        <div class="total"><strong>Total Amount</strong></div>
 
+                    </div>
+            <?php if (isset($data['canceledOrder']) && !empty($data['canceledOrder'])): ?>
+                    <?php foreach ($data['canceledOrder'] as $orderCancel): ?>
+                        <div class="cart-item d-flex align-items-center mt-4 border-bottom">
+                            <div class="OrderId d-flex align-items-center justify-content-center"><?= $orderCancel['order_id'] ?></div>
+                            <div class="userId me-4"> <?= $orderCancel['userId'] ?></div>
+                            <div class="total"><?= number_format($orderCancel['total_amount'], 0, ',', '.') ?> VND</div>
+                        </div>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
+            <?php endif; ?>
 
-        </div>
-    </div>
-    <!-- Cancel -->
-    <div id="canceled">
-        <div class="cart-content m-5">
-            <div class="cart-header d-flex border-bottom pb-2">
-                <div class="OrderId"><strong>Order ID</strong></div>
-                <div class="userId"><strong>User Id</strong></div>
-                <div class="total"><strong>Total Amount</strong></div>
-
+                </div>
             </div>
 
-            <?php foreach ($data['canceledOrder'] as $orderCancel): ?>
-                <div class="cart-item d-flex align-items-center mt-4">
-                    <div class="OrderId d-flex align-items-center"><?= $orderCancel['order_id'] ?></div>
-                    <div class="userId me-4"> <?= $orderCancel['userId'] ?></div>
-                    <div class="total"><?= number_format($orderCancel['total_amount'], 0, ',', '.') ?> VND</div>
-                </div>
-            <?php endforeach; ?>
+            <script>
+                const pendingDiv = document.querySelector('#pending')
+                const processingDiv = document.querySelector('#processing')
+                const completedDiv = document.querySelector('#completed')
+                const canceledDiv = document.querySelector('#canceled')
 
+                const showpending = () => {
+                    pendingDiv.style.display = 'block';
+                    processingDiv.style.display = 'none';
+                    completedDiv.style.display = 'none';
+                    canceledDiv.style.display = 'none';
 
-        </div>
-    </div>
+                }
+                const showprocessing = () => {
+                    pendingDiv.style.display = 'none';
+                    processingDiv.style.display = 'block';
+                    completedDiv.style.display = 'none';
+                    canceledDiv.style.display = 'none';
 
-    <script>
-        const pendingDiv = document.querySelector('#pending')
-        const processingDiv = document.querySelector('#processing')
-        const completedDiv = document.querySelector('#completed')
-        const canceledDiv = document.querySelector('#canceled')
+                }
+                const showcompleted = () => {
+                    pendingDiv.style.display = 'none';
+                    processingDiv.style.display = 'none';
+                    completedDiv.style.display = 'block';
+                    canceledDiv.style.display = 'none';
 
-        const showpending = () => {
-            pendingDiv.style.display = 'block';
-            processingDiv.style.display = 'none';
-            completedDiv.style.display = 'none';
-            canceledDiv.style.display = 'none';
+                }
+                const showcanceled = () => {
+                    pendingDiv.style.display = 'none';
+                    processingDiv.style.display = 'none';
+                    completedDiv.style.display = 'none';
+                    canceledDiv.style.display = 'block';
 
-        }
-        const showprocessing = () => {
-            pendingDiv.style.display = 'none';
-            processingDiv.style.display = 'block';
-            completedDiv.style.display = 'none';
-            canceledDiv.style.display = 'none';
+                }
 
-        }
-        const showcompleted = () => {
-            pendingDiv.style.display = 'none';
-            processingDiv.style.display = 'none';
-            completedDiv.style.display = 'block';
-            canceledDiv.style.display = 'none';
-
-        }
-        const showcanceled = () => {
-            pendingDiv.style.display = 'none';
-            processingDiv.style.display = 'none';
-            completedDiv.style.display = 'none';
-            canceledDiv.style.display = 'block';
-
-        }
-
-        document.querySelectorAll('.page-item').forEach(function(pageItem) {
-            pageItem.addEventListener('click', function() {
-                document.querySelectorAll('.page-item').forEach(function(item) {
-                    item.classList.remove('active');
+                document.querySelectorAll('.page-item').forEach(function(pageItem) {
+                    pageItem.addEventListener('click', function() {
+                        document.querySelectorAll('.page-item').forEach(function(item) {
+                            item.classList.remove('active');
+                        });
+                        pageItem.classList.add('active');
+                    });
                 });
-                pageItem.classList.add('active');
-            });
-        });
 
-        const gotocheckout = () => {
-            window.location.href = '/user/checkout';
-        }
+                const gotocheckout = () => {
+                    window.location.href = '/user/checkout';
+                }
 
+                function increment(foodId) {
+                    const quantityInput = document.getElementById(`quantity-${foodId}`);
+                    let currentValue = parseInt(quantityInput.value);
+                    if (!isNaN(currentValue) && currentValue >= 0) {
+                        quantityInput.value = currentValue + 1;
+                        fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    foodId: foodId,
+                                    quantity: quantityInput.value
+                                })
+                            })
+                            .catch(error => {
+                                console.error('Lỗi khi cập nhật', error);
+                                alert("Lỗi kết nối, vui lòng thử lại.");
+                            });
+                    } else {
+                        console.error('Số lượng không hợp lệ');
+                        alert("Số lượng không hợp lệ.");
+                    }
+                }
+
+                function decrement(foodId) {
+                    const quantityInput = document.getElementById(`quantity-${foodId}`);
+                    let currentValue = parseInt(quantityInput.value);
+                    if (!isNaN(currentValue) && currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                    }
+                }
+
+                // hàm remove
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Lấy tất cả các nút xóa
+                    const removeButtons = document.querySelectorAll('.remove-btn');
+
+                    removeButtons.forEach(button => {
+                        button.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const orderItemId = this.getAttribute('data-order_item_id');
+                            fetch('/user/removeItem', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    body: new URLSearchParams({
+                                        orderItemId: orderItemId,
+                                    }),
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        const cartItem = this.closest('.cart-item');
+                                        cartItem.remove();
+
+                                        // Cập nhật tổng tiền trong giỏ hàng
+                                        const totalElement = document.getElementById('total');
+                                        totalElement.textContent = data.totalAmount; // Giả sử server trả về tổng tiền mới
+                                    } else {
+                                        alert(data.message); // Nếu thất bại, hiển thị thông báo lỗi
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Có lỗi xảy ra khi gửi request', error);
+                                    alert("An error occurred. Please try again.");
+                                });
         const updateTotalAmount = () => {
             var total = 0;
             var totalElement = document.querySelector('.totalAmount');
@@ -460,13 +404,12 @@
                             console.error('Have an error:', error);
                             alert("Có lỗi xảy ra, vui lòng thử lại sau.");
                         });
+                    });
                 });
-            });
-        });
-    </script>
-    <?php
-    include_once("app/components/footer.php");
-    ?>
+            </script>
+            <?php
+            include_once("app/components/footer.php");
+            ?>
 </body>
 
 </html>

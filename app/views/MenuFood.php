@@ -20,7 +20,6 @@
         <img src="\app\assets\img\Shop List.png" alt="Menu Banner" class="w-100 h-100 banner-image">
         <h1 class="position-absolute text-light text-center banner-title">MENU FOOD</h1>
     </div>
-
     <div class="menufood container">
         <?php if (isset($data) && is_array($data) && !empty($data)):
             $categories = [];

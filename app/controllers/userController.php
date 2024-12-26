@@ -157,9 +157,9 @@ class userController extends Controller
         $status = 'pending';
         $order = $userModel->getOrderBystatus($userId, $status);
         $orderId = $order[0]['order_id'];
-        if (!$orderId) {
-            die("Không tìm thấy đơn hàng với trạng thái '{$status}'!");
-        }
+        // if (!$orderId) {
+        //     die("Không tìm thấy đơn hàng với trạng thái '{$status}'!");
+        // }
         $orderItems = $userModel->getOrderItemsByOrderId($orderId);
         $totalAmount = 0;
         foreach ($orderItems as &$item) {
