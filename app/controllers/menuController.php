@@ -69,10 +69,9 @@ class MenuController extends Controller
             $userModel->addOrderItem($orderId, $foodId, $quantity, $price);
         }
         // Trả về thông báo thành công
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Sản phẩm đã được thêm vào giỏ hàng!',
-        ]);
+        $_SESSION['flash_message'] = "Item added to cart successfully!";
+    header("Location: /menu/show/".$foodId);  
+    exit;  
     }
     // ====================================================================================================================
     public function updateQuantity($foodId, $quantity)

@@ -22,6 +22,14 @@
     </div>
     <div class="overdetail">
         <div class="detail-container container py-3 pt-4">
+            <!-- alert add to cart success -->
+            <?php
+            // session_start();
+            if (isset($_SESSION['flash_message'])) {
+                echo "<div class='alert alert-success text-center fs-3'>{$_SESSION['flash_message']}</div>";
+                unset($_SESSION['flash_message']);
+            }
+            ?>
             <?php if (isset($fooddetail) && is_array($fooddetail) && !empty($fooddetail)) : ?>
                 <div class="row">
                     <div class="col-md-6 text-center">
