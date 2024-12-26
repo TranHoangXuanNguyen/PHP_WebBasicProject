@@ -117,13 +117,12 @@ class userModel
             while ($row = $result->fetch_assoc()) {
                 $items[] = $row;
             }
-        }
-        return $items;
-    }
-    public function updateStatus($status, $order_id)
-    {
+            return $items;
+    }      
+    public function updateStatus($status,$order_id,$subtotal){
+            
+        $sql = "UPDATE orders SET status = '$status',total_amount=$subtotal WHERE order_id = '$order_id' ";
 
-        $sql = "UPDATE orders SET status = '$status' WHERE order_id = '$order_id' ";
 
 
         $result = mysqli_query($this->connect, $sql);
