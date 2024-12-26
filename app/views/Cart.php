@@ -211,7 +211,6 @@
                                         itemDiv.style.display = 'none';
                                         itemDiv.remove();
                                         updateTotalAmount()
-
                                     } else {
                                         console.error('Lỗi khi xóa:', response.statusText);
                                     }
