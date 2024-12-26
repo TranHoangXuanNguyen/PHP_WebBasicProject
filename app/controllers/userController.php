@@ -179,33 +179,28 @@ class userController extends Controller
         ];
         $this->view('Cart', $data);
     }
-    public function removeItem()
+    public function removeItem($id)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_item_id'])) {
-            $orderItemId = intval($_POST['order_item_id']);
-
-            $orderModel = new userModel();
-
-            $result = $orderModel->removeOrderItem($orderItemId);
-
-            if ($result) {
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Item removed successfully.',
-                ]);
-            } else {
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Failed to remove item. Please try again.'
-                ]);
-            }
+        $userId = $_SESSION['userId'] ?? null;
+        if (!$userId) {
+            return false;
+        }
+        $userModel = new UserModel();
+        $status = 'pending';
+        $order = $userModel->getOrderBystatus($userId, $status);
+        if (empty($order)) {
+            return false;
+        }
+        $orderId = $order[0]['order_id'];
+        $orderModel = new userModel();
+        $result = $orderModel->removeOrderItem($id, $orderId);
+        if ($result) {
+            return true;
         } else {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Invalid request. Missing parameters.'
-            ]);
+            return false;
         }
     }
+
 
     public function validateInput($email, $phone, $password, $confirmPassword)
     {
@@ -258,14 +253,30 @@ class userController extends Controller
             } else {
                 $_SESSION['error_message'] = 'Cập nhật tài khoản thất bại!';
             }
-
-            
         }
-        
     }
     public function checkout()
     {
-            
+
+        $userId =  $_SESSION['userId'];
+        $orderModel = new userModel();
+        $order = $orderModel->getOrder($userId);
+        $subtotal = 0;
+        $_SESSION['orderIdPending'] = $order[0]['order_id'];
+
+        if (!empty($order) && is_array($order)) {
+            foreach ($order as $items) {
+                $subtotal += ($items['price'] * $items['quantity']);
+            }
+
+            $this->view('Checkout', ['items' => $order, 'subtotal' => $subtotal]);
+        } else {
+            echo "No food items";
+        }
+    }
+
+    public function confirmOrder() {
+           
         $userId =  $_SESSION['userId'];
         $orderModel = new userModel(); 
         $order = $orderModel->getOrder($userId); 
@@ -276,28 +287,18 @@ class userController extends Controller
             foreach ($order as $items) {
                 $subtotal+= ($items['price']*$items['quantity']);
             }
-
-            $this->view('Checkout', ['items' => $order, 'subtotal' => $subtotal]);
-
-        } else {
-            echo "No food items";
-        }
-        
-    }
-
-    public function confirmOrder() {
         $orderId = $_SESSION['orderIdPending'];
         $confirmModel = new userModel(); 
-        $confirm = $confirmModel->updateStatus('processing',$orderId); 
+        $confirm = $confirmModel->updateStatus('processing',$orderId,$subtotal); 
+        if($confirm){
+            header('Location: /user/cart');
+        }
+        
 
     }
     }
+}
     
-    
-
-
-
-
 
 
 class WelcomeMailer

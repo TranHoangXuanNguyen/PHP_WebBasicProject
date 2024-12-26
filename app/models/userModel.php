@@ -101,34 +101,34 @@ class userModel
         }
     }
     // Lấy sản phẩm để thêm vào trang thanh toán
-        public function getOrder($userId){
-            $sql = "SELECT 
+    public function getOrder($userId)
+    {
+        $sql = "SELECT 
                         f.foodName, f.foodImg, oi.price, oi.quantity, oi.foodId, oi.order_id
                         FROM orders o JOIN order_items oi 
                         ON o.order_id = oi.order_id JOIN fooditems f 
                         ON oi.foodId = f.foodId WHERE o.status = 'pending' and o.userId = '$userId' ";
-            
-            $result = mysqli_query($this->connect, $sql);
 
-            $items = [];
-            if ($result) {
-                
-                while ($row = $result->fetch_assoc()) {
-                    $items[] = $row;
-                }
+        $result = mysqli_query($this->connect, $sql);
+
+        $items = [];
+        if ($result) {
+
+            while ($row = $result->fetch_assoc()) {
+                $items[] = $row;
             }
             return $items;
     }      
-    public function updateStatus($status,$order_id){
+    public function updateStatus($status,$order_id,$subtotal){
             
-        $sql = "UPDATE orders SET status = '$status' WHERE order_id = '$order_id' ";
+        $sql = "UPDATE orders SET status = '$status',total_amount=$subtotal WHERE order_id = '$order_id' ";
+
 
 
         $result = mysqli_query($this->connect, $sql);
-    
-        return $result;
 
-        }  
+        return $result;
+    }
 
     // Cart order
     // Hàm kiểm tra tạo và lấy orderid của bảng orders
@@ -198,13 +198,14 @@ class userModel
         $stmt->bind_param("iiid", $orderId, $foodId, $quantity, $price);
         return $stmt->execute();
     }
-    public function removeOrderItem($order_item_id)
+    public function removeOrderItem($order_item_id, $order_Id)
     {
         $sql = "DELETE FROM order_items WHERE order_id = ? AND order_item_id = ?";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("i", $order_item_id);
+        $stmt->bind_param("ii", $order_Id, $order_item_id);
         return $stmt->execute();
     }
+
     public function getOrderBystatus($userId, $status)
     {
         $sql = "SELECT * FROM orders WHERE userId = ? AND status = ?";
@@ -215,7 +216,7 @@ class userModel
         if ($result->num_rows > 0) {
             return $result->fetch_all(MYSQLI_ASSOC);
         }
-        }
+    }
     public function userLoginByGoogle($idFromGoogle, $email, $username)
     {
         $sql = "SELECT * FROM user WHERE userId='{$idFromGoogle}'";

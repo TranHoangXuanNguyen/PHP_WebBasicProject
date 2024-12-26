@@ -146,7 +146,7 @@
                             <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Food Image">
                             <div class="card-body">
                                 <a href="<?php echo  "/menu/show/" . $food['foodId'] ?>" class="food-title"><?php echo $food['foodName']; ?></a>
-                                <a href="<?php echo  "/menu/show/" . $food['foodId'] ?>" class="price"><?php echo $food['price']; ?> VNĐ</a>
+                                <a href="<?php echo  "/menu/show/" . $food['foodId'] ?>" class="price"><?php echo number_format( $food['price'], 0, ',', '.'); ?> VNĐ</a>
                             </div>
                         </div>
                     </div>

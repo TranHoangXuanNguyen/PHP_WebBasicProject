@@ -57,6 +57,7 @@
                         <div class="product-info d-flex align-items-center">
                             <img src="<?= htmlspecialchars($orderItem['foodImg']) ?>" alt="" class="image">
                             <span class="ms-3"><?= htmlspecialchars($orderItem['foodName']) ?></span>
+
                         </div>
                         <div class="price-<?= $orderItem['foodId'] ?> me-4"><?= number_format($orderItem['price'], 0, ',', '.') ?> VND</div>
                         <div class="quantity-control">
@@ -75,6 +76,7 @@
                         <span><?= number_format($data['total_amount'], 0, ',', '.') ?> VND</span>
                     </div>
                     <button class="btn-checkout mt-3 mb-4" onclick="gotocheckout()">GO TO CHECKOUT</button>
+
                 </div>
             <?php else: ?>
             <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
@@ -273,6 +275,134 @@
                                     console.error('Có lỗi xảy ra khi gửi request', error);
                                     alert("An error occurred. Please try again.");
                                 });
+        const updateTotalAmount = () => {
+            var total = 0;
+            var totalElement = document.querySelector('.totalAmount');
+            var priceEachFoodItems = document.querySelectorAll('.subtotal');
+            priceEachFoodItems.forEach(function(subtotal) {
+                var priceText = subtotal.textContent || subtotal.innerText;
+                priceText = priceText.replace(' VND', '')
+                priceText = priceText.replace(/\./g, '');
+                var priceNumber = parseInt(priceText);
+                console.log(priceText);
+                total = total + priceNumber
+
+
+            });
+            totalElement.innerHTML = new Intl.NumberFormat('de-DE').format(total) + ' VND';
+
+        };
+
+
+        function increment(foodId) {
+            const quantityInput = document.getElementById(`quantity-${foodId}`);
+            const priceElement = document.querySelector(`.price-${foodId}`);
+            const totalPrice = document.querySelector(`.subtotal-${foodId}`);
+
+            var priceText = priceElement.textContent || priceElement.innerText;
+            priceText = priceText.replace(' VND', '')
+            priceText = priceText.replace(/\./g, '');
+
+            var priceNumber = parseInt(priceText);
+
+            let currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue) && currentValue >= 0) {
+                quantityInput.value = currentValue + 1;
+
+                totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
+                fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            foodId: foodId,
+                            quantity: quantityInput.value
+                        })
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi cập nhật', error);
+                        alert("Lỗi kết nối, vui lòng thử lại.");
+                    });
+            } else {
+                console.error('Số lượng không hợp lệ');
+                alert("Số lượng không hợp lệ.");
+            }
+            updateTotalAmount();
+        }
+
+        function decrement(foodId) {
+
+
+            const quantityInput = document.getElementById(`quantity-${foodId}`);
+            const priceElement = document.querySelector(`.price-${foodId}`);
+            const totalPrice = document.querySelector(`.subtotal-${foodId}`);
+
+            var priceText = priceElement.textContent || priceElement.innerText;
+            priceText = priceText.replace(' VND', '')
+            priceText = priceText.replace(/\./g, '');
+
+            var priceNumber = parseInt(priceText);
+
+            let currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue) && currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+
+                totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
+                fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            foodId: foodId,
+                            quantity: quantityInput.value
+                        })
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi cập nhật', error);
+                        alert("Lỗi kết nối, vui lòng thử lại.");
+                    });
+            } else {
+                console.error('Số lượng không hợp lệ');
+                alert("Số lượng không hợp lệ.");
+            }
+            updateTotalAmount();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const removeButtons = document.querySelectorAll('.remove-btn');
+
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const orderItemId = this.getAttribute('data-id');
+                    if (!orderItemId) {
+                        console.error("Item ID not found.");
+                        return;
+                    }
+
+                    const itemDiv = document.querySelector(`#itemId-${orderItemId}`);
+                    if (!itemDiv) {
+                        console.error("Item div not found.");
+                        return;
+                    }
+
+                    fetch(`/user/removeItem/${orderItemId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Mục đã được xóa thành công');
+                                itemDiv.style.display = 'none';
+                            } else {
+                                return Promise.reject('Lỗi khi xóa: ' + response.statusText);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Have an error:', error);
+                            alert("Có lỗi xảy ra, vui lòng thử lại sau.");
                         });
                     });
                 });
