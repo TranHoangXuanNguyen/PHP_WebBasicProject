@@ -185,27 +185,30 @@
             </div>
 
             <?php foreach ($data['orderItems'] as $orderItem): ?>
-                <div class="cart-item d-flex align-items-center mt-4">
-                    <div class="product-info d-flex align-items-center">
-                        <img src="<?= $orderItem['foodImg'] ?>" alt="" class="image">
-                        <span class="ms-3"><?= $orderItem['foodName'] ?></span>
+                <div id="itemId-<?= $orderItem['order_item_id'] ?>">
+                    <div class="cart-item d-flex align-items-center mt-4">
+                        <div class="product-info d-flex align-items-center">
+                            <img src="<?= $orderItem['foodImg'] ?>" alt="" class="image">
+                            <span class="ms-3"><?= $orderItem['foodName'] ?></span>
+                        </div>
+                        <div class="price-<?= $orderItem['foodId'] ?> me-4"><?= number_format($orderItem['price'], 0, ',', '.') ?> VND</div>
+                        <div class="quantity-control">
+                            <button class="btn btn-sm" onclick="decrement(<?= $orderItem['foodId'] ?>)">-</button>
+                            <input id="quantity-<?= $orderItem['foodId'] ?>" type="text" value="<?= $orderItem['quantity'] ?>" class="form-control mx-2">
+                            <button class="btn btn-sm" onclick="increment(<?= $orderItem['foodId'] ?>)">+</button>
+                        </div>
+                        <div class="subtotal-<?= $orderItem['foodId'] ?> subtotal"><?= number_format($orderItem['total_price'], 0, ',', '.') ?> VND</div>
+                        <button class="remove-btn" data-id="<?php echo $orderItem['order_item_id']; ?>"><i class="fa fa-trash"></i></button>
+                        <!-- <?php var_dump($orderItem['order_item_id']); ?> -->
                     </div>
-                    <div class="price-<?= $orderItem['foodId'] ?> me-4"><?= number_format($orderItem['price'], 0, ',', '.') ?> VND</div>
-                    <div class="quantity-control">
-                        <button class="btn btn-sm" onclick="decrement(<?= $orderItem['foodId'] ?>)">-</button>
-                        <input id="quantity-<?= $orderItem['foodId'] ?>" type="text" value="<?= $orderItem['quantity'] ?>" class="form-control mx-2">
-                        <button class="btn btn-sm" onclick="increment(<?= $orderItem['foodId'] ?>)">+</button>
-                    </div>
-                    <div class="subtotal-<?= $orderItem['foodId'] ?>"><?= number_format($orderItem['total_price'], 0, ',', '.') ?> VND</div>
-                    <button class="remove-btn" data-id="<?php echo $orderItem['order_item_id']; ?>"><i class="fa fa-trash"></i></button>
-                    <!-- <?php var_dump($orderItem['order_item_id']); ?> -->
                 </div>
+
             <?php endforeach; ?>
 
             <div class="cart-summary mt-4">
                 <div class="d-flex justify-content-between mt-2" id="total">
                     <strong>Total</strong>
-                    <span><?= number_format($data['total_amount'], 0, ',', '.') ?> VND</span>
+                    <span class="totalAmount"><?= number_format($data['total_amount'], 0, ',', '.') ?> VND<span>
                 </div>
                 <button class="btn-checkout mt-3 mb-4" onclick="gotocheckout()">GO TO CHECKOUT</button>
             </div>
@@ -328,11 +331,41 @@
             window.location.href = '/user/checkout';
         }
 
+        const updateTotalAmount = () => {
+            var total = 0;
+            var totalElement = document.querySelector('.totalAmount');
+            var priceEachFoodItems = document.querySelectorAll('.subtotal');
+            priceEachFoodItems.forEach(function(subtotal) {
+                var priceText = subtotal.textContent || subtotal.innerText;
+                priceText = priceText.replace(' VND', '')
+                priceText = priceText.replace(/\./g, '');
+                var priceNumber = parseInt(priceText);
+                console.log(priceText);
+                total = total + priceNumber
+
+
+            });
+            totalElement.innerHTML = new Intl.NumberFormat('de-DE').format(total) + ' VND';
+
+        };
+
+
         function increment(foodId) {
             const quantityInput = document.getElementById(`quantity-${foodId}`);
+            const priceElement = document.querySelector(`.price-${foodId}`);
+            const totalPrice = document.querySelector(`.subtotal-${foodId}`);
+
+            var priceText = priceElement.textContent || priceElement.innerText;
+            priceText = priceText.replace(' VND', '')
+            priceText = priceText.replace(/\./g, '');
+
+            var priceNumber = parseInt(priceText);
+
             let currentValue = parseInt(quantityInput.value);
             if (!isNaN(currentValue) && currentValue >= 0) {
                 quantityInput.value = currentValue + 1;
+
+                totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
                 fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
                         method: 'POST',
                         headers: {
@@ -351,50 +384,81 @@
                 console.error('Số lượng không hợp lệ');
                 alert("Số lượng không hợp lệ.");
             }
+            updateTotalAmount();
         }
 
         function decrement(foodId) {
+
+
             const quantityInput = document.getElementById(`quantity-${foodId}`);
+            const priceElement = document.querySelector(`.price-${foodId}`);
+            const totalPrice = document.querySelector(`.subtotal-${foodId}`);
+
+            var priceText = priceElement.textContent || priceElement.innerText;
+            priceText = priceText.replace(' VND', '')
+            priceText = priceText.replace(/\./g, '');
+
+            var priceNumber = parseInt(priceText);
+
             let currentValue = parseInt(quantityInput.value);
             if (!isNaN(currentValue) && currentValue > 1) {
                 quantityInput.value = currentValue - 1;
+
+                totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
+                fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            foodId: foodId,
+                            quantity: quantityInput.value
+                        })
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi cập nhật', error);
+                        alert("Lỗi kết nối, vui lòng thử lại.");
+                    });
+            } else {
+                console.error('Số lượng không hợp lệ');
+                alert("Số lượng không hợp lệ.");
             }
+            updateTotalAmount();
         }
 
-        // hàm remove
         document.addEventListener('DOMContentLoaded', function() {
-            // Lấy tất cả các nút xóa
             const removeButtons = document.querySelectorAll('.remove-btn');
 
             removeButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const orderItemId = this.getAttribute('data-order_item_id');
-                    fetch('/user/removeItem', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: new URLSearchParams({
-                                orderItemId: orderItemId,
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                const cartItem = this.closest('.cart-item');
-                                cartItem.remove();
 
-                                // Cập nhật tổng tiền trong giỏ hàng
-                                const totalElement = document.getElementById('total');
-                                totalElement.textContent = data.totalAmount; // Giả sử server trả về tổng tiền mới
+                    const orderItemId = this.getAttribute('data-id');
+                    if (!orderItemId) {
+                        console.error("Item ID not found.");
+                        return;
+                    }
+
+                    const itemDiv = document.querySelector(`#itemId-${orderItemId}`);
+                    if (!itemDiv) {
+                        console.error("Item div not found.");
+                        return;
+                    }
+
+                    fetch(`/user/removeItem/${orderItemId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Mục đã được xóa thành công');
+                                itemDiv.style.display = 'none';
                             } else {
-                                alert(data.message); // Nếu thất bại, hiển thị thông báo lỗi
+                                return Promise.reject('Lỗi khi xóa: ' + response.statusText);
                             }
                         })
                         .catch(error => {
-                            console.error('Có lỗi xảy ra khi gửi request', error);
-                            alert("An error occurred. Please try again.");
+                            console.error('Have an error:', error);
+                            alert("Có lỗi xảy ra, vui lòng thử lại sau.");
                         });
                 });
             });
