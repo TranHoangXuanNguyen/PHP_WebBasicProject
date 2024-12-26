@@ -118,9 +118,11 @@ class userModel
                 $items[] = $row;
             }
             return $items;
-    }      
-    public function updateStatus($status,$order_id,$subtotal){
-            
+        }
+    }
+    public function updateStatus($status, $order_id, $subtotal)
+    {
+
         $sql = "UPDATE orders SET status = '$status',total_amount=$subtotal WHERE order_id = '$order_id' ";
 
 
