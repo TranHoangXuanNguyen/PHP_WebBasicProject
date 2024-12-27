@@ -94,21 +94,28 @@
                 <div class="price"><strong>User ID</strong></div>
                 <div class="total"><strong>Total Amount</strong></div>
                 <div class="remove-btn"><strong>Create At</strong></div>
+                <div class="remove-btn"><strong>Action</strong></div>
             </div>
             <?php if (isset($data['processingOrder']) && !empty($data['processingOrder']) && is_array($data['processingOrder'])): ?>
                 <?php foreach ($data['processingOrder'] as $orderItem): ?>
-                    <div class="cart-item d-flex align-items-center mt-4">
-                        <div class="product-info d-flex ">
-                            <span class="ms-3"><?= $orderItem['order_id'] ?></span>
-                        </div>
-                        <div class="product-info d-flex ">
-                            <span class="ms-3"><?= $orderItem['userId'] ?></span>
-                        </div>
-                        <div><?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND</div>
-                        <div class="product-info d-flex ">
-                            <span class="ms-3"><?= $orderItem['created_at'] ?></span>
+                    <div id="cancle-<?= $orderItem['order_id'] ?>">
+                        <div class=" cart-item d-flex align-items-center mt-4">
+                            <div class="product-info d-flex ">
+                                <span class="ms-3"><?= $orderItem['order_id'] ?></span>
+                            </div>
+                            <div class="product-info d-flex ">
+                                <span class="ms-3"><?= $orderItem['userId'] ?></span>
+                            </div>
+                            <div><?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND</div>
+                            <div class="product-info d-flex ">
+                                <span class="ms-3"><?= $orderItem['created_at'] ?></span>
+                            </div>
+                            <div class="product-info d-flex ">
+                                <span class="ms-3 btn" onclick="cancle(<?= $orderItem['order_id'] ?>)">X</span>
+                            </div>
                         </div>
                     </div>
+
                 <?php endforeach; ?>
 
 
@@ -125,8 +132,8 @@
                 <div class="total"><strong>Total Amount</strong></div>
                 <div class="remove-btn"><strong>Create At</strong></div>
             </div>
-            <?php if (isset($data['completedOrder']) && !empty($data['processingOrder']) && is_array($data['processingOrder'])): ?>
-                <?php foreach ($data['processingOrder'] as $orderItem): ?>
+            <?php if (isset($data['completedOrder']) && !empty($data['completedOrder']) && is_array($data['completedOrder'])): ?>
+                <?php foreach ($data['completedOrder'] as $orderItem): ?>
                     <div class="cart-item d-flex align-items-center mt-4">
                         <div class="product-info d-flex ">
                             <span class="ms-3"><?= $orderItem['order_id'] ?></span>
@@ -157,8 +164,8 @@
                 <div class="total"><strong>Total Amount</strong></div>
                 <div class="remove-btn"><strong>Create At</strong></div>
             </div>
-            <?php if (isset($data['canceledOrder']) && !empty($data['processingOrder']) && is_array($data['processingOrder'])): ?>
-                <?php foreach ($data['processingOrder'] as $orderItem): ?>
+            <?php if (isset($data['canceledOrder']) && !empty($data['canceledOrder']) && is_array($data['canceledOrder'])): ?>
+                <?php foreach ($data['canceledOrder'] as $orderItem): ?>
                     <div class="cart-item d-flex align-items-center mt-4">
                         <div class="product-info d-flex ">
                             <span class="ms-3"><?= $orderItem['order_id'] ?></span>
@@ -178,152 +185,159 @@
                 <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
             <?php endif; ?>
         </div>
+    </div>
+    <?php
+    include_once("app/components/footer.php");
+    ?>
 
 
 
+    <!-- Processing, Completed, and Canceled sections should be similar as "pending" -->
 
-        <!-- Processing, Completed, and Canceled sections should be similar as "pending" -->
 
-        <script>
-            const pendingDiv = document.querySelector('#pending');
-            const processingDiv = document.querySelector('#processing');
-            const completedDiv = document.querySelector('#completed');
-            const canceledDiv = document.querySelector('#canceled');
+    <script>
+        const pendingDiv = document.querySelector('#pending');
+        const processingDiv = document.querySelector('#processing');
+        const completedDiv = document.querySelector('#completed');
+        const canceledDiv = document.querySelector('#canceled');
 
-            const showpending = () => {
-                pendingDiv.style.display = 'block';
-                processingDiv.style.display = 'none';
-                completedDiv.style.display = 'none';
-                canceledDiv.style.display = 'none';
+        const showpending = () => {
+            pendingDiv.style.display = 'block';
+            processingDiv.style.display = 'none';
+            completedDiv.style.display = 'none';
+            canceledDiv.style.display = 'none';
+        }
+
+        const showprocessing = () => {
+            pendingDiv.style.display = 'none';
+            processingDiv.style.display = 'block';
+            completedDiv.style.display = 'none';
+            canceledDiv.style.display = 'none';
+        }
+
+        const showcompleted = () => {
+            pendingDiv.style.display = 'none';
+            processingDiv.style.display = 'none';
+            completedDiv.style.display = 'block';
+            canceledDiv.style.display = 'none';
+        }
+
+        const showcanceled = () => {
+            pendingDiv.style.display = 'none';
+            processingDiv.style.display = 'none';
+            completedDiv.style.display = 'none';
+            canceledDiv.style.display = 'block';
+        }
+
+        document.querySelectorAll('.page-item').forEach(function(pageItem) {
+            pageItem.addEventListener('click', function() {
+                document.querySelectorAll('.page-item').forEach(function(item) {
+                    item.classList.remove('active');
+                });
+                pageItem.classList.add('active');
+            });
+        });
+
+        const cancle = ($id) => {
+            fetch(`/admin/confirmOrder/${$id}/2`)
+            document.querySelector(`#cancle-${$id}`).remove();
+        }
+
+        const gotocheckout = () => {
+            window.location.href = '/user/checkout';
+        }
+
+        const updateTotalAmount = () => {
+            let total = 0;
+            document.querySelectorAll('.subtotal').forEach(function(subtotal) {
+                let priceText = subtotal.textContent.replace(' VND', '').replace(/\./g, '');
+                total += parseInt(priceText);
+                console.log(priceText);
+            });
+            document.querySelector('.totalAmount').innerHTML = new Intl.NumberFormat('de-DE').format(total) + ' VND';
+        };
+
+        function increment(foodId) {
+            const quantityInput = document.getElementById(`quantity-${foodId}`);
+            const totalPrice = document.querySelector(`.subtotal-${foodId}`);
+            const priceNumber = parseInt(document.querySelector(`.price-${foodId}`).textContent.replace(' VND', '').replace(/\./g, ''));
+            let currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue) && currentValue >= 0) {
+                quantityInput.value = currentValue + 1;
+                totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
+                updateTotalAmount();
+                fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        foodId,
+                        quantity: quantityInput.value
+                    })
+                }).catch(error => {
+                    console.error('Lỗi khi cập nhật', error);
+                    alert("Lỗi kết nối, vui lòng thử lại.");
+                });
             }
+        }
 
-            const showprocessing = () => {
-                pendingDiv.style.display = 'none';
-                processingDiv.style.display = 'block';
-                completedDiv.style.display = 'none';
-                canceledDiv.style.display = 'none';
+        function decrement(foodId) {
+            const quantityInput = document.getElementById(`quantity-${foodId}`);
+            const totalPrice = document.querySelector(`.subtotal-${foodId}`);
+            const priceNumber = parseInt(document.querySelector(`.price-${foodId}`).textContent.replace(' VND', '').replace(/\./g, ''));
+            let currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue) && currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
+                updateTotalAmount();
+                fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        foodId,
+                        quantity: quantityInput.value
+                    })
+                }).catch(error => {
+                    console.error('Lỗi khi cập nhật', error);
+                    alert("Lỗi kết nối, vui lòng thử lại.");
+                });
             }
+        }
 
-            const showcompleted = () => {
-                pendingDiv.style.display = 'none';
-                processingDiv.style.display = 'none';
-                completedDiv.style.display = 'block';
-                canceledDiv.style.display = 'none';
-            }
-
-            const showcanceled = () => {
-                pendingDiv.style.display = 'none';
-                processingDiv.style.display = 'none';
-                completedDiv.style.display = 'none';
-                canceledDiv.style.display = 'block';
-            }
-
-            document.querySelectorAll('.page-item').forEach(function(pageItem) {
-                pageItem.addEventListener('click', function() {
-                    document.querySelectorAll('.page-item').forEach(function(item) {
-                        item.classList.remove('active');
-                    });
-                    pageItem.classList.add('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const orderItemId = this.getAttribute('data-id');
+                    if (orderItemId) {
+                        const itemDiv = document.querySelector(`#itemId-${orderItemId}`);
+                        fetch(`/user/removeItem/${orderItemId}`, {
+                                method: 'DELETE'
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    itemDiv.style.display = 'none';
+                                    itemDiv.remove();
+                                    updateTotalAmount()
+                                } else {
+                                    console.error('Lỗi khi xóa:', response.statusText);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Có lỗi xảy ra:', error);
+                                alert("Có lỗi xảy ra, vui lòng thử lại sau.");
+                            });
+                    }
                 });
             });
+        });
+    </script>
 
-            const gotocheckout = () => {
-                window.location.href = '/user/checkout';
-            }
 
-            const updateTotalAmount = () => {
-                let total = 0;
-                document.querySelectorAll('.subtotal').forEach(function(subtotal) {
-                    let priceText = subtotal.textContent.replace(' VND', '').replace(/\./g, '');
-                    total += parseInt(priceText);
-                    console.log(priceText);
-                });
-                document.querySelector('.totalAmount').innerHTML = new Intl.NumberFormat('de-DE').format(total) + ' VND';
-            };
-
-            function increment(foodId) {
-                const quantityInput = document.getElementById(`quantity-${foodId}`);
-                const totalPrice = document.querySelector(`.subtotal-${foodId}`);
-                const priceNumber = parseInt(document.querySelector(`.price-${foodId}`).textContent.replace(' VND', '').replace(/\./g, ''));
-                let currentValue = parseInt(quantityInput.value);
-                if (!isNaN(currentValue) && currentValue >= 0) {
-                    quantityInput.value = currentValue + 1;
-                    totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
-                    updateTotalAmount();
-                    fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            foodId,
-                            quantity: quantityInput.value
-                        })
-                    }).catch(error => {
-                        console.error('Lỗi khi cập nhật', error);
-                        alert("Lỗi kết nối, vui lòng thử lại.");
-                    });
-                }
-            }
-
-            function decrement(foodId) {
-                const quantityInput = document.getElementById(`quantity-${foodId}`);
-                const totalPrice = document.querySelector(`.subtotal-${foodId}`);
-                const priceNumber = parseInt(document.querySelector(`.price-${foodId}`).textContent.replace(' VND', '').replace(/\./g, ''));
-                let currentValue = parseInt(quantityInput.value);
-                if (!isNaN(currentValue) && currentValue > 1) {
-                    quantityInput.value = currentValue - 1;
-                    totalPrice.innerHTML = new Intl.NumberFormat('de-DE').format(priceNumber * quantityInput.value) + ' VND';
-                    updateTotalAmount();
-                    fetch(`/menu/updateQuantity/${foodId}/${quantityInput.value}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            foodId,
-                            quantity: quantityInput.value
-                        })
-                    }).catch(error => {
-                        console.error('Lỗi khi cập nhật', error);
-                        alert("Lỗi kết nối, vui lòng thử lại.");
-                    });
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const removeButtons = document.querySelectorAll('.remove-btn');
-                removeButtons.forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const orderItemId = this.getAttribute('data-id');
-                        if (orderItemId) {
-                            const itemDiv = document.querySelector(`#itemId-${orderItemId}`);
-                            fetch(`/user/removeItem/${orderItemId}`, {
-                                    method: 'DELETE'
-                                })
-                                .then(response => {
-                                    if (response.ok) {
-                                        itemDiv.style.display = 'none';
-                                        itemDiv.remove();
-                                        updateTotalAmount()
-                                    } else {
-                                        console.error('Lỗi khi xóa:', response.statusText);
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Có lỗi xảy ra:', error);
-                                    alert("Có lỗi xảy ra, vui lòng thử lại sau.");
-                                });
-                        }
-                    });
-                });
-            });
-        </script>
-
-        <?php
-        include_once("app/components/footer.php");
-        ?>
 </body>
 
 </html>

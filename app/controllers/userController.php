@@ -156,7 +156,12 @@ class userController extends Controller
         $userModel = new UserModel();
         $status = 'pending';
         $order = $userModel->getOrderBystatus($userId, $status);
-        $orderId = $order[0]['order_id'];
+        if ($order) {
+            $orderId = $order[0]['order_id'];
+        } else {
+            $orderId = null;
+        }
+
         // if (!$orderId) {
         //     die("Không tìm thấy đơn hàng với trạng thái '{$status}'!");
         // }
@@ -275,30 +280,29 @@ class userController extends Controller
         }
     }
 
-    public function confirmOrder() {
-           
+    public function confirmOrder()
+    {
+
         $userId =  $_SESSION['userId'];
-        $orderModel = new userModel(); 
-        $order = $orderModel->getOrder($userId); 
-        $subtotal = 0; 
+        $orderModel = new userModel();
+        $order = $orderModel->getOrder($userId);
+        $subtotal = 0;
         $_SESSION['orderIdPending'] = $order[0]['order_id'];
-    
+
         if (!empty($order) && is_array($order)) {
             foreach ($order as $items) {
-                $subtotal+= ($items['price']*$items['quantity']);
+                $subtotal += ($items['price'] * $items['quantity']);
             }
-        $orderId = $_SESSION['orderIdPending'];
-        $confirmModel = new userModel(); 
-        $confirm = $confirmModel->updateStatus('processing',$orderId,$subtotal); 
-        if($confirm){
-            header('Location: /user/cart');
+            $orderId = $_SESSION['orderIdPending'];
+            $confirmModel = new userModel();
+            $confirm = $confirmModel->updateStatus('processing', $orderId, $subtotal);
+            if ($confirm) {
+                header('Location: /user/cart');
+            }
         }
-        
-
-    }
     }
 }
-    
+
 
 
 class WelcomeMailer
