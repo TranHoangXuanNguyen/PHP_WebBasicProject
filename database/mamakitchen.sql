@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2024 at 03:59 PM
+-- Generation Time: Dec 27, 2024 at 03:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,6 +41,25 @@ INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
 (2, 'Start menu'),
 (3, 'Dessert menu'),
 (4, 'Drink');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `user_id` varchar(250) NOT NULL,
+  `content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`user_id`, `content`) VALUES
+('0c5d68935bc39787', 'Ho Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa Be'),
+('voGqLSY72LTfcQ60yBmt3dlYyQS2', 'Quaooooooo, qua la vip\r\n');
 
 -- --------------------------------------------------------
 
@@ -131,10 +150,18 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `userId`, `status`, `total_amount`, `created_at`) VALUES
 (5, '0c5d68935bc39787', 'canceled', 200000.00, '2024-12-25 04:22:36'),
-(8, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'processing', 0.00, '2024-12-25 14:07:22'),
-(9, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'processing', 280000.00, '2024-12-25 14:23:24'),
-(10, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'pending', 0.00, '2024-12-26 14:32:02'),
-(11, '0c5d68935bc39787', 'pending', 0.00, '2024-12-26 14:49:52');
+(8, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 0.00, '2024-12-25 14:07:22'),
+(9, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'completed', 280000.00, '2024-12-25 14:23:24'),
+(10, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 720000.00, '2024-12-26 14:32:02'),
+(11, '0c5d68935bc39787', 'processing', 360000.00, '2024-12-26 14:49:52'),
+(12, '0c5d68935bc39787', 'pending', 0.00, '2024-12-26 15:10:54'),
+(13, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 120000.00, '2024-12-27 03:17:37'),
+(14, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 60000.00, '2024-12-27 03:18:12'),
+(15, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 180000.00, '2024-12-27 03:20:29'),
+(16, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 270000.00, '2024-12-27 03:21:21'),
+(17, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 550000.00, '2024-12-27 03:22:05'),
+(18, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 1020000.00, '2024-12-27 07:00:26'),
+(19, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 95000.00, '2024-12-27 07:16:42');
 
 -- --------------------------------------------------------
 
@@ -156,8 +183,17 @@ CREATE TABLE `order_items` (
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `foodId`, `quantity`, `price`) VALUES
 (14, 9, 13, 4, 70000.00),
-(17, 10, 9, 8, 120000.00),
-(22, 11, 12, 4, 90000.00);
+(17, 10, 9, 5, 120000.00),
+(22, 11, 12, 4, 90000.00),
+(31, 10, 15, 3, 40000.00),
+(32, 13, 9, 1, 120000.00),
+(33, 14, 21, 1, 60000.00),
+(34, 15, 12, 2, 90000.00),
+(35, 16, 12, 3, 90000.00),
+(36, 17, 18, 1, 550000.00),
+(37, 18, 3, 6, 95000.00),
+(38, 18, 12, 5, 90000.00),
+(39, 19, 3, 1, 95000.00);
 
 -- --------------------------------------------------------
 
@@ -203,6 +239,12 @@ INSERT INTO `user` (`userId`, `fullName`, `email`, `passWord`, `avataImg`, `addr
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryId`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `fooditems`
@@ -252,17 +294,23 @@ ALTER TABLE `fooditems`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD CONSTRAINT `fk_user_cmt` FOREIGN KEY (`user_id`) REFERENCES `user` (`userId`);
 
 --
 -- Constraints for table `fooditems`
