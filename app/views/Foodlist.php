@@ -32,7 +32,9 @@
             /* Căn giữa icon và input theo chiều dọc */
             margin: 1px 11px;
         }
-
+        .search-box i{
+            text-align: center;
+        }
         .search-box input {
             height: 35px;
             padding-left: 70px;
@@ -57,6 +59,7 @@
             right: 0px;
             /* Icon sát mép trái */
             border-radius: 0px 5px 5px 0px;
+            border: none;
         }
 
         .food-item {
@@ -122,6 +125,9 @@
             color: #FF9F0D !important;
             text-decoration: none !important;
         }
+        .search{
+            margin-top: 40px !important;
+        }
     </style>
 </head>
 
@@ -133,11 +139,42 @@
         <!-- Ô tìm kiếm -->
         <div class="row mb-4 search-food">
             <div class="search-box">
-                <input type="text" placeholder="Search Product..." name="search">
-                <i class="fa fa-search research-icon"></i>
-            </div>
-        </div>
+                <form action="/menu/search" method="GET">
+                        <input type="text" placeholder="Search Product..." name="search" required>
+                        <button type="submit" class="research-icon">
+                            <i class="fa fa-search"></i>
+                        </button>
+                </form>
 
+            </div>
+            <!-- Hiển thị sản phẩm tìm kiếm -->
+            <div class="search">
+                <?php if (!empty($foodSearch)): ?>
+                        <div class="row">
+                            <?php foreach ($foodSearch as $food): ?>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card food-item">
+                                        <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Food Image">
+                                        <div class="card-body">
+                                            <a href="/menu/show/<?php echo $food['foodId']; ?>" class="food-title">
+                                                <?php echo $food['foodName']; ?>
+                                            </a>
+                                            <a href="/menu/show/<?php echo $food['foodId']; ?>" class="price">
+                                                <?php echo number_format($food['price'], 0, ',', '.'); ?> VNĐ
+                                            </a>
+                                        </div>
+                                    </div>
+                                        </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php elseif (!empty($message)): ?>
+                            <p class="text-center"><?php echo $message; ?></p> 
+                        <?php endif; ?>
+
+            </div>   
+             
+        </div>
+        <!-- Hiển thị tất cả sản phẩm có trong menu-->
         <?php if (!empty($data['items'])): ?>
             <div class="row">
                 <?php foreach ($data['items'] as $food): ?>
@@ -152,8 +189,6 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php else: ?>
-            <p class="text-center">Không có món ăn nào được tìm thấy.</p>
         <?php endif; ?>
     </div>
     <?php
