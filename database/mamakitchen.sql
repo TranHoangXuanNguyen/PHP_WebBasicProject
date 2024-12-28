@@ -241,12 +241,6 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryId`);
 
 --
--- Indexes for table `feedback`
---
-ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`user_id`);
-
---
 -- Indexes for table `fooditems`
 --
 ALTER TABLE `fooditems`
