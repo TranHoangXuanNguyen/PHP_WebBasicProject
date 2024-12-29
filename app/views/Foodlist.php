@@ -29,7 +29,6 @@
             position: relative;
             display: flex;
             align-items: center;
-            /* Căn giữa icon và input theo chiều dọc */
             margin: 1px 11px;
         }
         .search-box i{
@@ -139,7 +138,7 @@
         <!-- Ô tìm kiếm -->
         <div class="row mb-4 search-food">
             <div class="search-box">
-                <form action="/menu/search" method="GET">
+                <form action="/menu/search" class="search-box" method="GET">
                         <input type="text" placeholder="Search Product..." name="search" required>
                         <button type="submit" class="research-icon">
                             <i class="fa fa-search"></i>
