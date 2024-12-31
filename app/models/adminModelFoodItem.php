@@ -252,7 +252,7 @@ class AdminModelFooditem
             error_log("Error preparing SQL statement: " . $this->connect->error);
             return false;
         }
-        $stmt->bind_param("si", $status, $order_id); 
+        $stmt->bind_param("si", $status, $order_id);
         $result = $stmt->execute();
         if ($result) {
             return true;
@@ -260,9 +260,39 @@ class AdminModelFooditem
             error_log("Error executing SQL: " . $stmt->error);
             return false;
         }
-    
+
         // Close the prepared statement
         $stmt->close();
     }
-    
+    public function getTableByStatus($status)
+    {
+        $sql = "SELECT * FROM reservations WHERE status = '$status'";
+        $result = mysqli_query($this->connect, $sql);
+        $listTable = [];
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                // $table = new AdminModelFooditem();
+                // $table->tableId = $row['tableId'];
+                // $table->status = $row['status'];
+                $listTable[] = $row;
+            }
+            return $listTable;
+        }
+    }
+
+    public function setBooking($id, $status)
+    {
+        if ($status === 'yes') {
+            $input = 'cancelled';
+        } else {
+            $input = 'done';
+        }
+        $sql = "UPDATE `reservations` SET `status` = ? WHERE `id` = ?;";
+        if ($stmt = $this->connect->prepare($sql)) {
+            $stmt->bind_param("si", $input, $id);
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
 }

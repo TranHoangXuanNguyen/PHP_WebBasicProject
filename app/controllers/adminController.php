@@ -75,7 +75,7 @@ class AdminController extends Controller
     public function fetchdata($page)
     {
 
-        $allowed_pages = ['Dashboard', 'FoodItem', 'User', 'Confirm'];
+        $allowed_pages = ['Dashboard', 'FoodItem', 'User', 'Confirm', 'Booking'];
         if ($page == 'Dashboard') {
             $objDataF = new AdminModelFooditem();
             $objDataU = new AdminModelFooditem();
@@ -97,6 +97,11 @@ class AdminController extends Controller
             $objData = new AdminModelFooditem();
             $listdata = $objData->getOrder('processing');
             $data = ['listOrderProcess' => $listdata];
+        }
+        if ($page == 'Booking') {
+            $objData = new AdminModelFooditem();
+            $listdata = $objData->getTableByStatus('pending');
+            $data = ['listTablePending' => $listdata];
         }
         if (in_array($page, $allowed_pages)) {
             $this->view('/admin/' . $page, $data);
@@ -195,6 +200,19 @@ class AdminController extends Controller
         $objtransfer1 = new AdminModelFooditem();
         $result = $objtransfer1->confirmOrder($order_id, $isConfirm);
         return $result;
+    }
+
+    public function setBookingStatus($id, $status)
+    {
+        $objtransfer = new AdminModelFooditem();
+        $result = $objtransfer->setBooking($id, $status);
+        if ($result) {
+            http_response_code(200);  // Success
+            echo json_encode(['message' => 'Booking canceled successfully']);
+        } else {
+            http_response_code(400);  // Bad request or failure
+            echo json_encode(['message' => 'Failed to cancel booking']);
+        }
     }
 }
 

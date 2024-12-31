@@ -21,10 +21,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                             <a class="nav-link" href="/Blog">Blogs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Booking">Booking</a>
+                            <a class="nav-link" href="/home/bookingTable">Booking</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="home/AboutUs">AboutUs</a>
+                            <a class="nav-link" href="/home/AboutUs">AboutUs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Menu">Menu</a>

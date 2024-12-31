@@ -184,7 +184,7 @@
                     <p class="text-muted mb-0"><?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?> </p>
                 </div>
             </div>
-            <a class="btn btn-outline-secondary btn-md sign-button" id="LogoutGG" >Sign out</a>
+            <a class="btn btn-outline-secondary btn-md sign-button" id="LogoutGG">Sign out</a>
         </div>
 
         <div class="row px-5 big-box edit-box">
@@ -219,6 +219,7 @@
                         <button type="submit" class="btn btn-save pricolor">Save</button>
                     </form>
                 </div>
+
                 <div class="container mt-5 view-profile">
                     <div class="row px-5 big-box ">
                         <div class="col-sm-7 form">
@@ -231,11 +232,49 @@
                             <p class="inforText"><span></span></p>
                         </div>
                     </div>
-
                 </div>
 
-            </div>
+                <div class="container mt-5 view-booking" style='display:none;'>
+                    <div class="row px-5 big-box ">
+                        <div class="form">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Table Id</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Start Time</th>
+                                        <th scope="col">End Time</th>
+                                        <th scope="col">Num of guest</th>
+                                        <th scope="col">Action</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody class="tablebody">
+                                    <?php
+                                    foreach ($data as $dataitem) {
+                                        echo "
+    <tr id='session-{$dataitem['id']}'>
+        <th scope='row'>{$dataitem['id']}</th>
+        <td>{$dataitem['table_id']}</td>
+        <td>{$dataitem['date']}</td>
+        <td>{$dataitem['startTime']}</td>
+        <td>{$dataitem['endTime']}</td>
+        <td>{$dataitem['num_guests']}</td>
+        <td>
+            <button type='button' class='updatebtn btn-warning btn' onclick='cancleBooking({$dataitem['id']})'><i class='bi bi-file-earmark-plus-fill'></i>Cancle</button>
+        </td>
+    </tr>
+    ";
+                                    }
+                                    ?>
+                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-5">
                 <div class="profile">
                     <div class="view_session">
@@ -250,36 +289,69 @@
                             <p class="text" id="editBtn"> Edit profile</p>
                         </div>
                     </div>
+                    <div class="edit_session">
+                        <div class="edit">
+                            <i class="fa-solid fa-pencil blackIco"></i>
+                            <p class="text" id="bookBtn">Book Table</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 
-
     <?php
     require_once("app/components/footer.php");
     ?>
-
-
     <!-- View Profile -->
 
-
     <script>
+        const cancleBooking = (id) => {
+            console.log(`Cancelling booking with ID: ${id}`);
+            fetch(`/user/cancleBookking/${id}`)
+                .then((response) => {
+                    if (response.ok) {
+                        console.log(`Booking ${id} cancelled successfully.`);
+                        const sessionElement = document.querySelector(`#session-${id}`);
+                        if (sessionElement) {
+                            sessionElement.remove();
+                        } else {
+                            console.error(`Element with ID #session-${id} not found.`);
+                        }
+                    } else {
+                        console.error(`Failed to cancel booking ${id}. Status: ${response.status}`);
+                    }
+                })
+                .catch((error) => {
+                    console.error(`Error cancelling booking ${id}:`, error);
+                });
+        };
+
         const viewBtn = document.getElementById("viewBtn");
         const editBtn = document.getElementById("editBtn");
+        const bookBtn = document.getElementById("bookBtn");
 
         const viewSession = document.querySelector(".view-profile");
         const editSession = document.querySelector(".pf-edit");
+        const bookingSession = document.querySelector(".view-booking");
 
         viewBtn.addEventListener("click", () => {
             viewSession.style.display = 'block';
             editSession.style.display = 'none';
+            bookingSession.style.display = 'none';
         });
 
         editBtn.addEventListener("click", () => {
             viewSession.style.display = 'none';
             editSession.style.display = 'block';
+            bookingSession.style.display = 'none';
+        });
+
+        bookBtn.addEventListener("click", () => {
+            viewSession.style.display = 'none';
+            editSession.style.display = 'none';
+            bookingSession.style.display = 'block';
         });
     </script>
 
@@ -287,12 +359,8 @@
         import {
             signOutUser
         } from '/app/firebaseAuthen/authen.js';
-
         document.getElementById('LogoutGG').addEventListener('click', signOutUser);
     </script>
-
-
-
 </body>
 
 </html>

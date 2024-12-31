@@ -5,6 +5,8 @@ require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
 require_once __DIR__ . '/../mailler/src/SMTP.php';
 require_once(__DIR__ . '/../models/userModel.php');
+require_once(__DIR__ . '/../models/HomeModel.php');
+
 
 global $conn;
 
@@ -18,6 +20,8 @@ class userController extends Controller
         $data = ['default'];
         $this->view('Login', $data);
     }
+
+
     function userLogin()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -103,16 +107,12 @@ class userController extends Controller
             exit;
         }
     }
-
-
     // register
     public function register()
     {
         $data = ['default'];
         $this->view('Register', $data);
     }
-
-
     public function userRegister()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -125,13 +125,10 @@ class userController extends Controller
         }
         $registerController = new userController();
         $isValid = $registerController->validateInput($email, $phone, $password, $confirmPassword);
-
         if (!$isValid) {
             $registerController->view('Register', ['error' => $_SESSION['error_message']]);
             unset($_SESSION['error_message']);
         } else {
-
-
             $registerModel = new userModel();
             $result = $registerModel->registerUser($fullName, $email, $phone, $password, $dob);
             if ($result === true) {
@@ -233,7 +230,12 @@ class userController extends Controller
 
     public function profile()
     {
-        $data = ['default'];
+        $userId = $_SESSION['userId'] ?? null;
+        if (!$userId) {
+            return false;
+        }
+        $homeModel = new HomeModel();
+        $data = $homeModel->getRes($userId);
         $this->view('Profile', $data);
     }
 
@@ -299,6 +301,19 @@ class userController extends Controller
             if ($confirm) {
                 header('Location: /user/cart');
             }
+        }
+    }
+
+    public function cancleBookking($id)
+    {
+        $homeModel = new HomeModel();
+        $result = $homeModel->setBooking($id, 'cancelled');
+        if ($result) {
+            http_response_code(200);  // Success
+            echo json_encode(['message' => 'Booking canceled successfully']);
+        } else {
+            http_response_code(400);  // Bad request or failure
+            echo json_encode(['message' => 'Failed to cancel booking']);
         }
     }
 }
