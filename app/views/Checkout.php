@@ -15,9 +15,9 @@
 
 <body>
 
-<?php
+    <?php
     require_once("app/components/header.php");
-?>
+    ?>
 
     <!-- Banner -->
     <div class="menu-banner d-flex align-items-center justify-content-center position-relative">
@@ -61,21 +61,21 @@
                                 <div class="card-food d-flex mb-3">
                                     <img src="<?php echo  $order['foodImg']; ?>" class="foodselect" alt="Food Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 15px;">
                                     <div class="card-body food-order">
-                                        <h6 class="card-title" style="font-weight:bold;"><?php echo$order['foodName']; ?></h6>
-                                        <p class="card-text orderprice"><small class="text-body-secondary"><?php echo number_format( $order['price'], 0, ',', '.'); ?> VNĐ</small></p>
-                                        <p class="card-text orderquantity"><small class="text-body-secondary">Quantity: <?php echo  $order['quantity']?></small></p>
+                                        <h6 class="card-title" style="font-weight:bold;"><?php echo $order['foodName']; ?></h6>
+                                        <p class="card-text orderprice"><small class="text-body-secondary"><?php echo number_format($order['price'], 0, ',', '.'); ?> VNĐ</small></p>
+                                        <p class="card-text orderquantity"><small class="text-body-secondary">Quantity: <?php echo  $order['quantity'] ?></small></p>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <span>Sub-total</span>
-                                <span><?php echo number_format( $subtotal, 0, ',', '.'); ?> VNĐ</span> 
+                                <span><?php echo number_format($subtotal, 0, ',', '.'); ?> VNĐ</span>
                             </div>
-            
+
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Payment Method</span>
-                                <select class="form-select payment-method">
+                                <select class="form-select payment-method" id="payment-method">
                                     <option value="1">COD</option>
                                     <option value="2">MOMO</option>
                                 </select>
@@ -83,7 +83,7 @@
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <strong>Total</strong>
-                                <strong><?php echo number_format( $subtotal, 0, ',', '.'); ?></strong>
+                                <strong><?php echo number_format($subtotal, 0, ',', '.'); ?></strong>
                             </div>
                             <button class="btn btn-warning w-100 mt-3" style="background-color:orange; color:white " id="place-order">Place an order <i class="fa-solid fa-arrow-right"></i></button>
                         <?php else: ?>
@@ -101,16 +101,32 @@
     </div>
 
     <div class="mt-5">
-    <?php
-    include_once("app/components/footer.php");
-    ?>
+        <?php
+        include_once("app/components/footer.php");
+        ?>
     </div>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let paymentMethod = '1';
+
+            document.getElementById('payment-method').addEventListener('change', function() {
+                paymentMethod = this.value;
+                if (paymentMethod === '1') {
+                    alert('Bạn đã chọn phương thức thanh toán COD.');
+                } else if (paymentMethod === '2') {
+                    alert('Bạn đã chọn phương thức thanh toán MOMO.');
+                }
+            });
+
             document.getElementById('place-order').addEventListener('click', function() {
-
-            window.location.href = '/user/confirmOrder';
+                if (paymentMethod === '1') {
+                    window.location.href = '/user/confirmOrder';
+                } else if (paymentMethod === '2') {
+                    window.location.href = '/user/confirm_momo';
+                }
+            });
         });
-
     </script>
 </body>
+
 </html>

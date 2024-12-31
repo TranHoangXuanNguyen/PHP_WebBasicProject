@@ -10,15 +10,12 @@ class FeedbackModel
         global $conn;
         $this->conn = $conn;
     }
-
-    // Lấy tất cả feedback từ cơ sở dữ liệu
     public function getFeedback($limit = null)
     {
-        // Truy vấn lấy feedback với sắp xếp theo thời gian giảm dần (mới nhất trước)
         $query = "SELECT feedback.*, user.avataImg, user.fullName
                   FROM feedback
                   JOIN user ON feedback.user_id = user.userId
-                  ORDER BY feedback.create_at DESC";  // Sắp xếp theo thời gian giảm dần
+                  ORDER BY feedback.create_at DESC";  
 
         // Nếu có limit thì thêm điều kiện giới hạn số lượng
         if ($limit) {

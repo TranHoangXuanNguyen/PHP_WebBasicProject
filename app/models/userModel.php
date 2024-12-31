@@ -253,4 +253,9 @@ class userModel
             }
         }
     }
+    public function storeMomo($user_id, $momo_status, $link_data){
+        $sql = "INSERT INTO momos (user_id, momo_status,link_data) VALUES (?,?,?)";
+        $stmt=$this->connect->prepare($sql);
+        // $stmt->bind_param("sss", ($user_id,$momo_status, $link_data));
+    }
 }

@@ -13,10 +13,8 @@ class FeedbackController extends Controller
     }
     public function index()
 {
-    // Lấy 5 bình luận đầu tiên từ database
-    $feedbacks = $this->feedbackModel->getFeedback(5); // Chỉ lấy 5 bình luận đầu tiên
+    $feedbacks = $this->feedbackModel->getFeedback(5); 
 
-    // Lấy tổng số bình luận trong cơ sở dữ liệu để kiểm tra có "Xem thêm"
     $totalFeedbacks = count($this->feedbackModel->getFeedback());
 
     $data = [
@@ -24,20 +22,18 @@ class FeedbackController extends Controller
         'totalFeedbacks' => $totalFeedbacks,
     ];
 
-    $this->view('feedback', $data); // Truyền dữ liệu tới view
+    $this->view('feedback', $data);
 }
 
 public function viewAll()
 {
-    // Lấy tất cả bình luận từ database
     $feedbacks = $this->feedbackModel->getFeedback();
 
     $data = [
         'feedbacks' => $feedbacks,
-        'totalFeedbacks' => count($feedbacks), // Lấy tổng số bình luận
+        'totalFeedbacks' => count($feedbacks), 
     ];
 
-    // Hiển thị tất cả bình luận
     $this->view('feedback', $data);
 }
 
@@ -55,13 +51,6 @@ public function viewAll()
             }
 
             $result = $this->feedbackModel->addFeedback($userId, $content);
-
-            if ($result) {
-                $_SESSION['success_message'] = "Your feedback has been submitted successfully!";
-            } else {
-                $_SESSION['error_message'] = "Failed to submit feedback. Please try again.";
-            }
-
             header('Location: /Feedback');
             exit();
         }

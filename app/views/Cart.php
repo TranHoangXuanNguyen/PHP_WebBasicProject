@@ -89,102 +89,108 @@
 
 
         <div id="processing">
-            <div class="cart-header d-flex border-bottom pb-2">
-                <div class="product-info"><strong>Order ID</strong></div>
-                <div class="price"><strong>User ID</strong></div>
-                <div class="total"><strong>Total Amount</strong></div>
-                <div class="remove-btn"><strong>Create At</strong></div>
-                <div class="remove-btn"><strong>Action</strong></div>
-            </div>
-            <?php if (isset($data['processingOrder']) && !empty($data['processingOrder']) && is_array($data['processingOrder'])): ?>
-                <?php foreach ($data['processingOrder'] as $orderItem): ?>
-                    <div id="cancle-<?= $orderItem['order_id'] ?>">
-                        <div class=" cart-item d-flex align-items-center mt-4">
-                            <div class="product-info d-flex ">
-                                <span class="ms-3"><?= $orderItem['order_id'] ?></span>
-                            </div>
-                            <div class="product-info d-flex ">
-                                <span class="ms-3"><?= $orderItem['userId'] ?></span>
-                            </div>
-                            <div><?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND</div>
-                            <div class="product-info d-flex ">
-                                <span class="ms-3"><?= $orderItem['created_at'] ?></span>
-                            </div>
-                            <div class="product-info d-flex ">
-                                <span class="ms-3 btn" onclick="cancle(<?= $orderItem['order_id'] ?>)">X</span>
-                            </div>
-                        </div>
-                    </div>
-
-                <?php endforeach; ?>
-
-
-            <?php else: ?>
-                <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
-            <?php endif; ?>
+            <div class="cart-status row border-bottom pb-2 mb-4">
+                <div class="col text-center"><strong>Order ID</strong></div>
+                <div class="col text-center"><strong>User ID</strong></div>
+                <div class="col text-center"><strong>Total Amount</strong></div>
+                <div class="col text-center"><strong>Create At</strong></div>
+                <div class=" col text-center remove-btn"><strong>Action</strong></div>
         </div>
-
-
-        <div id="completed">
-            <div class="cart-header d-flex border-bottom pb-2">
-                <div class="product-info"><strong>Order ID</strong></div>
-                <div class="price"><strong>User ID</strong></div>
-                <div class="total"><strong>Total Amount</strong></div>
-                <div class="remove-btn"><strong>Create At</strong></div>
-            </div>
-            <?php if (isset($data['completedOrder']) && !empty($data['completedOrder']) && is_array($data['completedOrder'])): ?>
-                <?php foreach ($data['completedOrder'] as $orderItem): ?>
-                    <div class="cart-item d-flex align-items-center mt-4">
-                        <div class="product-info d-flex ">
+        <?php if (isset($data['processingOrder']) && !empty($data['processingOrder']) && is_array($data['processingOrder'])): ?>
+            <?php foreach ($data['processingOrder'] as $orderItem): ?>
+                <div id="cancle-<?= $orderItem['order_id'] ?>">
+                    <div class="cart-item d-flex align-items-center mb-3">
+                        <div class="col text-center">
                             <span class="ms-3"><?= $orderItem['order_id'] ?></span>
                         </div>
-                        <div class="product-info d-flex ">
+                        <div class="col text-center">
                             <span class="ms-3"><?= $orderItem['userId'] ?></span>
                         </div>
-                        <div><?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND</div>
-                        <div class="product-info d-flex ">
+                        <div class="col text-center">
+                            <?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND
+                        </div>
+                        <div class="col text-center">
                             <span class="ms-3"><?= $orderItem['created_at'] ?></span>
                         </div>
+                        <div class="col text-center">
+                            <span class="me-3 btn" onclick="cancle(<?= $orderItem['order_id'] ?>)">X</span>
+                        </div>
                     </div>
-                <?php endforeach; ?>
+                </div>
+
+            <?php endforeach; ?>
 
 
-            <?php else: ?>
-                <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
-            <?php endif; ?>
+        <?php else: ?>
+            <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
+        <?php endif; ?>
+    </div>
+
+
+    <div id="completed">
+        <div class="cart-status row border-bottom pb-2 mb-4">
+                <div class="col text-center"><strong>Order ID</strong></div>
+                <div class="col text-center"><strong>User ID</strong></div>
+                <div class="col text-center"><strong>Total Amount</strong></div>
+                <div class="col text-center"><strong>Create At</strong></div>
         </div>
-
-
-
-
-        <div id="canceled">
-            <div class="cart-header d-flex border-bottom pb-2">
-                <div class="product-info"><strong>Order ID</strong></div>
-                <div class="price"><strong>User ID</strong></div>
-                <div class="total"><strong>Total Amount</strong></div>
-                <div class="remove-btn"><strong>Create At</strong></div>
-            </div>
-            <?php if (isset($data['canceledOrder']) && !empty($data['canceledOrder']) && is_array($data['canceledOrder'])): ?>
-                <?php foreach ($data['canceledOrder'] as $orderItem): ?>
-                    <div class="cart-item d-flex align-items-center mt-4">
-                        <div class="product-info d-flex ">
+        <?php if (isset($data['completedOrder']) && !empty($data['completedOrder']) && is_array($data['completedOrder'])): ?>
+            <?php foreach ($data['completedOrder'] as $orderItem): ?>
+                <div class="cart-item d-flex align-items-center mb-3">
+                        <div class="col text-center">
                             <span class="ms-3"><?= $orderItem['order_id'] ?></span>
                         </div>
-                        <div class="product-info d-flex ">
+                        <div class="col text-center">
                             <span class="ms-3"><?= $orderItem['userId'] ?></span>
                         </div>
-                        <div><?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND</div>
-                        <div class="product-info d-flex ">
+                        <div class="col text-center">
+                            <?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND
+                        </div>
+                        <div class="col text-center">
                             <span class="ms-3"><?= $orderItem['created_at'] ?></span>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
 
 
-            <?php else: ?>
-                <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
-            <?php endif; ?>
+        <?php else: ?>
+            <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
+        <?php endif; ?>
+    </div>
+
+
+
+
+    <div id="canceled">
+        <div class="cart-status row border-bottom pb-2 mb-4">
+                <div class="col text-center"><strong>Order ID</strong></div>
+                <div class="col text-center"><strong>User ID</strong></div>
+                <div class="col text-center"><strong>Total Amount</strong></div>
+                <div class="col text-center"><strong>Create At</strong></div>
         </div>
+        <?php if (isset($data['canceledOrder']) && !empty($data['canceledOrder']) && is_array($data['canceledOrder'])): ?>
+            <?php foreach ($data['canceledOrder'] as $orderItem): ?>
+                <div class="cart-item d-flex align-items-center mb-3">
+                        <div class="col text-center">
+                            <span class="ms-3"><?= $orderItem['order_id'] ?></span>
+                        </div>
+                        <div class="col text-center">
+                            <span class="ms-3"><?= $orderItem['userId'] ?></span>
+                        </div>
+                        <div class="col text-center">
+                            <?= number_format($orderItem['total_amount'], 0, ',', '.') ?> VND
+                        </div>
+                        <div class="col text-center">
+                            <span class="ms-3"><?= $orderItem['created_at'] ?></span>
+                        </div>
+                </div>
+            <?php endforeach; ?>
+
+
+        <?php else: ?>
+            <div class="alert alert-warning text-center mt-4">Cart is empty!</div>
+        <?php endif; ?>
+    </div>
     </div>
     <?php
     include_once("app/components/footer.php");
