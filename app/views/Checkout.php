@@ -74,12 +74,22 @@
                             </div>
             
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>Payment Method</span>
-                                <select class="form-select payment-method">
-                                    <option value="1">COD</option>
-                                    <option value="2">MOMO</option>
-                                </select>
+                                <span>Phương thức thanh toán</span>
+                                <button class="btn btn-success mt-2" name="redirect" id="redirect">Cash On Delivery</button>
+                                <form action="confirm_momo" method="POST">
+                                            <input type="hidden" name="total" id="selectedAmountInput" />
+                                            <button type="submit" name="captureWallet" class="btn btn-danger thanhtoan">
+                                                Payment by  MOMO
+                                            </button>
+                                </form>
+                                <form action="confirm_atm_momo" method="POST">
+                                            <input type="hidden" name="total" id="atmselectedAmountInput" />
+                                            <button type="submit" name="payWithATM" class="btn btn-danger thanhtoanatm" >
+                                                Payment by  ATM MOMO
+                                            </button>
+                                </form>
                             </div>
+
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <strong>Total</strong>
@@ -105,6 +115,16 @@
     include_once("app/components/footer.php");
     ?>
     </div>
+    <script>
+        document.querySelector('.thanhtoan').addEventListener('click', function() {
+         document.getElementById('selectedAmountInput').value = <?php echo $subtotal; ?>;
+});
+    </script>
+        <script>
+        document.querySelector('.thanhtoanatm').addEventListener('click', function() {
+         document.getElementById('atmselectedAmountInput').value = <?php echo $subtotal; ?>;
+});
+    </script>
     <script>
             document.getElementById('place-order').addEventListener('click', function() {
 
