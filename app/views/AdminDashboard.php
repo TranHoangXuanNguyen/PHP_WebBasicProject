@@ -492,44 +492,43 @@
         }
 
         function showChart2() {
-    const ctx2 = document.getElementById('myChart2');
-    const div1 = document.getElementById('chart2');
-    const div = document.getElementById('chart');
-    
-    // Hide div #chart and show div #chart2
-    div.style.display = 'none';
-    div1.style.display = 'block';
+            const ctx2 = document.getElementById('myChart2');
+            const div1 = document.getElementById('chart2');
+            const div = document.getElementById('chart');
 
-    // Create the chart with dynamic data from PHP
-    new Chart(ctx2, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            datasets: [{
-                label: 'Food item by category',
-                data: [
-                    <?php
-                    for ($i = 0; $i < 12; $i++) {  
-                        echo isset($data['imcomeEachMonth'][$i]) ? $data['imcomeEachMonth'][$i] : 0;
-                        if ($i < 11) {  
-                            echo ',';
+            // Hide div #chart and show div #chart2
+            div.style.display = 'none';
+            div1.style.display = 'block';
+
+            // Create the chart with dynamic data from PHP
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: [{
+                        label: 'Food item by category',
+                        data: [
+                            <?php
+                            for ($i = 1; $i < 13; $i++) {
+                                echo isset($data['imcomeEachMonth'][$i]) ? $data['imcomeEachMonth'][$i] : 0;
+                                if ($i < 12) {
+                                    echo ',';
+                                }
+                            }
+                            ?>
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
                     }
-                    ?>
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
                 }
-            }
+            });
         }
-    });
-}
-
     </script>
 
     <script>
