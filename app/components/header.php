@@ -18,7 +18,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                             <a class="nav-link active " aria-current="page" href="/Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Blog">Blogs</a>
+                            <a class="nav-link" href="home/Blogs">Blogs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Booking">Booking</a>

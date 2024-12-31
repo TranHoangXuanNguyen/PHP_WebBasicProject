@@ -8,7 +8,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = ['default']; 
-        $this->view('home', $data);
+        $this->view('home',$data);
     }
     public function aboutUs()
     {
@@ -20,6 +20,12 @@ class HomeController extends Controller
             'totalFoodItems' => $totalFoodItems
         ];
         $this->view('AboutUs', $data);
+    }
+
+    public function Blogs()
+    {
+        $data = ['default']; 
+        $this->view('Blogs',$data);
     }
 }
 
