@@ -2,7 +2,6 @@
 //ket noi db
 require_once __DIR__ . '/../config/config.php';
 global $conn;
-
 class AdminModelFooditem
 {
     public $connect;
@@ -22,29 +21,20 @@ class AdminModelFooditem
     public $role;
     public $phoneNum;
     public $dob;
-
     public $order_id;
-
     public $status;
-
     public $total_amount;
-
     public $created_at;
-
-
     public function __construct()
     {
         global $conn;
         $this->connect = $conn;
     }
-
     public function getAllFoodItem()
     {
         $sql = "SELECT * FROM fooditems ORDER BY categoryId ASC";
         $result = mysqli_query($this->connect, $sql);
-
         $foodItems = [];
-
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $foodItem = new AdminModelFooditem();
@@ -62,9 +52,6 @@ class AdminModelFooditem
             return false;
         }
     }
-
-
-
     public function createFood($fooditem)
     {
         $foodName = $fooditem->foodName;
@@ -73,17 +60,14 @@ class AdminModelFooditem
         $detail = $fooditem->detail;
         $price = $fooditem->price;
         $categoryId = $fooditem->categoryId;
-
         $sql = "insert INTO fooditems (foodName, foodImg, price, categoryId, detail, description) 
         VALUES ('$foodName', '$foodImg', '$price', '$categoryId', '$detail', '$description')";
-
         if (mysqli_query($this->connect, $sql)) {
             return true;
         } else {
             return false;
         }
     }
-
     public function updateFood($id, $fooditem)
     {
         $foodName = $fooditem->foodName;
@@ -94,20 +78,17 @@ class AdminModelFooditem
         $sql = "UPDATE fooditems
         SET foodName = '$foodName', foodImg = '$foodImg', price = '$price', detail = '$detail', description = '$description' 
         WHERE foodId = $id";
-
         if (mysqli_query($this->connect, $sql)) {
             return true;
         } else {
             return false;
         }
     }
-
     public function deleteFood($id)
     {
         $sql = "
         delete from fooditems
         WHERE foodId = $id";
-
         if (mysqli_query($this->connect, $sql)) {
             return true;
         } else {
@@ -129,16 +110,13 @@ class AdminModelFooditem
         while ($row = mysqli_fetch_assoc($result)) {
             $countByCategory[$row['categoryId']] = $row['count'];
         }
-
         return $countByCategory;
     }
     public function getAllUser()
     {
         $sql = "SELECT * FROM user ";
         $result = mysqli_query($this->connect, $sql);
-
         $listUser = [];
-
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $user = new AdminModelFooditem();
@@ -158,9 +136,6 @@ class AdminModelFooditem
             return false;
         }
     }
-
-
-
     public function createUser($user)
     {
         $fullName = $user->fullName;
@@ -171,18 +146,14 @@ class AdminModelFooditem
         $role = $user->role;
         $phoneNum = $user->phoneNum;
         $dob = $user->dob;
-
-
         $sql = "insert INTO user (fullName, email, passWord, avataImg, address, role,phoneNum,dob) 
         VALUES ('$fullName', '$email', '$passWord', '$avataImg', '$address', '$role','$phoneNum','$dob')";
-
         if (mysqli_query($this->connect, $sql)) {
             return true;
         } else {
             return false;
         }
     }
-
     public function updateUser($id, $user)
     {
         $fullName = $user->fullName;
@@ -203,27 +174,23 @@ class AdminModelFooditem
             return false;
         }
     }
-
     public function deleteUser($id)
     {
         $sql = "
         delete from user
         WHERE userId = $id";
-
         if (mysqli_query($this->connect, $sql)) {
             return true;
         } else {
             return false;
         }
     }
-
     public function getOrder($status)
     {
         $sql = "
         select * from orders
         WHERE orders.status = '$status'";
         $result = mysqli_query($this->connect, $sql);
-
         $listOrder = [];
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
@@ -238,7 +205,6 @@ class AdminModelFooditem
             return $listOrder;
         }
     }
-
     public function confirmOrder($order_id, $isConfirm)
     {
         if ($isConfirm == 1) {
@@ -260,7 +226,6 @@ class AdminModelFooditem
             error_log("Error executing SQL: " . $stmt->error);
             return false;
         }
-
         // Close the prepared statement
         $stmt->close();
     }
@@ -278,6 +243,34 @@ class AdminModelFooditem
             }
             return $listTable;
         }
+    }
+    public function getIncome()
+    {
+        $sql = "SELECT SUM(total_amount) AS total_income FROM orders WHERE status = 'completed' AND MONTH(created_at) = MONTH(NOW())";
+        $result = mysqli_query($this->connect, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            return $row['total_income'];
+        }
+        return 0;
+    }
+    public function getIncomeEachMonth()
+    {
+        $sql = "SELECT 
+                    MONTH(created_at) AS month,
+                    SUM(total_amount) AS total_income
+                FROM orders 
+                WHERE status = 'completed' 
+                GROUP BY MONTH(created_at);";
+        $result = mysqli_query($this->connect, $sql);
+        $listTable = [];
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $listTable[$row['month']] = $row['total_income'];
+            }
+            return $listTable;
+        }
+        return [];
     }
 
     public function setBooking($id, $status)
