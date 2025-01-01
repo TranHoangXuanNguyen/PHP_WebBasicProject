@@ -405,8 +405,8 @@ class userController extends Controller
             );
             $result = execPostRequest($endpoint, json_encode($data));
             $jsonResult = json_decode($result, true);  // decode json
-             var_dump($jsonResult);
-             die();
+            var_dump($jsonResult);
+            die();
 
             header('Location: ' . $jsonResult['payUrl']);
         }
@@ -493,7 +493,7 @@ class userController extends Controller
             );
             $result = execPostRequest($endpoint, json_encode($data));
             $jsonResult = json_decode($result, true);  // decode json
-            // var_dump($jsonResult);
+            // var_dump($result);
             // die();
 
             header('Location: ' . $jsonResult['payUrl']);
