@@ -420,6 +420,8 @@ class userController extends Controller
             function execPostRequest($url, $data)
             {
                 $ch = curl_init(url: $url);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -437,6 +439,11 @@ class userController extends Controller
                 $result = curl_exec($ch);
 
                 curl_close($ch);
+                // if ($result === false) {
+                //     $error = curl_error($ch);
+                    // Xử lý lỗi
+                // }
+
                 return $result;
             }
 
