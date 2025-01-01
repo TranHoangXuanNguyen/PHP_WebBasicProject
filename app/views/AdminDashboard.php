@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <?php
     require_once("./app/assets/css/admin.css.php");
+    // var_dump($data['imcomeEachMonth'][11])   
+    // for()
     ?>
     <style>
         .admincontai {
@@ -168,6 +170,7 @@
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="FoodItem">Manager food items</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="User">Manager User Account</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="Confirm">Confirm Order</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="Booking">Check table status</a>
 
                     <a href="/admin/Signout" class="btn btn-warning mt-3">Log out</a>
                 </div>
@@ -458,6 +461,11 @@
     <script>
         function showChart() {
             const ctx = document.getElementById('myChart');
+            const div1 = document.getElementById('chart2');
+            const div = document.getElementById('chart');
+            div.style.display = 'block'
+            div1.style.display = 'none'
+
             new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -482,6 +490,45 @@
                 }
             });
         }
+
+        function showChart2() {
+            const ctx2 = document.getElementById('myChart2');
+            const div1 = document.getElementById('chart2');
+            const div = document.getElementById('chart');
+
+            // Hide div #chart and show div #chart2
+            div.style.display = 'none';
+            div1.style.display = 'block';
+
+            // Create the chart with dynamic data from PHP
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: [{
+                        label: 'Food item by category',
+                        data: [
+                            <?php
+                            for ($i = 1; $i < 13; $i++) {
+                                echo isset($data['imcomeEachMonth'][$i]) ? $data['imcomeEachMonth'][$i] : 0;
+                                if ($i < 12) {
+                                    echo ',';
+                                }
+                            }
+                            ?>
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
     </script>
 
     <script>
@@ -491,6 +538,22 @@
                 if (response.ok) {
                     alert('Order confirmation updated successfully')
                     console.log('Order confirmation updated successfully');
+                    window.location.reload();
+                } else {
+                    alert('Failed to update order confirmation', response.status)
+                    console.error('Failed to update order confirmation', response.status);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+            }
+        }
+    </script>
+
+    <script>
+        const setBooking = async (id, statusCode) => {
+            try {
+                const response = await fetch(`/admin/setBookingStatus/${id}/${statusCode}`);
+                if (response.ok) {
                     window.location.reload();
                 } else {
                     alert('Failed to update order confirmation', response.status)

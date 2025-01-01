@@ -5,6 +5,8 @@ require_once __DIR__ . '/../mailler/src/Exception.php';
 require_once __DIR__ . '/../mailler/src/PHPMailer.php';
 require_once __DIR__ . '/../mailler/src/SMTP.php';
 require_once(__DIR__ . '/../models/userModel.php');
+require_once(__DIR__ . '/../models/HomeModel.php');
+
 
 global $conn;
 
@@ -18,6 +20,8 @@ class userController extends Controller
         $data = ['default'];
         $this->view('Login', $data);
     }
+
+
     function userLogin()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -103,16 +107,12 @@ class userController extends Controller
             exit;
         }
     }
-
-
     // register
     public function register()
     {
         $data = ['default'];
         $this->view('Register', $data);
     }
-
-
     public function userRegister()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -125,13 +125,10 @@ class userController extends Controller
         }
         $registerController = new userController();
         $isValid = $registerController->validateInput($email, $phone, $password, $confirmPassword);
-
         if (!$isValid) {
             $registerController->view('Register', ['error' => $_SESSION['error_message']]);
             unset($_SESSION['error_message']);
         } else {
-
-
             $registerModel = new userModel();
             $result = $registerModel->registerUser($fullName, $email, $phone, $password, $dob);
             if ($result === true) {
@@ -233,7 +230,12 @@ class userController extends Controller
 
     public function profile()
     {
-        $data = ['default'];
+        $userId = $_SESSION['userId'] ?? null;
+        if (!$userId) {
+            return false;
+        }
+        $homeModel = new HomeModel();
+        $data = $homeModel->getRes($userId);
         $this->view('Profile', $data);
     }
 
@@ -301,9 +303,219 @@ class userController extends Controller
             }
         }
     }
+
+    public function momo_post()
+    {
+        if (isset($_GET['resultCode']) && $_GET['resultCode'] == 7002) {
+
+            $customer_id = $_SESSION['user_customer_id'];
+
+            $momo_status = 0;
+
+            $link_data = $_GET;
+
+
+            $link_data_json = json_encode($link_data);
+
+            $momoModel = new  userModel();
+            $result = $momoModel->storeMomoInfo($customer_id, $momo_status, $link_data_json);
+
+
+            if ($result) {
+                header('Location: /user/momo?success=Nạp momo thành công, vui lòng chờ Admin duyệt đơn nhé.');
+            } else {
+                header('Location: /user/momo?error=Không thể lưu thông tin giao dịch.');
+            }
+            exit;
+        }
+
+        header('Location:  /user/momo?error=Lỗi trong quá trình nạp Momo.');
+        exit;
+    }
+
+
+
+    public function confirm_momo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            header('Content-type: text/html; charset=utf-8');
+
+            //  Kết qủa trả về 
+            function execPostRequest($url, $data)
+            {
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt(
+                    $ch,
+                    CURLOPT_HTTPHEADER,
+                    array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($data)
+                    )
+                );
+                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+
+                $result = curl_exec($ch);
+
+                curl_close($ch);
+                return $result;
+            }
+
+            //  Trả về đường dẫn thanh toán
+            $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+
+
+            $partnerCode = 'MOMOBKUN20180529';
+            $accessKey = 'klm05TvNBzhg7h7j';
+            $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+
+            $orderInfo = "Thanh toán qua mã QR MoMo";
+            $amount = $_POST['total'];
+            $orderId = time() . "";
+            //  Đơn hàng trả về 
+            $redirectUrl = "http://localhost:3000/" . "user/momo_post";
+            $ipnUrl = "http://localhost:3000/" . "user/momo";
+            $extraData = "";
+
+
+            $requestId = time() . "";
+            $requestType = "captureWallet";
+
+            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+
+            $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+            $data = array(
+                'partnerCode' => $partnerCode,
+                'partnerName' => "Test",
+                "storeId" => "MomoTestStore",
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderId,
+                'orderInfo' => $orderInfo,
+                'redirectUrl' => $redirectUrl,
+                'ipnUrl' => $ipnUrl,
+                'lang' => 'vi',
+                'extraData' => $extraData,
+                'requestType' => $requestType,
+                'signature' => $signature
+            );
+            $result = execPostRequest($endpoint, json_encode($data));
+            $jsonResult = json_decode($result, true);  // decode json
+            // var_dump($jsonResult);
+            // die();
+
+            header('Location: ' . $jsonResult['payUrl']);
+        }
+    }
+    public function confirm_atm_momo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            header('Content-type: text/html; charset=utf-8');
+
+            //  Kết qủa trả về 
+            function execPostRequest($url, $data)
+            {
+                $ch = curl_init(url: $url);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt(
+                    $ch,
+                    CURLOPT_HTTPHEADER,
+                    array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($data)
+                    )
+                );
+                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+
+                $result = curl_exec($ch);
+
+                curl_close($ch);
+                // if ($result === false) {
+                //     $error = curl_error($ch);
+                // Xử lý lỗi
+                // }
+
+                return $result;
+            }
+
+            //  Trả về đường dẫn thanh toán
+            $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+
+
+            $partnerCode = 'MOMOBKUN20180529';
+            $accessKey = 'klm05TvNBzhg7h7j';
+            $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+
+            $orderInfo = "Thanh toán qua mã QR MoMo";
+            $amount = $_POST['total'];
+
+            if ($amount < 10000 || $amount > 50000000) {
+                die("Transaction amount must be between 10,000 VND and 50,000,000 VND.");
+            }
+
+            $orderId = time() . "";
+            //  Đơn hàng trả về  
+            $redirectUrl = "http://localhost:3000/" . "user/momo_post";
+            $ipnUrl = "http://localhost:3000/" . "user/confirm_atm_momo";
+            $extraData = "";
+
+
+            $requestId = time() . "";
+            $requestType = "payWithATM";
+
+            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+
+            $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+            $data = array(
+                'partnerCode' => $partnerCode,
+                'partnerName' => "Test",
+                "storeId" => "MomoTestStore",
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderId,
+                'orderInfo' => $orderInfo,
+                'redirectUrl' => $redirectUrl,
+                'ipnUrl' => $ipnUrl,
+                'lang' => 'vi',
+                'extraData' => $extraData,
+                'requestType' => $requestType,
+                'signature' => $signature
+            );
+            $result = execPostRequest($endpoint, json_encode($data));
+            $jsonResult = json_decode($result, true);  // decode json
+            // var_dump($result);
+            // die();
+
+            header('Location: ' . $jsonResult['payUrl']);
+        }
+    }
+
+
+    public function cancleBookking($id)
+    {
+        $homeModel = new HomeModel();
+        $result = $homeModel->setBooking($id, 'cancelled');
+        if ($result) {
+            http_response_code(200);  // Success
+            echo json_encode(['message' => 'Booking canceled successfully']);
+        } else {
+            http_response_code(400);  // Bad request or failure
+            echo json_encode(['message' => 'Failed to cancel booking']);
+        }
+    }
 }
-
-
 
 class WelcomeMailer
 {
@@ -334,26 +546,3 @@ class WelcomeMailer
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $loginControllerObj = new loginController();
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $email = $_POST['email'];
-//     $passWord = htmlspecialchars($_POST['passWord']);
-//     $loginControllerObj->userLogin($email, $passWord);
-// } else {
-//     $loginControllerObj->index();
-// }

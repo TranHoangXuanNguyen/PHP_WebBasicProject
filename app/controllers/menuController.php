@@ -70,8 +70,8 @@ class MenuController extends Controller
         }
         // Trả về thông báo thành công
         $_SESSION['flash_message'] = "Item added to cart successfully!";
-    header("Location: /menu/show/".$foodId);  
-    exit;  
+        header("Location: /menu/show/" . $foodId);
+        exit;
     }
     // ====================================================================================================================
     public function updateQuantity($foodId, $quantity)

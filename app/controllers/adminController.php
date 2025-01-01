@@ -1,20 +1,32 @@
 <!-- Admin Controller -->
 <?php
-
 require_once('./app/core/Controller.php');
 require_once('./app/models/adminModelFoodItem.php');
 class AdminController extends Controller
 {
     public function index()
     {
-        $objDataF = new AdminModelFooditem();
-        $objDataU = new AdminModelFooditem();
+        // Create the models to handle different types of data
+        $objDataF = new AdminModelFooditem();  // Model for food items
+        $objDataU = new  AdminModelFooditem();      // Model for users (assuming you need a separate model for users)
         $listdataF = $objDataF->getAllFoodItem();
         $listdataU = $objDataU->getAllUser();
-        $listdataFcoount = $objDataF->countItemBycategory();
-        $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU, 'countbycategory' => $listdataFcoount];
+        $listdataFCount = $objDataF->countItemBycategory();
+        $totalIncome = $objDataF->getIncome();
+        $imcomeEachMonth = $objDataF->getIncomeEachMonth();
+        $data = [
+            'allfooditems' => $listdataF,
+            'allusers' => $listdataU,
+            'countbycategory' => $listdataFCount,
+            'totalMoney' => $totalIncome,
+            'imcomeEachMonth' => $imcomeEachMonth,
+        ];
+        // $data = ['blabla'];
+
+        // Pass the data to the view
         $this->view('AdminDashboard', $data);
     }
+
 
     public function Signout()
     {
@@ -34,7 +46,6 @@ class AdminController extends Controller
             $categoryId = $_POST['categoryId'];
             $objData = new AdminModelFooditem();
             $objtransfer = new AdminModelFooditem();
-
             $objData->foodName = ($foodName);
             $objData->description = ($description);
             $objData->detail = ($detail);
@@ -75,13 +86,15 @@ class AdminController extends Controller
     public function fetchdata($page)
     {
 
-        $allowed_pages = ['Dashboard', 'FoodItem', 'User', 'Confirm'];
+        $allowed_pages = ['Dashboard', 'FoodItem', 'User', 'Confirm', 'Booking'];
         if ($page == 'Dashboard') {
             $objDataF = new AdminModelFooditem();
             $objDataU = new AdminModelFooditem();
             $listdataF = $objDataF->getAllFoodItem();
             $listdataU = $objDataU->getAllUser();
-            $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU];
+            $totalMoney = $objDataU->getIncome();
+
+            $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU, 'totalMoney' => $totalMoney];
         }
         if ($page == 'FoodItem') {
             $objData = new AdminModelFooditem();
@@ -97,6 +110,11 @@ class AdminController extends Controller
             $objData = new AdminModelFooditem();
             $listdata = $objData->getOrder('processing');
             $data = ['listOrderProcess' => $listdata];
+        }
+        if ($page == 'Booking') {
+            $objData = new AdminModelFooditem();
+            $listdata = $objData->getTableByStatus('pending');
+            $data = ['listTablePending' => $listdata];
         }
         if (in_array($page, $allowed_pages)) {
             $this->view('/admin/' . $page, $data);
@@ -189,12 +207,23 @@ class AdminController extends Controller
             echo 'blibli';
         }
     }
-
     public function confirmOrder($order_id, $isConfirm)
     {
         $objtransfer1 = new AdminModelFooditem();
         $result = $objtransfer1->confirmOrder($order_id, $isConfirm);
         return $result;
+    }
+    public function setBookingStatus($id, $status)
+    {
+        $objtransfer = new AdminModelFooditem();
+        $result = $objtransfer->setBooking($id, $status);
+        if ($result) {
+            http_response_code(200);  // Success
+            echo json_encode(['message' => 'Booking canceled successfully']);
+        } else {
+            http_response_code(400);  // Bad request or failure
+            echo json_encode(['message' => 'Failed to cancel booking']);
+        }
     }
 }
 
