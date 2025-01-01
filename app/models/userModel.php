@@ -253,4 +253,22 @@ class userModel
             }
         }
     }
+
+    public function storeMomoInfo($customer_id, $momo_status, $link_data)
+    {
+      
+        $sql = "INSERT INTO momos (customer_id, momo_status, link_data) VALUES ('$customer_id', '$momo_status', '$link_data')";
+    
+        $result = mysqli_query($this->connect, $sql);
+    
+        if ($result) {
+            return true;
+        } else {
+            error_log("Lỗi khi thêm thông tin Momo: " . mysqli_error($this->connect));
+            return false;
+        }
+    }
+    
+
+
 }
