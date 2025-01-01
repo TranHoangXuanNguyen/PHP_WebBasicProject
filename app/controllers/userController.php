@@ -344,6 +344,8 @@ class userController extends Controller
             function execPostRequest($url, $data)
             {
                 $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -405,8 +407,8 @@ class userController extends Controller
             );
             $result = execPostRequest($endpoint, json_encode($data));
             $jsonResult = json_decode($result, true);  // decode json
-            var_dump($jsonResult);
-            die();
+            // var_dump($jsonResult);
+            // die();
 
             header('Location: ' . $jsonResult['payUrl']);
         }
@@ -441,7 +443,7 @@ class userController extends Controller
                 curl_close($ch);
                 // if ($result === false) {
                 //     $error = curl_error($ch);
-                    // Xử lý lỗi
+                // Xử lý lỗi
                 // }
 
                 return $result;
@@ -515,8 +517,6 @@ class userController extends Controller
     }
 }
 
-
-
 class WelcomeMailer
 {
     public static function sendWelcomeEmail($fullName, $email, $password)
@@ -546,26 +546,3 @@ class WelcomeMailer
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $loginControllerObj = new loginController();
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $email = $_POST['email'];
-//     $passWord = htmlspecialchars($_POST['passWord']);
-//     $loginControllerObj->userLogin($email, $passWord);
-// } else {
-//     $loginControllerObj->index();
-// }

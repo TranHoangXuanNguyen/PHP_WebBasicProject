@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 27, 2024 at 03:13 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 01, 2025 lúc 03:30 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mamakitchen`
+-- Cơ sở dữ liệu: `mamakitchen`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
@@ -45,26 +45,36 @@ INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feedback`
+-- Cấu trúc bảng cho bảng `feedback`
 --
 
 CREATE TABLE `feedback` (
   `user_id` varchar(250) NOT NULL,
-  `content` text NOT NULL
+  `content` text NOT NULL,
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `feedback`
+-- Đang đổ dữ liệu cho bảng `feedback`
 --
 
-INSERT INTO `feedback` (`user_id`, `content`) VALUES
-('0c5d68935bc39787', 'Ho Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa Be'),
-('voGqLSY72LTfcQ60yBmt3dlYyQS2', 'Quaooooooo, qua la vip\r\n');
+INSERT INTO `feedback` (`user_id`, `content`, `create_at`) VALUES
+('0c5d68935bc39787', 'fdgfgfjf', '2024-12-28 09:27:52'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:27:56'),
+('0c5d68935bc39787', 'toooiii rat xinhhhh', '2024-12-28 09:28:00'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:28:05'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:28:16'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:28:22'),
+('0c5d68935bc39787', 'fdgfgfjf', '2024-12-28 09:34:06'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:41:41'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-30 02:53:30'),
+('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-30 02:55:20'),
+('0c5d68935bc39787', 'toooiii rat xinhhhh', '2024-12-30 07:13:53');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fooditems`
+-- Cấu trúc bảng cho bảng `fooditems`
 --
 
 CREATE TABLE `fooditems` (
@@ -78,7 +88,7 @@ CREATE TABLE `fooditems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `fooditems`
+-- Đang đổ dữ liệu cho bảng `fooditems`
 --
 
 INSERT INTO `fooditems` (`foodId`, `foodImg`, `foodName`, `categoryId`, `price`, `detail`, `description`) VALUES
@@ -133,7 +143,7 @@ INSERT INTO `fooditems` (`foodId`, `foodImg`, `foodName`, `categoryId`, `price`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orders`
 --
 
 CREATE TABLE `orders` (
@@ -145,7 +155,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- Đang đổ dữ liệu cho bảng `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `userId`, `status`, `total_amount`, `created_at`) VALUES
@@ -153,20 +163,27 @@ INSERT INTO `orders` (`order_id`, `userId`, `status`, `total_amount`, `created_a
 (8, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 0.00, '2024-12-25 14:07:22'),
 (9, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'completed', 280000.00, '2024-12-25 14:23:24'),
 (10, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 720000.00, '2024-12-26 14:32:02'),
-(11, '0c5d68935bc39787', 'processing', 360000.00, '2024-12-26 14:49:52'),
-(12, '0c5d68935bc39787', 'pending', 0.00, '2024-12-26 15:10:54'),
+(11, '0c5d68935bc39787', 'canceled', 360000.00, '2024-12-26 14:49:52'),
+(12, '0c5d68935bc39787', 'canceled', 95000.00, '2024-12-26 15:10:54'),
 (13, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 120000.00, '2024-12-27 03:17:37'),
 (14, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 60000.00, '2024-12-27 03:18:12'),
 (15, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 180000.00, '2024-12-27 03:20:29'),
 (16, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 270000.00, '2024-12-27 03:21:21'),
 (17, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 550000.00, '2024-12-27 03:22:05'),
 (18, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 1020000.00, '2024-12-27 07:00:26'),
-(19, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 95000.00, '2024-12-27 07:16:42');
+(19, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 95000.00, '2024-12-27 07:16:42'),
+(20, '0c5d68935bc39787', 'canceled', 150000.00, '2024-12-28 10:05:11'),
+(21, '0c5d68935bc39787', 'canceled', 120000.00, '2024-12-28 10:36:18'),
+(22, '0c5d68935bc39787', 'canceled', 150000.00, '2024-12-28 10:42:43'),
+(23, '0c5d68935bc39787', 'canceled', 60000.00, '2024-12-28 10:45:08'),
+(24, '0c5d68935bc39787', 'canceled', 390000.00, '2024-12-30 03:00:34'),
+(25, '0c5d68935bc39787', 'processing', 90000.00, '2024-12-30 09:02:40'),
+(26, '0c5d68935bc39787', 'pending', 0.00, '2024-12-30 09:06:34');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_items`
+-- Cấu trúc bảng cho bảng `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -178,7 +195,7 @@ CREATE TABLE `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `order_items`
+-- Đang đổ dữ liệu cho bảng `order_items`
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `foodId`, `quantity`, `price`) VALUES
@@ -193,12 +210,21 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `foodId`, `quantity`, `p
 (36, 17, 18, 1, 550000.00),
 (37, 18, 3, 6, 95000.00),
 (38, 18, 12, 5, 90000.00),
-(39, 19, 3, 1, 95000.00);
+(39, 19, 3, 1, 95000.00),
+(40, 12, 3, 1, 95000.00),
+(41, 20, 10, 1, 150000.00),
+(42, 21, 9, 1, 120000.00),
+(43, 22, 10, 1, 150000.00),
+(44, 23, 21, 1, 60000.00),
+(45, 24, 21, 4, 60000.00),
+(46, 24, 10, 1, 150000.00),
+(47, 25, 12, 1, 90000.00),
+(48, 26, 21, 1, 60000.00);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Cấu trúc bảng cho bảng `user`
 --
 
 CREATE TABLE `user` (
@@ -214,7 +240,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user`
+-- Đang đổ dữ liệu cho bảng `user`
 --
 
 INSERT INTO `user` (`userId`, `fullName`, `email`, `passWord`, `avataImg`, `address`, `role`, `phoneNum`, `dob`) VALUES
@@ -231,37 +257,37 @@ INSERT INTO `user` (`userId`, `fullName`, `email`, `passWord`, `avataImg`, `addr
 ('zVaJwaTVjkTGb0HswiGX78EkQw43', 'Tran Hoang Xuan Nguyen', 'nguyen.tran26@student.passerellesnumeriques.org', 'googleUser', NULL, NULL, 'user', NULL, NULL);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryId`);
 
 --
--- Indexes for table `feedback`
+-- Chỉ mục cho bảng `feedback`
 --
 ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`user_id`);
+  ADD KEY `fk_user_cmt` (`user_id`);
 
 --
--- Indexes for table `fooditems`
+-- Chỉ mục cho bảng `fooditems`
 --
 ALTER TABLE `fooditems`
   ADD PRIMARY KEY (`foodId`),
   ADD KEY `categoryId` (`categoryId`);
 
 --
--- Indexes for table `orders`
+-- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `fk_user` (`userId`);
 
 --
--- Indexes for table `order_items`
+-- Chỉ mục cho bảng `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`order_item_id`),
@@ -269,63 +295,63 @@ ALTER TABLE `order_items`
   ADD KEY `foodId` (`foodId`);
 
 --
--- Indexes for table `user`
+-- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
   MODIFY `categoryId` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `fooditems`
+-- AUTO_INCREMENT cho bảng `fooditems`
 --
 ALTER TABLE `fooditems`
   MODIFY `foodId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `order_items`
+-- AUTO_INCREMENT cho bảng `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `feedback`
+-- Các ràng buộc cho bảng `feedback`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `fk_user_cmt` FOREIGN KEY (`user_id`) REFERENCES `user` (`userId`);
 
 --
--- Constraints for table `fooditems`
+-- Các ràng buộc cho bảng `fooditems`
 --
 ALTER TABLE `fooditems`
   ADD CONSTRAINT `fooditems_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`categoryId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `orders`
+-- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 
 --
--- Constraints for table `order_items`
+-- Các ràng buộc cho bảng `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),

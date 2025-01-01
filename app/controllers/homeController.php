@@ -84,4 +84,10 @@ class HomeController extends Controller
             ));
         }
     }
+
+    public function Blogs()
+    {
+        $data = ['default']; 
+        $this->view('Blogs',$data);
+    }
 }
