@@ -23,7 +23,7 @@ class userModel
     {
         $sql = "UPDATE user SET fullname = ?, address = ?, dob = ?, phoneNum = ?, avataImg = ? WHERE userId = ?";
         $stmt = $this->connect->prepare($sql);
-        $stmt->bind_param("ssssiss", $fullName,  $address, $dob, $phoneNum, $avataImg, $userId);
+        $stmt->bind_param("ssssss", $fullName,  $address, $dob, $phoneNum, $avataImg, $userId);
         return $stmt->execute();
     }
 
