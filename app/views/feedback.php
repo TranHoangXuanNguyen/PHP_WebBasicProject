@@ -22,7 +22,7 @@
         <?php foreach ($data['feedbacks'] as $feedback): ?>
             <div class="contain d-flex align-items-center mb-4">
                 <div class="avatar me-3">
-                    <img src="<?php echo htmlspecialchars($feedback['avataImg']); ?>" alt="User Avatar" class="image">
+                    <img src="https://i.pinimg.com/736x/8f/1c/a2/8f1ca2029e2efceebd22fa05cca423d7.jpg" alt="User Avatar" class="image">
                 </div>
                 <div class="col-md-10 d-flex justify-content-between">
                     <div class="sub-contain">

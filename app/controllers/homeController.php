@@ -85,9 +85,58 @@ class HomeController extends Controller
         }
     }
 
-    public function Blogs()
+    public function blogs()
     {
         $data = ['default']; 
         $this->view('Blogs',$data);
+    }
+
+    // ================================================================
+    public function feedBack()
+{
+    $feedbackModel=new homeModel();
+    $feedbacks = $feedbackModel->getFeedback(5); 
+
+    $totalFeedbacks = count($feedbackModel->getFeedback());
+
+    $data = [
+        'feedbacks' => $feedbacks,
+        'totalFeedbacks' => $totalFeedbacks,
+    ];
+
+    $this->view('feedback', $data);
+}
+
+public function viewAll()
+{
+    $feedbackModel=new homeModel();
+    $feedbacks = $feedbackModel->getFeedback();
+
+    $data = [
+        'feedbacks' => $feedbacks,
+        'totalFeedbacks' => count($feedbacks), 
+    ];
+
+    $this->view('feedback', $data);
+}
+
+
+    public function addFeedback()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $userId = $_POST['userId'];
+            $content = $_POST['content'];
+
+            if (empty($content)) {
+                $_SESSION['error_message'] = "Feedback cannot be empty!";
+                header('Location: /Feedback');
+                exit();
+            }
+            $feedbackModel=new homeModel();
+
+            $result =$feedbackModel->addFeedback($userId, $content);
+            header('Location: /Feedback');
+            exit();
+        }
     }
 }
