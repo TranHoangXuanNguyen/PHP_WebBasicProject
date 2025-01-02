@@ -422,7 +422,7 @@ class userController extends Controller
             function execPostRequest($url, $data)
             {
                 $ch = curl_init(url: $url);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

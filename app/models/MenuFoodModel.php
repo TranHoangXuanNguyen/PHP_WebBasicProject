@@ -107,4 +107,21 @@ class FoodModel
 
         return    $foodrelevant; // Trả về danh sách món ăn
     }
+    public function searchFood($keyword)
+    {
+        $sql = "SELECT * FROM fooditems WHERE foodName LIKE ?";
+        $stmt = $this->conn->prepare($sql);
+        $searchTerm = "%" . $keyword . "%";
+        $stmt->bind_param("s", $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $foodSearch = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $foodSearch[] = $row;
+            }
+        }
+        $stmt->close();
+        return $foodSearch;
+    }
 }

@@ -27,7 +27,9 @@ $totalFoodItems = (count($data['allfooditems']));
                 <div class="inforbox" onclick="showChart2()">
                     <div class="inforboxTitle">Total imcome at month:</div>
                     <div class="inforboxinfor">
-                        <?php echo $data['totalMoney']; ?> <i class="bi bi-egg-fried"></i>
+                        <?php
+                        var_dump($data['totalMoney']);
+                        echo $data['totalMoney']; ?> <i class="bi bi-egg-fried"></i>
                     </div>
                 </div>
             </div>

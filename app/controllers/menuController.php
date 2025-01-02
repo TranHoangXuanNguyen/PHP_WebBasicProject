@@ -100,4 +100,19 @@ class MenuController extends Controller
             echo json_encode(['success' => false, 'message' => 'Failed to update quantity']);
         }
     }
+    public function search()
+    {
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $keyword = htmlspecialchars(trim($_GET['search']));
+            $searchModel = new FoodModel();
+            $searchResults = $searchModel->searchFood($keyword);
+            if (!empty($searchResults)) {
+                $this->view('Foodlist', ['foodSearch' => $searchResults]);
+            } else {
+                $this->view('Foodlist', ['message' => 'Không tìm thấy sản phẩm nào.']);
+            }
+        } else {
+            $this->view('Foodlist', ['message' => 'Vui lòng nhập từ khóa tìm kiếm.']);
+        }
+    }
 }
