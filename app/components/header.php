@@ -30,7 +30,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                             <a class="nav-link" href="/Menu">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/feedback">Contact</a>
+                            <a class="nav-link" href="/feedback">FeedBack</a>
                         </li>
                     </ul>
                 </div>
