@@ -51,7 +51,7 @@
             <?php endforeach; ?>
 
             <?php if ($data['totalFeedbacks'] > 5): ?>
-                <a href="/Feedback/viewAll" class="btn btn-warning mt-3" id="load-more">Xem thêm</a>
+                <a href="/home/viewAll" class="btn btn-warning mt-3" id="load-more">Xem thêm</a>
             <?php endif; ?>
         <?php else: ?>
             <p>No feedback available yet.</p>
@@ -61,7 +61,7 @@
             <label for="feedback-input" class="form-label">Write Feedback</label>
             <div class="d-flex align-items-center">
                 <img src="https://aic.com.vn/wp-content/uploads/2024/12/anime-girl-00YxiJz.jpg" alt="User Avatar" class="userimage me-2">
-                <form action="/Feedback/addFeedback" method="POST" class="d-flex col-md-11">
+                <form action="/home/addFeedback" method="POST" class="d-flex col-md-11">
                     <input type="hidden" name="userId" value="<?php echo $_SESSION['userId']; ?>">
                     <input type="text" id="content" name="content" placeholder="Add your feedback here" class="form-control" required>
                     <button type="submit" class="arrow ms-3 bg-none">

@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Food Menu</title>
-        <!-- Link CSS Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <!-- Link CSS Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             /* font-family:Arial, Helvetica, sans-serif; */
@@ -146,7 +146,7 @@
                             <img src="<?php echo $food['foodImg']; ?>" class="card-img-top" alt="Food Image">
                             <div class="card-body">
                                 <a href="<?php echo  "/menu/show/" . $food['foodId'] ?>" class="food-title"><?php echo $food['foodName']; ?></a>
-                                <a href="<?php echo  "/menu/show/" . $food['foodId'] ?>" class="price"><?php echo number_format( $food['price'], 0, ',', '.'); ?> VNĐ</a>
+                                <a href="<?php echo  "/menu/show/" . $food['foodId'] ?>" class="price"><?php echo number_format($food['price'], 0, ',', '.'); ?> VNĐ</a>
                             </div>
                         </div>
                     </div>

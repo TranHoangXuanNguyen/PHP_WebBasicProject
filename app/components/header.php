@@ -18,7 +18,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                             <a class="nav-link active " aria-current="page" href="/Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="home/Blogs">Blogs</a>
+                            <a class="nav-link" href="/home/blogs">Blogs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/home/bookingTable">Booking</a>
@@ -30,7 +30,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/app/assets/css/bootstrap.php';
                             <a class="nav-link" href="/Menu">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/feedback">FeedBack</a>
+
+                            <a class="nav-link" href="/home/feedback">Feedback</a>
                         </li>
                     </ul>
                 </div>

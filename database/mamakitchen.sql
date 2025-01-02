@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 01, 2025 lúc 03:30 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Jan 02, 2025 at 03:31 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `mamakitchen`
+-- Database: `mamakitchen`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
@@ -45,36 +45,43 @@ INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `feedback`
+-- Table structure for table `feedback`
 --
 
 CREATE TABLE `feedback` (
-  `user_id` varchar(250) NOT NULL,
   `content` text NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `create_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `user_id` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `feedback`
+-- Dumping data for table `feedback`
 --
 
-INSERT INTO `feedback` (`user_id`, `content`, `create_at`) VALUES
-('0c5d68935bc39787', 'fdgfgfjf', '2024-12-28 09:27:52'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:27:56'),
-('0c5d68935bc39787', 'toooiii rat xinhhhh', '2024-12-28 09:28:00'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:28:05'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:28:16'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:28:22'),
-('0c5d68935bc39787', 'fdgfgfjf', '2024-12-28 09:34:06'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-28 09:41:41'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-30 02:53:30'),
-('0c5d68935bc39787', 'Tôi là aiiiii', '2024-12-30 02:55:20'),
-('0c5d68935bc39787', 'toooiii rat xinhhhh', '2024-12-30 07:13:53');
+INSERT INTO `feedback` (`content`, `create_at`, `user_id`) VALUES
+('Ho Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa BeHo Thi Duyen Ha Tran Hoang  Xuan Nguyen Y Sa Be', '2025-01-01 14:38:28', ''),
+('Quaooooooo, qua la vip\r\n', '2025-01-01 14:38:28', ''),
+('fdgfgfjf', '2024-12-28 02:27:52', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-28 02:27:56', '0c5d68935bc39787'),
+('toooiii rat xinhhhh', '2024-12-28 02:28:00', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-28 02:28:05', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-28 02:28:16', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-28 02:28:22', '0c5d68935bc39787'),
+('fdgfgfjf', '2024-12-28 02:34:06', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-28 02:41:41', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-29 19:53:30', '0c5d68935bc39787'),
+('Tôi là aiiiii', '2024-12-29 19:55:20', '0c5d68935bc39787'),
+('toooiii rat xinhhhh', '2024-12-30 00:13:53', '0c5d68935bc39787'),
+('Xuan Nguye nqua la dep trai', '2025-01-01 14:45:43', '0c5d68935bc39787'),
+('kangkang num1', '2025-01-02 02:06:21', '0c5d68935bc39787'),
+('kangkang num1', '2025-01-02 02:29:07', '0c5d68935bc39787'),
+('blabla', '2025-01-02 02:29:19', '0c5d68935bc39787'),
+('kangkang num1', '2025-01-02 02:30:09', '0c5d68935bc39787');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `fooditems`
+-- Table structure for table `fooditems`
 --
 
 CREATE TABLE `fooditems` (
@@ -88,7 +95,7 @@ CREATE TABLE `fooditems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `fooditems`
+-- Dumping data for table `fooditems`
 --
 
 INSERT INTO `fooditems` (`foodId`, `foodImg`, `foodName`, `categoryId`, `price`, `detail`, `description`) VALUES
@@ -143,7 +150,7 @@ INSERT INTO `fooditems` (`foodId`, `foodImg`, `foodName`, `categoryId`, `price`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -155,7 +162,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `orders`
+-- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `userId`, `status`, `total_amount`, `created_at`) VALUES
@@ -163,8 +170,8 @@ INSERT INTO `orders` (`order_id`, `userId`, `status`, `total_amount`, `created_a
 (8, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 0.00, '2024-12-25 14:07:22'),
 (9, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'completed', 280000.00, '2024-12-25 14:23:24'),
 (10, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 720000.00, '2024-12-26 14:32:02'),
-(11, '0c5d68935bc39787', 'canceled', 360000.00, '2024-12-26 14:49:52'),
-(12, '0c5d68935bc39787', 'canceled', 95000.00, '2024-12-26 15:10:54'),
+(11, '0c5d68935bc39787', 'completed', 360000.00, '2024-12-26 14:49:52'),
+(12, '0c5d68935bc39787', 'completed', 180000.00, '2024-12-26 15:10:54'),
 (13, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 120000.00, '2024-12-27 03:17:37'),
 (14, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 60000.00, '2024-12-27 03:18:12'),
 (15, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 180000.00, '2024-12-27 03:20:29'),
@@ -172,18 +179,17 @@ INSERT INTO `orders` (`order_id`, `userId`, `status`, `total_amount`, `created_a
 (17, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 550000.00, '2024-12-27 03:22:05'),
 (18, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 1020000.00, '2024-12-27 07:00:26'),
 (19, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', 'canceled', 95000.00, '2024-12-27 07:16:42'),
-(20, '0c5d68935bc39787', 'canceled', 150000.00, '2024-12-28 10:05:11'),
-(21, '0c5d68935bc39787', 'canceled', 120000.00, '2024-12-28 10:36:18'),
-(22, '0c5d68935bc39787', 'canceled', 150000.00, '2024-12-28 10:42:43'),
-(23, '0c5d68935bc39787', 'canceled', 60000.00, '2024-12-28 10:45:08'),
-(24, '0c5d68935bc39787', 'canceled', 390000.00, '2024-12-30 03:00:34'),
-(25, '0c5d68935bc39787', 'processing', 90000.00, '2024-12-30 09:02:40'),
-(26, '0c5d68935bc39787', 'pending', 0.00, '2024-12-30 09:06:34');
+(20, '4', 'canceled', 1674000.00, '2024-12-31 07:30:13'),
+(21, 'zVaJwaTVjkTGb0HswiGX78EkQw43', 'completed', 200000.00, '2024-11-12 08:27:35'),
+(22, '0c5d68935bc39787', 'canceled', 95000.00, '2025-01-01 13:45:22'),
+(23, '0c5d68935bc39787', 'processing', 215000.00, '2025-01-01 13:53:02'),
+(24, '0c5d68935bc39787', 'processing', 95000.00, '2025-01-02 01:47:47'),
+(25, '0c5d68935bc39787', 'pending', 0.00, '2025-01-02 02:23:58');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -195,7 +201,7 @@ CREATE TABLE `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `order_items`
+-- Dumping data for table `order_items`
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `foodId`, `quantity`, `price`) VALUES
@@ -211,20 +217,71 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `foodId`, `quantity`, `p
 (37, 18, 3, 6, 95000.00),
 (38, 18, 12, 5, 90000.00),
 (39, 19, 3, 1, 95000.00),
-(40, 12, 3, 1, 95000.00),
-(41, 20, 10, 1, 150000.00),
-(42, 21, 9, 1, 120000.00),
-(43, 22, 10, 1, 150000.00),
-(44, 23, 21, 1, 60000.00),
-(45, 24, 21, 4, 60000.00),
-(46, 24, 10, 1, 150000.00),
-(47, 25, 12, 1, 90000.00),
-(48, 26, 21, 1, 60000.00);
+(40, 12, 21, 3, 60000.00),
+(41, 20, 45, 9, 186000.00),
+(42, 22, 3, 1, 95000.00),
+(43, 23, 4, 1, 120000.00),
+(44, 23, 3, 1, 95000.00),
+(45, 24, 3, 1, 95000.00),
+(46, 25, 1, 1, 60000.00);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user`
+-- Table structure for table `reservations`
+--
+
+CREATE TABLE `reservations` (
+  `id` int(11) NOT NULL,
+  `table_id` int(11) NOT NULL,
+  `userId` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `startTime` time NOT NULL,
+  `num_guests` int(11) NOT NULL,
+  `status` varchar(50) DEFAULT 'pending',
+  `endTime` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reservations`
+--
+
+INSERT INTO `reservations` (`id`, `table_id`, `userId`, `date`, `startTime`, `num_guests`, `status`, `endTime`) VALUES
+(2, 5, 'voGqLSY72LTfcQ60yBmt3dlYyQS2', '2024-12-03', '15:43:50', 1, 'done', '15:50:50'),
+(7, 1, '0c5d68935bc39787', '2024-12-30', '02:26:00', 1, 'done', '14:26:00'),
+(8, 1, '0c5d68935bc39787', '2024-12-31', '08:36:00', 2, 'done', '20:36:00'),
+(9, 1, '0c5d68935bc39787', '2025-01-01', '08:40:00', 1, 'cancelled', '20:40:00'),
+(10, 1, '4', '2024-12-31', '03:01:00', 1, 'pending', '05:01:00'),
+(11, 1, '0c5d68935bc39787', '2025-01-01', '08:59:00', 1, 'cancelled', '20:59:00'),
+(12, 1, '0c5d68935bc39787', '2025-01-03', '09:24:00', 1, 'pending', '09:53:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tables`
+--
+
+CREATE TABLE `tables` (
+  `id` int(11) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `location` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tables`
+--
+
+INSERT INTO `tables` (`id`, `capacity`, `location`) VALUES
+(1, 4, 'In floor 1'),
+(2, 4, ' in floor 1 near fish tank'),
+(3, 4, 'in floor 1 near window1'),
+(4, 6, 'in floor 2'),
+(5, 16, 'at vip room 23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -240,11 +297,11 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`userId`, `fullName`, `email`, `passWord`, `avataImg`, `address`, `role`, `phoneNum`, `dob`) VALUES
-('0c5d68935bc39787', 'Trần Hoàng Xuân Nguyên', 'hoangnguyendepgiai@gmail.com', 'ad123123', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUTEhIVFRUWFRYVFRUVEhUVFRcVFRUXFhUVFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGislHSUrLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLy0tLS0tLSstLf/AABEIAMIBAwMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAGAAIDBAUBBwj/xABKEAABAwICBQkDCAgEBQUAAAABAAIRAwQhMQUGEkFRBxMiYXGBkaGxMnLBFEJSU5TR4fAVIyREVJPS0xYXYrI0goOz8SUzc5Ki/8QAGwEAAgMBAQEAAAAAAAAAAAAAAAECAwQFBgf/xAA4EQACAQIDBAcGBQQDAAAAAAAAAQIDEQQSIQUxQVETM4GhstHwFBU0QlJhIzJxgsEiYrHhBiRT/9oADAMBAAIRAxEAPwDX1w1ndZmkG0W1OcFQmahZGxscGmZ2/JDrOUmucrNn2h39tT8qVPafa8Irz40UJsLWiAuLsvZmFrYWFSpC7d+L5v7mivWnGbSYS/5kVv4Nn2g/201/KXWH7mz7Qf7aGq1MOx3qtzM4ZLoe5sF/598vMq9pqcwnPKpW/gm/zz/Qo6nK1VGdiP55/oQ/8nbkq1W1jISOCj7lwf0d78w9oqcwj/zif/BD+ef6F0csT/4Ifzz/AEIUFgHboVmlo1sRCXuXCfR3vzH7TU5hVR5VqzsrFv8APP8AQp/8y6/8Ez7Qf7aDTQ5s9SZWq7z3Iex8Evk735jVeo+IYv5Uqo/cmfaD/bTKnKvVGdk3if2g4dvQQQ/ABx4z3j8ZVEUy6Z47R7eBUPdGD+jvfmS6afM9EpcrFR37k3vuD/QpRypVcf2Nn2g/2156yAJ/MJlckDr4deZ9UPZODXyd78xqtPmeh1OVWoP3Nn2g/wBtcHKrVP7k37Qf7', 'Gio Linh', 'user', '343609441', '2024-12-18'),
+('0c5d68935bc39787', 'Nguyen Tran Hoang Xuan', 'hoangnguyendepgiai@gmail.com', 'ad123123', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm3ipD46EiTYgF7-khf4a-SAHpBv_kbasr5A&s', '26 Phan Boi Chau', 'user', '12312312312', '2025-01-01'),
 ('2', 'Trần Hoàng Xuân Nguyên', 'hoangnguyendepgiai@gmail.com', 'duyenha123', 'data:image/jpeg;base64,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', 'Gio Linh', 'user', '343609441', '2024-12-13'),
 ('3', 'nguyen', 'be.y26@student.passerellesnumeriqes.org', '123123', NULL, NULL, 'user', '0343434223', '2024-12-27'),
 ('4', 'admin123', 'admin@gmail.com', 'admin123', 'none', 'admin', 'admin', '0373989884', '0000-00-00'),
@@ -253,41 +310,35 @@ INSERT INTO `user` (`userId`, `fullName`, `email`, `passWord`, `avataImg`, `addr
 ('7', 'concototo123', 'concototo123@gmail.com', 'concototo123', NULL, NULL, 'user', '0373989884', '2024-12-25'),
 ('8', 'Võ thị ngọc thủy', 'concobebe1234@gmail.com', 'ad123123', NULL, NULL, 'user', '0373989884', '2024-12-31'),
 ('9', 'Võ thị ngọc thủy', 'concobebe12345@gmail.com', 'ad123123', NULL, NULL, 'user', '0373989884', '2024-12-31'),
-('voGqLSY72LTfcQ60yBmt3dlYyQS2', 'Trần Hoàng Xuân Nguyên', 'hoangnguyendepgiai@gmail.com', 'googleUser', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUTEhIVFRUWFRYVFRUVEhUVFRcVFRUXFhUVFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGislHSUrLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLy0tLS0tLSstLf/AABEIAMIBAwMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAGAAIDBAUBBwj/xABKEAABAwICBQkDCAgEBQUAAAABAAIRAwQhMQUGEkFRBxMiYXGBkaGxMnLBFEJSU5TR4fAVIyREVJPS0xYXYrI0goOz8SUzc5Ki/8QAGwEAAgMBAQEAAAAAAAAAAAAAAAECAwQFBgf/xAA4EQACAQIDBAcGBQQDAAAAAAAAAQIDEQQSIQUxQVETM4GhstHwFBU0QlJhIzJxgsEiYrHhBiRT/9oADAMBAAIRAxEAPwDX1w1ndZmkG0W1OcFQmahZGxscGmZ2/JDrOUmucrNn2h39tT8qVPafa8Irz40UJsLWiAuLsvZmFrYWFSpC7d+L5v7mivWnGbSYS/5kVv4Nn2g/201/KXWH7mz7Qf7aGq1MOx3qtzM4ZLoe5sF/598vMq9pqcwnPKpW/gm/zz/Qo6nK1VGdiP55/oQ/8nbkq1W1jISOCj7lwf0d78w9oqcwj/zif/BD+ef6F0csT/4Ifzz/AEIUFgHboVmlo1sRCXuXCfR3vzH7TU5hVR5VqzsrFv8APP8AQp/8y6/8Ez7Qf7aDTQ5s9SZWq7z3Iex8Evk735jVeo+IYv5Uqo/cmfaD/bTKnKvVGdk3if2g4dvQQQ/ABx4z3j8ZVEUy6Z47R7eBUPdGD+jvfmS6afM9EpcrFR37k3vuD/QpRypVcf2Nn2g/2156yAJ/MJlckDr4deZ9UPZODXyd78xqtPmeh1OVWoP3Nn2g/wBtcHKrVP7k37Qf7', 'Gio Linh', 'user', '343609441', '2024-12-18'),
+('voGqLSY72LTfcQ60yBmt3dlYyQS2', 'Trần Hoàng Xuân Nguyên', 'hoangnguyendepgiai@gmail.com', 'googleUser', NULL, 'Gio Linh', 'user', '343609441', '2024-12-18'),
 ('zVaJwaTVjkTGb0HswiGX78EkQw43', 'Tran Hoang Xuan Nguyen', 'nguyen.tran26@student.passerellesnumeriques.org', 'googleUser', NULL, NULL, 'user', NULL, NULL);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryId`);
 
 --
--- Chỉ mục cho bảng `feedback`
---
-ALTER TABLE `feedback`
-  ADD KEY `fk_user_cmt` (`user_id`);
-
---
--- Chỉ mục cho bảng `fooditems`
+-- Indexes for table `fooditems`
 --
 ALTER TABLE `fooditems`
   ADD PRIMARY KEY (`foodId`),
   ADD KEY `categoryId` (`categoryId`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `fk_user` (`userId`);
 
 --
--- Chỉ mục cho bảng `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`order_item_id`),
@@ -295,67 +346,94 @@ ALTER TABLE `order_items`
   ADD KEY `foodId` (`foodId`);
 
 --
--- Chỉ mục cho bảng `user`
+-- Indexes for table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `table_id` (`table_id`),
+  ADD KEY `user_fk` (`userId`);
+
+--
+-- Indexes for table `tables`
+--
+ALTER TABLE `tables`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `categoryId` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `fooditems`
+-- AUTO_INCREMENT for table `fooditems`
 --
 ALTER TABLE `fooditems`
   MODIFY `foodId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT cho bảng `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- AUTO_INCREMENT for table `reservations`
+--
+ALTER TABLE `reservations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tables`
+--
+ALTER TABLE `tables`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `feedback`
---
-ALTER TABLE `feedback`
-  ADD CONSTRAINT `fk_user_cmt` FOREIGN KEY (`user_id`) REFERENCES `user` (`userId`);
-
---
--- Các ràng buộc cho bảng `fooditems`
+-- Constraints for table `fooditems`
 --
 ALTER TABLE `fooditems`
   ADD CONSTRAINT `fooditems_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`categoryId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 
 --
--- Các ràng buộc cho bảng `order_items`
+-- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`foodId`) REFERENCES `fooditems` (`foodId`);
+
+--
+-- Constraints for table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`table_id`) REFERENCES `tables` (`id`),
+  ADD CONSTRAINT `user_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
