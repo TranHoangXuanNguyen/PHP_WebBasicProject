@@ -50,7 +50,8 @@
                                 ?>
                                     <div class="row-content d-flex justify-content-between align-items-center ">
                                         <span class="item"><a href='<?php echo '/menu/show/' . $item['foodId'] ?>' class="text-decoration-none text-secondary"><?php echo htmlspecialchars($item['item'] ?? 'No Name'); ?></a></span>
-                                        <span class="price"><?php echo htmlspecialchars($item['price'] ?? '0.00'); ?></span>
+                                        <span class="price">   <?php echo number_format($item['price'], 0, ',', '.'); ?> VNĐ
+                                        </span>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
