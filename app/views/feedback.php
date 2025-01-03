@@ -40,7 +40,7 @@
                         </div>
                         <div class="icon-start">
                             <?php for ($i = 0; $i < 5; $i++): ?>
-                                <i class="fa<?php echo $i < 3 ? '-solid' : '-regular'; ?> fa-star"></i>
+                                <i class="fa<?php echo $i < 4 ? '-solid' : '-regular'; ?> fa-star"></i>
                             <?php endfor; ?>
                         </div>
                     </div>
@@ -49,10 +49,6 @@
                     <?php echo htmlspecialchars($feedback['content']); ?>
                 </div>
             <?php endforeach; ?>
-
-            <?php if ($data['totalFeedbacks'] > 5): ?>
-                <a href="/home/viewAll" class="btn btn-warning mt-3" id="load-more">Xem thêm</a>
-            <?php endif; ?>
         <?php else: ?>
             <p>No feedback available yet.</p>
         <?php endif; ?>
@@ -71,20 +67,31 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const viewmore = document.getElementById('load-more');
-            const totalFeedbacks = <?php echo json_encode($data['totalFeedbacks']); ?>;
+    <div class="pagination d-flex justify-content-end me-4">
+    <?php if ($totalPages > 1): ?>
+        <ul class="pagination">
+            <li class="page-item <?php echo $page == 1 ? 'disabled' : ''; ?>">
+                <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo; Prev</span>
+                </a>
+            </li>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+            <li class="page-item <?php echo $page == $totalPages ? 'disabled' : ''; ?>">
+                <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
+                    <span aria-hidden="true">Next &raquo;</span>
+                </a>
+            </li>
+        </ul>
+    <?php endif; ?>
+</div>
 
-            if (viewmore) {
-                viewmore.addEventListener('click', function() {
-                    if (totalFeedbacks > 5) {
-                        viewmore.style.display = 'none';
-                    }
-                });
-            }
-        });
-    </script>
+</div>
     <?php
     include_once("app/components/footer.php");
     ?>

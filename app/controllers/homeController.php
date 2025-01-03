@@ -92,35 +92,25 @@ class HomeController extends Controller
     }
 
     // ================================================================
-    public function feedBack()
-    {
-        $feedbackModel = new homeModel();
-        $feedbacks = $feedbackModel->getFeedback(5);
+   // Controller
+public function feedBack()
+{
+    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $limit = isset($_GET['per_page']) ? intval($_GET['per_page']) : 5; 
 
-        $totalFeedbacks = count($feedbackModel->getFeedback());
-
-        $data = [
-            'feedbacks' => $feedbacks,
-            'totalFeedbacks' => $totalFeedbacks,
-        ];
-
-        $this->view('feedback', $data);
-    }
-
-    public function viewAll()
-    {
-        $feedbackModel = new homeModel();
-        $feedbacks = $feedbackModel->getFeedback();
-
-        $data = [
-            'feedbacks' => $feedbacks,
-            'totalFeedbacks' => count($feedbacks),
-        ];
-
-        $this->view('feedback', $data);
-    }
-
-
+    $offset = ($page - 1) * $limit;  
+    $feedbackModel = new homeModel();
+    $feedbacks = $feedbackModel->getFeedback($limit, $offset); 
+    $totalRecords = $feedbackModel->getTotalFeedback();  
+    $totalPages = ceil($totalRecords / $limit); 
+    $data = [
+        'feedbacks' => $feedbacks, 
+        'totalPages' => $totalPages,
+        'page' => $page,
+    ];
+    $this->view('feedback', $data); 
+    exit;
+}
     public function addFeedback()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
