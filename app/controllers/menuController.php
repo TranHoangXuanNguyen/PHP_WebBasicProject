@@ -107,7 +107,7 @@ class MenuController extends Controller
             $searchModel = new FoodModel();
             $searchResults = $searchModel->searchFood($keyword);
             if (!empty($searchResults)) {
-                $this->view('Foodlist', ['foodSearch' => $searchResults]);
+                $this->view('Foodlist', ['items' => $searchResults]);
             } else {
                 $this->view('Foodlist', ['message' => 'Không tìm thấy sản phẩm nào.']);
             }

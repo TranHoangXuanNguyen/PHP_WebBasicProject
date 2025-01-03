@@ -422,7 +422,7 @@ class userController extends Controller
             function execPostRequest($url, $data)
             {
                 $ch = curl_init(url: $url);
-                // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -437,22 +437,17 @@ class userController extends Controller
                 );
                 curl_setopt($ch, CURLOPT_TIMEOUT, 5);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-
                 $result = curl_exec($ch);
-
                 curl_close($ch);
                 // if ($result === false) {
                 //     $error = curl_error($ch);
                 // Xử lý lỗi
                 // }
-
                 return $result;
             }
 
             //  Trả về đường dẫn thanh toán
             $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-
-
             $partnerCode = 'MOMOBKUN20180529';
             $accessKey = 'klm05TvNBzhg7h7j';
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
