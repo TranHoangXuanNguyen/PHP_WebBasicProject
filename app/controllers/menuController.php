@@ -115,4 +115,22 @@ class MenuController extends Controller
             $this->view('Foodlist', ['message' => 'Vui lòng nhập từ khóa tìm kiếm.']);
         }
     }
+
+    public function showFoodItems() {
+        $limit = 6;
+    
+        $totalFood = new FoodModel();
+        $totalFoodCount = $totalFood->getTotalFood(); 
+    
+        $totalPages = ceil($totalFoodCount / $limit);
+    
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    
+        $offset = ($page - 1) * $limit;
+    
+        $foodItems = new FoodModel();
+        $foodPage = $foodItems->getFoodItems($limit, $offset);
+    
+    }
+    
 }

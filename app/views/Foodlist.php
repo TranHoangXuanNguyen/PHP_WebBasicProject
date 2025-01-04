@@ -130,6 +130,38 @@
         .search {
             margin-top: 40px !important;
         }
+   
+    .pagination {
+    display: flex;
+    justify-content: center; 
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0 5px; 
+}
+
+.page-link {
+    display: inline-block;
+    color: white; 
+    background-color: orange;
+    padding: 10px 15px; 
+    border: 1px solid orange; 
+    border-radius: 5px; 
+    font-size: 16px; 
+}
+
+.page-link:hover {
+    background-color: darkorange; 
+    color:white;
+}
+.page-item.disabled .page-link {
+    cursor: not-allowed; 
+}
+
+
     </style>
 </head>
 
@@ -192,6 +224,23 @@
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
+        <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </ul>
+        </nav>
     </div>
     <?php
     require_once("app/components/footer.php");
