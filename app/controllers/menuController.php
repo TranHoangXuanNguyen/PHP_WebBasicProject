@@ -107,7 +107,7 @@ class MenuController extends Controller
             $searchModel = new FoodModel();
             $searchResults = $searchModel->searchFood($keyword);
             if (!empty($searchResults)) {
-                $this->view('Foodlist', ['items' => $searchResults]);
+                $this->view('Foodlist', data: ['items' => $searchResults]);
             } else {
                 $this->view('Foodlist', ['message' => 'Không tìm thấy sản phẩm nào.']);
             }
@@ -117,20 +117,32 @@ class MenuController extends Controller
     }
 
     public function showFoodItems() {
-        $limit = 6;
+        $limit = 6; 
     
         $totalFood = new FoodModel();
-        $totalFoodCount = $totalFood->getTotalFood(); 
+        $totalFoodCount = $totalFood->getTotalFood();
     
         $totalPages = ceil($totalFoodCount / $limit);
     
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     
-        $offset = ($page - 1) * $limit;
+        if ($page < 1) {
+            $page = 1;
+        } elseif ($page > $totalPages) {
+            $page = $totalPages;
+        }
+    
+        $startId = ($page - 1) * $limit + 1;
     
         $foodItems = new FoodModel();
-        $foodPage = $foodItems->getFoodItems($limit, $offset);
+        $foodPage = $foodItems->getFoodItems($limit, $startId);
     
+        $this->view('Foodlist', [
+            'foodPage' => $foodPage,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+        ]);
     }
+    
     
 }
