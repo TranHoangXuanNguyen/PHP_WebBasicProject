@@ -130,38 +130,37 @@
         .search {
             margin-top: 40px !important;
         }
-   
-    .pagination {
-    display: flex;
-    justify-content: center; 
-    list-style: none; 
-    padding: 0;
-    margin: 0;
-}
 
-.page-item {
-    margin: 0 5px; 
-}
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.page-link {
-    display: inline-block;
-    color: white; 
-    background-color: orange;
-    padding: 10px 15px; 
-    border: 1px solid orange; 
-    border-radius: 5px; 
-    font-size: 16px; 
-}
+        .page-item {
+            margin: 0 5px;
+        }
 
-.page-link:hover {
-    background-color: darkorange; 
-    color:white;
-}
-.page-item.disabled .page-link {
-    cursor: not-allowed; 
-}
+        .page-link {
+            display: inline-block;
+            color: white;
+            background-color: orange;
+            padding: 10px 15px;
+            border: 1px solid orange;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
+        .page-link:hover {
+            background-color: darkorange;
+            color: white;
+        }
 
+        .page-item.disabled .page-link {
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -224,34 +223,36 @@
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-        <?php if (isset($totalPages) && $totalPages > 0): ?>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <!-- Nút Previous -->
-            <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $currentPage - 1 ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+        <?php
+        $totalItems = count($data['total']); 
+        $itemsPerPage = 9;
+        $totalPages = ceil($totalItems / $itemsPerPage); 
+        ?>
 
-            <!-- Các số trang -->
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?= $i == $currentPage ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- Nút Previous -->
+                <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $currentPage - 1 ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
                 </li>
-            <?php endfor; ?>
 
-            <!-- Nút Next -->
-            <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $currentPage + 1 ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-<?php else: ?>
-    <p>No data available for pagination.</p>
-<?php endif; ?>
+                <!-- Các số trang -->
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i == $currentPage ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <!-- Nút Next -->
+                <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $currentPage + 1 ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
 
     </div>

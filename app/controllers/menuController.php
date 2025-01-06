@@ -17,14 +17,26 @@ class MenuController extends Controller
     }
     function foodList($categoryId)
     {
+        $page = $_GET['page'];
+        $start = ($page - 1) * 9;
+        $end = ($page) * 9;
+
+
+
         global $conn;
         if (!$conn) {
             die("Connection to database failed");
         }
         $foodlistModel = new FoodModel();
         $foods =  $foodlistModel->foodListByCategory($categoryId);
+        $listFoodByPage = [];
+        for ($i = $start; $i < $end; $i++) {
+            if (isset($foods[$i])) {
+                $listFoodByPage[] = $foods[$i];
+            }
+        }
         if (!empty($foods)) {
-            $this->view('Foodlist', ['items' => $foods]);
+            $this->view('Foodlist', ['items' => $listFoodByPage, 'total' => $foods]);
         } else {
             echo " No food items found for this  category";
         }
@@ -107,7 +119,7 @@ class MenuController extends Controller
             $searchModel = new FoodModel();
             $searchResults = $searchModel->searchFood($keyword);
             if (!empty($searchResults)) {
-                $this->view('Foodlist', data: ['items' => $searchResults]);
+                $this->view('Foodlist', data: ['items' => $searchResults, 'total' => $searchResults]);
             } else {
                 $this->view('Foodlist', ['message' => 'Không tìm thấy sản phẩm nào.']);
             }
@@ -116,33 +128,32 @@ class MenuController extends Controller
         }
     }
 
-    public function showFoodItems() {
-        $limit = 6; 
-    
+    public function showFoodItems()
+    {
+        $limit = 6;
+
         $totalFood = new FoodModel();
         $totalFoodCount = $totalFood->getTotalFood();
-    
+
         $totalPages = ceil($totalFoodCount / $limit);
-    
+
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    
+
         if ($page < 1) {
             $page = 1;
         } elseif ($page > $totalPages) {
             $page = $totalPages;
         }
-    
+
         $startId = ($page - 1) * $limit + 1;
-    
+
         $foodItems = new FoodModel();
         $foodPage = $foodItems->getFoodItems($limit, $startId);
-    
+
         $this->view('Foodlist', [
             'foodPage' => $foodPage,
             'totalPages' => $totalPages,
             'currentPage' => $page,
         ]);
     }
-    
-    
 }
