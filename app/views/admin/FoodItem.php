@@ -20,32 +20,36 @@ $fooditems = $data['allfooditems'];
         </thead>
         <tbody class="tablebody">
             <?php
+            $pageItem = 0;
             foreach ($fooditems as $fooditem) {
                 echo "
-    <tr>
-        <th scope='row'>{$fooditem->foodId}</th>
-        <td>{$fooditem->foodName}</td>
-        <td>
-            <img src='{$fooditem->foodImg}' class='fooditemimgadin' alt='Image of {$fooditem->foodName}'>
-        </td>
-        <td>{$fooditem->price}</td>
-        <td>{$fooditem->categoryId}</td>
-        <td>{$fooditem->detail}</td>
-        <td>
-            <button type='button' class='updatebtn btn-warning btn' onclick='updateFoodItem({$fooditem->foodId})'><i class='bi bi-file-earmark-plus-fill'></i></button>
-            <button type='button' class='deletebtn btn-success btn' onclick='deleteFoodItem({$fooditem->foodId})' ><i class='bi bi-trash3-fill'></i></button>
-        </td>
-    </tr>
-    ";
+            <tr id='row{$pageItem}'>
+                <th scope='row'>" . htmlspecialchars($fooditem->foodId) . "</th>
+                <td>" . htmlspecialchars($fooditem->foodName) . "</td>
+                <td>
+                    <img src='" . htmlspecialchars($fooditem->foodImg) . "' class='fooditemimgadin' alt='Image of " . htmlspecialchars($fooditem->foodName) . "'>
+                </td>
+                <td>" . htmlspecialchars($fooditem->price) . "</td>
+                <td>" . htmlspecialchars($fooditem->categoryId) . "</td>
+                <td>" . htmlspecialchars($fooditem->detail) . "</td>
+                <td>
+                    <button type='button' class='updatebtn btn-warning btn' onclick='updateFoodItem(" . htmlspecialchars($fooditem->foodId) . ")'><i class='bi bi-file-earmark-plus-fill'></i></button>
+                    <button type='button' class='deletebtn btn-success btn' onclick='deleteFoodItem(" . htmlspecialchars($fooditem->foodId) . ")'><i class='bi bi-trash3-fill'></i></button>
+                </td>
+            </tr>
+            ";
+                $pageItem++;
             }
             ?>
-            </form>
         </tbody>
     </table>
+
 
     <div class="modalPopup" onclick="closeModal()"> </div>
     <div class="modalContent">
         <span class="closeBtn" onclick="closeModal()">X</span>
     </div>
+
+
 
 </body>

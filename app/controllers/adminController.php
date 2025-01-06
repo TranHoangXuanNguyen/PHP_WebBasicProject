@@ -82,11 +82,25 @@ class AdminController extends Controller
             echo 'Update failed';
         }
     }
+    public function getDataPage($start, $end, $arrData)
+    {
+        $returnData = array();
+        for ($i = $start; $i < $end; $i++) {
+            if (isset($arrData[$i])) {
+                $returnData[] = $arrData[$i];
+            }
+        }
+        return $returnData;
+    }
 
     public function fetchdata($page)
     {
-
         $allowed_pages = ['Dashboard', 'FoodItem', 'User', 'Confirm', 'Booking'];
+        $pageNumber = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $start = ($pageNumber - 1) * 9;
+        $end = ($pageNumber) * 9;
+        var_dump($pageNumber);
+        // die;
         if ($page == 'Dashboard') {
             $objDataF = new AdminModelFooditem();
             $objDataU = new AdminModelFooditem();
@@ -94,16 +108,17 @@ class AdminController extends Controller
             $listdataU = $objDataU->getAllUser();
             $totalMoney = $objDataU->getIncome();
 
+
             $data = ['allfooditems' => $listdataF, 'allusers' => $listdataU, 'totalMoney' => $totalMoney];
         }
         if ($page == 'FoodItem') {
             $objData = new AdminModelFooditem();
-            $listdata = $objData->getAllFoodItem();
+            $listdata = $this->getDataPage($start, $end, $objData->getAllFoodItem());
             $data = ['allfooditems' => $listdata];
         }
         if ($page == 'User') {
             $objData = new AdminModelFooditem();
-            $listdata = $objData->getAllUser();
+            $listdata = $this->getDataPage($start, $end, $objData->getAllUser());
             $data = ['allusers' => $listdata];
         }
         if ($page == 'Confirm') {

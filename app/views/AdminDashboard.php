@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mamakitchen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    <!-- <link rel="stylesheet" href=""> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <?php
@@ -14,142 +15,7 @@
     // var_dump($data['imcomeEachMonth'][11])   
     // for()
     ?>
-    <style>
-        .admincontai {
-            height: 120vh;
-        }
 
-        .content__session {
-            height: 120vh;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            overflow: scroll !important;
-
-        }
-
-        .inforbox {
-            width: 80%;
-            /* background: linear-gradient(to right, rgb(26, 28, 26), rgb(232, 135, 8)); */
-            background-color: orange;
-            margin: auto;
-            padding: 10px 20px;
-            text-align: center;
-            border-radius: 10px;
-            opacity: 80%;
-            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4), -10px -10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        #mychart {
-            display: block;
-            box-sizing: border-box;
-        }
-
-        .tablebody {
-            overflow: scroll !important;
-        }
-
-        .fooditemimgadin {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-        }
-
-        .modalPopup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .formUpdateFoodItem {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-        }
-
-        .formUpdateFoodItem .form-label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .formUpdateFoodItem .form-control {
-            border-radius: 5px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            transition: border-color 0.3s ease;
-        }
-
-        .formUpdateFoodItem .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        .formUpdateFoodItem .form-control:disabled {
-            background-color: #f1f1f1;
-        }
-
-        .formUpdateFoodItem .mb-3 {
-            margin-bottom: 15px;
-        }
-
-        .formUpdateFoodItem button[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        .formUpdateFoodItem button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        .formUpdateFoodItem .form-control,
-        .formUpdateFoodItem button {
-            margin-bottom: 15px;
-        }
-
-        .formUpdateFoodItem img {
-            max-width: 100px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-
-        .formUpdateFoodItem select.form-control {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            transition: border-color 0.3s ease;
-        }
-
-        .formUpdateFoodItem select.form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .formUpdateFoodItem {
-                padding: 15px;
-                max-width: 100%;
-            }
-        }
-    </style>
 
 </head>
 
@@ -166,11 +32,11 @@
                     <h1 class="adminsidebar_header__title mt-3 mb-3">MASTER ADMIN</h>
                 </div>
                 <div class="list-group">
-                    <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" data-page="Dashboard">Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="FoodItem">Manager food items</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="User">Manager User Account</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="Confirm">Confirm Order</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" data-page="Booking">Check table status</a>
+                    <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOffNav()" data-page="Dashboard">Dashboard</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="FoodItem">Manager food items</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="User">Manager User Account</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="Confirm">Confirm Order</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="Booking">Check table status</a>
 
                     <a href="/admin/Signout" class="btn btn-warning mt-3">Log out</a>
                 </div>
@@ -182,6 +48,18 @@
                 <div id="content">
 
                 </div>
+                <nav id="navPag" aria-label="Page navigation" style="display:none">
+                    <ul class="pagination">
+                        <li class="page-item" id="prevBtn" onclick="prev()"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item firstBtn"><a class="page-link pageGet" href="#" data-page="1">1</a></li>
+                        <li class="page-item"><a class="page-link pageGet" href="#" data-page="2">2</a></li>
+                        <li class="page-item"><a class="page-link pageGet" href="#" data-page="3">3</a></li>
+                        <li class="page-item"><a class="page-link pageGet" href="#" data-page="4">4</a></li>
+                        <li class="page-item"><a class="page-link pageGet" href="#" data-page="5">5</a></li>
+                        <li class="page-item"><a class="page-link pageGet" href="#" data-page="6">6</a></li>
+                        <li class="page-item" id="nextBtn" onclick="next()"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -205,6 +83,7 @@
         });
 
         function fetchContent(page) {
+            console.log(('/admin/fetchdata/' + page + '/1'))
             fetch('/admin/fetchdata/' + page)
                 .then(function(response) {
                     if (!response.ok) {
@@ -564,6 +443,87 @@
             }
         }
     </script>
+
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 6;
+
+        function updatePagination() {
+            document.getElementById('prevBtn').classList.toggle('disabled', currentPage === 1);
+            document.getElementById('nextBtn').classList.toggle('disabled', currentPage === totalPages);
+
+            const pageLinks = document.querySelectorAll('.page-link');
+            pageLinks.forEach(link => {
+                const page = parseInt(link.getAttribute('data-page'));
+                if (page === currentPage) {
+                    link.parentElement.classList.add('active'); // Add active class to the parent <li>
+                } else {
+                    link.parentElement.classList.remove('active');
+                }
+            });
+        }
+
+        const prev = () => {
+            event.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+                showPage(currentPage);
+            }
+        }
+
+
+        const next = () => {
+            event.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+                showPage(currentPage);
+            }
+        }
+
+
+
+
+        document.querySelectorAll('.pageGet').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const page = parseInt(this.getAttribute('data-page'));
+                if (page !== currentPage) {
+                    currentPage = page;
+                }
+                updatePagination();
+                showPage(page);
+            });
+        });
+
+
+
+        updatePagination();
+
+        const showPage = (pageGetFrom) => {
+            updatePagination();
+            console.log(`Fetching content for page: ${pageGetFrom}`);
+            fetchContent(`FoodItem?page=${pageGetFrom}`)
+        };
+
+        const turnOffNav = () => {
+            document.querySelector('#navPag').style.display = 'none';
+
+        }
+        const turnOnNav = () => {
+            document.querySelector('#navPag').style.display = 'block';
+            const pageLinks = document.querySelectorAll('.page-link');
+            pageLinks.forEach(link => {
+                const page = parseInt(link.getAttribute('data-page'));
+                link.parentElement.classList.remove('active');
+            });
+            document.querySelector('.firstBtn').classList.add('active');
+
+        }
+    </script>
+
 
 </body>
 
