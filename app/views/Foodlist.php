@@ -225,30 +225,30 @@
             </div>
         <?php endif; ?>
         <?php if (isset($totalPages) && $totalPages > 0): ?>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <!-- Nút Previous -->
-            <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $currentPage - 1 ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <!-- Nút Previous -->
+                    <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $currentPage - 1 ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
 
-            <!-- Các số trang -->
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?= $i == $currentPage ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                </li>
-            <?php endfor; ?>
+                    <!-- Các số trang -->
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item <?= $i == $currentPage ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
 
-            <!-- Nút Next -->
-            <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $currentPage + 1 ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                    <!-- Nút Next -->
+                    <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $currentPage + 1 ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 <?php else: ?>
     <p>No data available for pagination.</p>
 <?php endif; ?>
