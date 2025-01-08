@@ -142,27 +142,38 @@ class HomeModel
         }
     }
 
-    public function getFeedback($limit = null)
-    {
-        $query = "SELECT feedback.*, user.avataImg, user.fullName
-                  FROM feedback
-                  JOIN user ON feedback.user_id = user.userId
-                  ORDER BY feedback.create_at DESC";  
-
-        // Nếu có limit thì thêm điều kiện giới hạn số lượng
-        if ($limit) {
-            $query .= " LIMIT " . (int)$limit;
-        }
-
-        $result = $this->conn->query($query);
-        $data = [];
-        if ($result) {
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
-            }
-        }
-        return $data;
+   // Model
+   public function getFeedback($limit, $offset) {
+    $query = "SELECT feedback.*, user.avataImg, user.fullName
+              FROM feedback
+              JOIN user ON feedback.user_id = user.userId
+              ORDER BY feedback.create_at DESC
+              LIMIT ?, ?";
+              
+    $stmt = $this->conn->prepare($query);
+    $stmt->bind_param("ii", $offset, $limit);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
     }
+    $stmt->close();
+    return $data;
+}
+
+public function getTotalFeedback(){
+    $query = "SELECT COUNT(*) AS total FROM feedback";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $total = $row['total'] ?? 0;
+    $stmt->close();
+    return $total;
+}
+
+
     public function addFeedback($userId, $content)
     {
         $query = "INSERT INTO feedback(user_id, content) VALUES(?, ?)";
