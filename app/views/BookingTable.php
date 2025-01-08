@@ -25,24 +25,24 @@
         <div class="find__table">
             <div class="time_session">
                 <div class="botton__position">
-                    <div class="number__customer__session">
-                        <div class="number__customer__title">Customer</div>
+                    <div class="number__customer__session customer_select">
+                        <div class="number__customer__title">CUSTOMER</div>
                         <div class="number__session">
                             <button class="btn btn-sm number__session__btn_i " onclick="decrement()">-</button>
                             <span class="number__customer btn btn-sm">1</span>
                             <button class="btn btn-sm number__session__btn_d" onclick="increment()">+</button>
                         </div>
                     </div>
-                    <div class="start__time__session">
-                        <div class="start__time__title">Start Time</div>
+                    <div class="start__time__session oclock-box">
+                        <div class="start__time__title">START TIME</div>
                         <div class="start__time__input">
-                            <input type="time" id="start_time" required>
+                            <input type="time" id="start_time" class="start-oclock" required>
                         </div>
                     </div>
-                    <div class="end__time__session">
-                        <div class="end__time__title">End Time</div>
+                    <div class="end__time__session oclock-box">
+                        <div class="end__time__title">END TIME</div>
                         <div class="end__time__input">
-                            <input type="time" id="end_time" required>
+                            <input type="time" id="end_time" class="start-oclock" required>
                         </div>
                     </div>
                 </div>
@@ -53,8 +53,7 @@
                         <div class="prev">
                             <i class="fas fa-chevron-left"></i>
                         </div>
-                        <div class="content">
-                            <h1></h1>
+                        <div class="content ">
                             <p></p>
                         </div>
                         <div class="next">
@@ -75,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-success" onclick="findTable()">Find Table</button>
+        <button class="btn btn-warning" id="find-table_button"onclick="findTable()">Find Table</button>
         <!-- Show result -->
         <div class="row mt-5 result__session">
             <!-- result show -->
@@ -131,7 +130,6 @@
                 "11",
                 "12",
             ]
-            document.querySelector('.content h1').innerHTML = year;
             // document.querySelector('.content p').innerHTML = new Date().toDateString();
             document.querySelector('.content p').innerHTML = `${daynow}/${month}/${year}`;
             let days = "";
@@ -224,11 +222,11 @@
                         var htmlContent = `
         <div class="col-sm-6 mt-3">
             <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Table id: ${table.id}</h5>
+                <div class="card-body table-booking">
+                    <h5 class="card-title"> TABLE NUMBER : ${table.id}</h5>
                     <p class="card-text">Table capacity: ${table.capacity}</p>
                     <p class="card-text">Table location: ${table.location}</p>
-                    <a href='#' onclick=bookTable(${table.id}) class="btn btn-primary">Book Table</a>
+                    <a href='#' onclick=bookTable(${table.id}) class="btn btn-warning">Book Table</a>
                 </div>
             </div>
         </div>
