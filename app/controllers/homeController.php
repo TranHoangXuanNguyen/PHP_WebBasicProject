@@ -92,25 +92,35 @@ class HomeController extends Controller
     }
 
     // ================================================================
-   // Controller
-public function feedBack()
-{
-    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    $limit = isset($_GET['per_page']) ? intval($_GET['per_page']) : 5; 
-
-    $offset = ($page - 1) * $limit;  
-    $feedbackModel = new homeModel();
-    $feedbacks = $feedbackModel->getFeedback($limit, $offset); 
-    $totalRecords = $feedbackModel->getTotalFeedback();  
-    $totalPages = ceil($totalRecords / $limit); 
-    $data = [
-        'feedbacks' => $feedbacks, 
-        'totalPages' => $totalPages,
-        'page' => $page,
-    ];
-    $this->view('feedback', $data); 
-    exit;
-}
+   public function feedBack()
+   {
+       $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+       $limit = isset($_GET['per_page']) ? intval($_GET['per_page']) : 5; 
+   
+       $offset = ($page - 1) * $limit;  
+       $feedbackModel = new homeModel();
+       $feedbacks = $feedbackModel->getFeedback($limit, $offset); 
+       $totalRecords = $feedbackModel->getTotalFeedback();  
+       $totalPages = ceil($totalRecords / $limit); 
+   
+       if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+           header('Content-Type: application/json');
+           echo json_encode([
+               'feedbacks' => $feedbacks,
+               'totalPages' => $totalPages,
+               'page' => $page,
+           ]);
+           exit;
+       }
+       $data = [
+           'feedbacks' => $feedbacks, 
+           'totalPages' => $totalPages,
+           'page' => $page,
+       ];
+       $this->view('feedback', $data); 
+       exit;
+   }
+   
     public function addFeedback()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {

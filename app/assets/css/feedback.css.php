@@ -4,7 +4,7 @@
         font-family: Arial, sans-serif;
     }
 
-    .feed-container {
+    #feed-container {
         padding: 20px 30px;
         max-width: 80%;
         margin: 30px auto;
