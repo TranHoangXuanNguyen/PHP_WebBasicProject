@@ -308,23 +308,31 @@ class userController extends Controller
     {
         if (isset($_GET['resultCode']) && $_GET['resultCode'] == 7002) {
 
-            $customer_id = $_SESSION['user_customer_id'];
+            $customer_id = $_SESSION['userId'];
 
             $momo_status = 0;
 
             $link_data = $_GET;
+            $orderId = $_SESSION['orderIdPending'];
 
 
             $link_data_json = json_encode($link_data);
+            // var_dump($link_data_json);
+            $totalAmountMomo = $link_data['amount'];
+            // var_dump($totalAmountMomo);
 
+            // die;
             $momoModel = new  userModel();
-            $result = $momoModel->storeMomoInfo($customer_id, $momo_status, $link_data_json);
+
+            $totalAmountMomo = $link_data['amount'];
+            $result = $momoModel->updateStatus('completed', $orderId, $totalAmountMomo);
 
 
             if ($result) {
-                header('Location: /user/momo?success=Nạp momo thành công, vui lòng chờ Admin duyệt đơn nhé.');
+                header('Location: /user/cart?success=Nạp momo thành công, vui lòng chờ Admin duyệt đơn nhé.');
+                
             } else {
-                header('Location: /user/momo?error=Không thể lưu thông tin giao dịch.');
+                header('Location: /user/cart?error=Không thể lưu thông tin giao dịch.');
             }
             exit;
         }
@@ -492,7 +500,6 @@ class userController extends Controller
             $jsonResult = json_decode($result, true);  // decode json
             // var_dump($result);
             // die();
-
             header('Location: ' . $jsonResult['payUrl']);
         }
     }

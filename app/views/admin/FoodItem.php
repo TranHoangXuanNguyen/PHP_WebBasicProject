@@ -6,6 +6,10 @@ $fooditems = $data['allfooditems'];
     <div class="addFoodIitem__session__admin">
         <button class="btn btn-success" onclick="addNewItem()">Add food item</button>
     </div>
+    <div class="search-container">
+        <input type="text" class="inputSearch" placeholder="Search...">
+        <button onclick="searchFood()">Search</button>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -25,7 +29,7 @@ $fooditems = $data['allfooditems'];
                 echo "
             <tr id='row{$pageItem}'>
                 <th scope='row'>" . htmlspecialchars($fooditem->foodId) . "</th>
-                <td>" . htmlspecialchars($fooditem->foodName) . "</td>
+                <td id='foodName'>" . htmlspecialchars($fooditem->foodName) . "</td>
                 <td>
                     <img src='" . htmlspecialchars($fooditem->foodImg) . "' class='fooditemimgadin' alt='Image of " . htmlspecialchars($fooditem->foodName) . "'>
                 </td>

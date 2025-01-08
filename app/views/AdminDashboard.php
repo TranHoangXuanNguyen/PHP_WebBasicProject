@@ -34,7 +34,7 @@
                 <div class="list-group">
                     <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOffNav()" data-page="Dashboard">Dashboard</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="FoodItem">Manager food items</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="User">Manager User Account</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNavUser()" data-page="User">Manager User Account</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="Confirm">Confirm Order</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="Booking">Check table status</a>
 
@@ -58,6 +58,14 @@
                         <li class="page-item"><a class="page-link pageGet" href="#" data-page="5">5</a></li>
                         <li class="page-item"><a class="page-link pageGet" href="#" data-page="6">6</a></li>
                         <li class="page-item" id="nextBtn" onclick="next()"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+                <nav id="navPagUser" aria-label="Page navigation" style="display:none">
+                    <ul class="pagination">
+                        <li class="page-item" id="prevBtn" onclick="prevUser()"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item firstBtn"><a class="page-link pageUserGet" href="#" data-page="1">1</a></li>
+                        <li class="page-item"><a class="page-link pageUserGet" href="#" data-page="2">2</a></li>
+                        <li class="page-item" id="nextBtn" onclick="nextUser()"><a class="page-link" href="#">Next</a></li>
                     </ul>
                 </nav>
             </div>
@@ -483,6 +491,28 @@
             }
         }
 
+        const prevUser = () => {
+            event.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+                showUserPage(currentPage);
+
+            }
+        }
+
+
+        const nextUser = () => {
+            event.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+                showUserPage(currentPage);
+
+            }
+        }
+
+
 
 
 
@@ -499,6 +529,22 @@
         });
 
 
+        document.querySelectorAll('.pageUserGet').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const page = parseInt(this.getAttribute('data-page'));
+                if (page !== currentPage) {
+                    currentPage = page;
+                }
+                updatePagination();
+                // showPage(page);
+                showUserPage(page);
+
+            });
+        });
+
+
+
 
         updatePagination();
 
@@ -508,12 +554,33 @@
             fetchContent(`FoodItem?page=${pageGetFrom}`)
         };
 
+        const showUserPage = (pageGetFrom) => {
+            updatePagination();
+            console.log(`asdasdasdfor page: ${pageGetFrom}`);
+            fetchContent(`User?page=${pageGetFrom}`)
+
+        };
+
+
         const turnOffNav = () => {
             document.querySelector('#navPag').style.display = 'none';
 
         }
         const turnOnNav = () => {
+            document.querySelector('#navPagUser').style.display = 'none';
             document.querySelector('#navPag').style.display = 'block';
+            const pageLinks = document.querySelectorAll('.page-link');
+            pageLinks.forEach(link => {
+                const page = parseInt(link.getAttribute('data-page'));
+                link.parentElement.classList.remove('active');
+            });
+            document.querySelector('.firstBtn').classList.add('active');
+
+        }
+
+        const turnOnNavUser = () => {
+            document.querySelector('#navPagUser').style.display = 'block';
+            document.querySelector('#navPag').style.display = 'none';
             const pageLinks = document.querySelectorAll('.page-link');
             pageLinks.forEach(link => {
                 const page = parseInt(link.getAttribute('data-page'));
@@ -524,6 +591,26 @@
         }
     </script>
 
+<script>
+    const searchFood = () => {
+        const FoodItems = document.querySelectorAll('#foodName');
+        var inputSearch = document.querySelector('.inputSearch').value.trim();
+        if (inputSearch.length === 0) {
+            alert('Input search is empty');
+            return;
+        }
+        console.log('Search input:', inputSearch);
+        console.log('Food items:', FoodItems);
+        FoodItems.forEach(item => {
+            const foodName = item.textContent || item.innerText; 
+            if (foodName.toLowerCase().includes(inputSearch.toLowerCase())) {
+                item.style.display = "block"; 
+            } else {
+                item.parentElement.style.display = "none";
+            }
+        });
+    }
+</script>
 
 </body>
 
