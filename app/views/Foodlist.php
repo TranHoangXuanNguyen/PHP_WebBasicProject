@@ -130,6 +130,37 @@
         .search {
             margin-top: 40px !important;
         }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .page-item {
+            margin: 0 5px;
+        }
+
+        .page-link {
+            display: inline-block;
+            color: white;
+            background-color: orange;
+            padding: 10px 15px;
+            border: 1px solid orange;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .page-link:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+        .page-item.disabled .page-link {
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -192,6 +223,38 @@
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
+        <?php
+        $totalItems = count($data['total']); 
+        $itemsPerPage = 9;
+        $totalPages = ceil($totalItems / $itemsPerPage); 
+        ?>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- Nút Previous -->
+                <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $currentPage - 1 ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- Các số trang -->
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i == $currentPage ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <!-- Nút Next -->
+                <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $currentPage + 1 ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
     </div>
     <?php
     require_once("app/components/footer.php");

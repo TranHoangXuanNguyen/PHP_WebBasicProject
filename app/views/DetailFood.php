@@ -50,7 +50,7 @@
                             <?php echo htmlspecialchars($fooddetail['detail']); ?>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
-                            <div class="price me-3"><?php echo htmlspecialchars($fooddetail['price']); ?> VNĐ</div>
+                            <div class="price me-3"> <?php echo number_format($fooddetail['price'], 0, ',', '.'); ?>  VNĐ</div>
                             <div class="quantity-buttons">
                                 <button class="btn-decrement" onclick="decrement()">-</button>
                                 <input id="quantity" type="text" value="1" readonly>
@@ -77,7 +77,7 @@
                                         <img src="<?php echo $relevantitem['foodImg']; ?>" class="card-img-top" alt="Food Image">
                                         <div class="card-body">
                                             <a href=<?php echo '/menu/show/' . $relevantitem['foodId'] ?> class="food-title text-decoration-none text-dark text-center"><?php echo $relevantitem['foodName']; ?></a>
-                                            <a href=<?php echo '/menu/show/' . $relevantitem['foodId'] ?> class="r-price text-decoration-none ms-5"><?php echo $relevantitem['price']; ?> VNĐ</a>
+                                            <a href=<?php echo '/menu/show/' . $relevantitem['foodId'] ?> class="r-price text-decoration-none ms-5"><?php echo number_format($fooddetail['price'], 0, ',', '.'); ?>  VNĐ</a>
                                         </div>
                                     </div>
                                 </div>

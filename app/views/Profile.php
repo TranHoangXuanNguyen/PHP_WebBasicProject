@@ -26,7 +26,7 @@
             background-color: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            padding: 40px;
         }
 
         .pf-edit {
@@ -241,7 +241,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Table Id</th>
+                                        <th scope="col">Table Name</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Start Time</th>
                                         <th scope="col">End Time</th>

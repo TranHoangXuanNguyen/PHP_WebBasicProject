@@ -25,4 +25,7 @@
 .orderquantity{
         margin-top: 5px!important;
 }
+.payment_method{
+        margin-top: 10px;
+}
 </style>

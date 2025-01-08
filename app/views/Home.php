@@ -43,7 +43,7 @@
         <p class="text-start mb-3 chuto blackText">✔ Has served important guests.</p>
         <p class="text-start mb-5 chuto blackText">✔ Varied menu changes..</p>
 
-        <button class="btn">About us</button>
+        <button class="btn" id="about">About us</button>
       </div>
       <div class="col-sm-7 imgContai">
         <div class="inRight img-3CaiAnhSieuDepTrai">
@@ -97,13 +97,27 @@
         <h2 class="display-5 text-start mb-5 blackText">Exta ordinary taste
           And Experienced</h2>
         <p class="text-start mb-5 chuvua blackText">We are committed to providing you with an exceptional dining experience with a diverse menu, expertly crafted by our team of experienced chefs. We focus on distinctive flavors that make you feel like you're enjoying a meal in the comfort of your own home. No matter who you are, you will always experience warmth, familiarity, and elegance in every dish we serve.</p>
-        <button class="btn">About us</button>
+        <button class="btn" id="about_us">About us</button>
       </div>
     </div>
   </div>
   <?php
   require_once("app/components/footer.php");
   ?>
+
+<script>
+        document.getElementById('about_us').addEventListener('click', function() {
+            window.location.href = '/home/aboutUs';
+        });
+
+    </script>
+  
+    <script>
+        document.getElementById('about').addEventListener('click', function() {
+            window.location.href = '/home/aboutUs';
+        });
+
+    </script>
 </body>
 
 </html>

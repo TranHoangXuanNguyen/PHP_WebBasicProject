@@ -32,22 +32,22 @@
                 <h4 style="margin-bottom:15px"><strong>Shipping Address</strong></h4>
                 <form>
                     <div class="mb-3">
-                        <label for="fullName" class="form-label">Full name</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Enter your name">
+                        <label for="fullName" class="form-label">Full name </label>
+                        <input type="text" class="form-control" id="fullName" placeholder="Enter your name" required>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Enter your address">
+                        <input type="text" class="form-control" id="address" placeholder="Enter your address"  required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email"  required>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone number</label>
-                        <input type="text" class="form-control" id="phone" placeholder="Enter your phone number">
+                        <input type="text" class="form-control" id="phone" placeholder="Enter your phone number"  required>
                     </div>
-                    <button type="button" class="btn btn-warning payment-button" style="background-color:orange; color:white;"><i class="fa-solid fa-arrow-left"></i> Back to cart</button>
+                    <button type="button" class="btn btn-warning payment-button" style="background-color:orange; color:white;" id="back_cart"><i class="fa-solid fa-arrow-left"></i> Back to cart</button>
                 </form>
             </div>
 
@@ -73,22 +73,24 @@
                                 <span><?php echo number_format($subtotal, 0, ',', '.'); ?> VNĐ</span>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>Phương thức thanh toán</span>
-                                <button class="btn btn-success mt-2" name="redirect" id="redirect">Cash On Delivery</button>
-                                <form action="confirm_momo" method="POST">
-                                    <input type="hidden" name="total" id="selectedAmountInput" />
-                                    <button type="submit" name="captureWallet" class="btn btn-danger thanhtoan">
-                                        Payment by MOMO
-                                    </button>
-                                </form>
-                                <form action="confirm_atm_momo" method="POST">
+
+                                <span>Phương thức thanh toán:</span>
+                                <div class="d-flex justify-content-between align-items-center payment_method">
+                                    <button class="btn btn-danger " name="redirect" id="redirect">Cash On Delivery</button>
+                                    <form action="confirm_momo" method="POST">
+                                        <input type="hidden" name="total" id="selectedAmountInput" />
+                                        <button type="submit" name="captureWallet" class="btn btn-danger thanhtoan">
+                                            Payment by MOMO
+                                        </button>
+                                    </form>
+                                    <form action="confirm_atm_momo" method="POST">
                                     <input type="hidden" name="total" id="atmselectedAmountInput" />
                                     <button type="submit" name="payWithATM" class="btn btn-danger thanhtoanatm">
                                         Payment by ATM MOMO
                                     </button>
                                 </form>
                             </div>
+                          
 
                             <hr>
                             <div class="d-flex justify-content-between">
@@ -134,6 +136,12 @@
             // }
         });
         // });
+    </script>
+    <script>
+        document.getElementById('back_cart').addEventListener('click', function() {
+            window.location.href = '/user/cart';
+        });
+
     </script>
 </body>
 

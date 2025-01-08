@@ -124,4 +124,27 @@ class FoodModel
         $stmt->close();
         return $foodSearch;
     }
+
+    public function getTotalFood() {
+        $sql = "SELECT COUNT(*) FROM fooditems";
+        $result = mysqli_query($this->conn, $sql);
+
+        $row = mysqli_fetch_row($result); 
+        return $row[0]; 
+    }
+
+    public function getFoodItems($limit, $startId) {
+        $sql = "SELECT * FROM fooditems WHERE id >= $startId ORDER BY id ASC LIMIT $limit";
+        $result = mysqli_query($this->conn, $sql);
+        
+        if ($result) {
+            $foodIResult = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $foodIResult[] = $row;
+            }
+            return $foodIResult;
+        }
+        return [];
+    }
+    
 }
