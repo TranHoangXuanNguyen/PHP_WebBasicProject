@@ -7,6 +7,7 @@
     .adminsidebar_header__title {
         font-size: 25px;
         text-align: center;
+        color: white;
     }
 
     /* .active {
@@ -23,10 +24,12 @@
     }
 
     .content__session {
-        /* height: 120vh; */
         background-color: #f9f9f9;
         border-radius: 5px;
-        /* overflow: scroll !important; */
+    }
+
+    .rowadmin {
+        max-width: 99.9999%;
     }
 
     .inforbox {
@@ -186,5 +189,4 @@
     .search-container button:hover {
         background-color: #45a049;
     }
-    
 </style>

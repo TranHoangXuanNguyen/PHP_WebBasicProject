@@ -43,7 +43,7 @@ class AdminModelFooditem
                 $foodItem->foodName = $row['foodName'];
                 $foodItem->categoryId = $row['categoryId'];
                 $foodItem->price = $row['price'];
-                $foodItem->detail = $row['detail'];
+                 $foodItem->detail = $row['detail'];
                 $foodItem->description = $row['description'];
                 $foodItems[] = $foodItem;
             }

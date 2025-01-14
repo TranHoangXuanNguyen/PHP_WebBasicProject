@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <?php
     require_once("./app/assets/css/admin.css.php");
-    // var_dump($data['imcomeEachMonth'][11])   
-    // for()
+
     ?>
 
 
@@ -26,7 +25,7 @@
 
 
     <div class="admincontai">
-        <div class="row">
+        <div class="row rowadmin">
             <div class="col-2 adminsidebar">
                 <div class="adminsidebar_header">
                     <h1 class="adminsidebar_header__title mt-3 mb-3">MASTER ADMIN</h>
@@ -35,8 +34,8 @@
                     <a href="#" autofocus class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOffNav()" data-page="Dashboard">Dashboard</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="FoodItem">Manager food items</a>
                     <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNavUser()" data-page="User">Manager User Account</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="Confirm">Confirm Order</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOnNav()" data-page="Booking">Check table status</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOffNav()" data-page="Confirm">Confirm Order</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-btn load-page" onclick="turnOffNav()" data-page="Booking">Check table status</a>
 
                     <a href="/admin/Signout" class="btn btn-warning mt-3">Log out</a>
                 </div>
@@ -63,7 +62,7 @@
                 <nav id="navPagUser" aria-label="Page navigation" style="display:none">
                     <ul class="pagination">
                         <li class="page-item" id="prevBtn" onclick="prevUser()"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item firstBtn"><a class="page-link pageUserGet" href="#" data-page="1">1</a></li>
+                        <li class="page-item firstBtnUser"><a class="page-link pageUserGet" href="#" data-page="1">1</a></li>
                         <li class="page-item"><a class="page-link pageUserGet" href="#" data-page="2">2</a></li>
                         <li class="page-item" id="nextBtn" onclick="nextUser()"><a class="page-link" href="#">Next</a></li>
                     </ul>
@@ -382,12 +381,10 @@
             const ctx2 = document.getElementById('myChart2');
             const div1 = document.getElementById('chart2');
             const div = document.getElementById('chart');
-
             // Hide div #chart and show div #chart2
             div.style.display = 'none';
             div1.style.display = 'block';
-
-            // Create the chart with dynamic data from PHP
+            // Create the chart with dynamic data from controller
             new Chart(ctx2, {
                 type: 'line',
                 data: {
@@ -460,7 +457,6 @@
         function updatePagination() {
             document.getElementById('prevBtn').classList.toggle('disabled', currentPage === 1);
             document.getElementById('nextBtn').classList.toggle('disabled', currentPage === totalPages);
-
             const pageLinks = document.querySelectorAll('.page-link');
             pageLinks.forEach(link => {
                 const page = parseInt(link.getAttribute('data-page'));
@@ -481,7 +477,6 @@
             }
         }
 
-
         const next = () => {
             event.preventDefault();
             if (currentPage < totalPages) {
@@ -497,10 +492,8 @@
                 currentPage--;
                 updatePagination();
                 showUserPage(currentPage);
-
             }
         }
-
 
         const nextUser = () => {
             event.preventDefault();
@@ -508,13 +501,8 @@
                 currentPage++;
                 updatePagination();
                 showUserPage(currentPage);
-
             }
         }
-
-
-
-
 
         document.querySelectorAll('.pageGet').forEach(link => {
             link.addEventListener('click', function(event) {
@@ -528,7 +516,6 @@
             });
         });
 
-
         document.querySelectorAll('.pageUserGet').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
@@ -537,17 +524,11 @@
                     currentPage = page;
                 }
                 updatePagination();
-                // showPage(page);
                 showUserPage(page);
-
             });
         });
 
-
-
-
         updatePagination();
-
         const showPage = (pageGetFrom) => {
             updatePagination();
             console.log(`Fetching content for page: ${pageGetFrom}`);
@@ -558,14 +539,13 @@
             updatePagination();
             console.log(`asdasdasdfor page: ${pageGetFrom}`);
             fetchContent(`User?page=${pageGetFrom}`)
-
         };
-
 
         const turnOffNav = () => {
             document.querySelector('#navPag').style.display = 'none';
-
+            document.querySelector('#navPagUser').style.display = 'none';
         }
+
         const turnOnNav = () => {
             document.querySelector('#navPagUser').style.display = 'none';
             document.querySelector('#navPag').style.display = 'block';
@@ -575,7 +555,6 @@
                 link.parentElement.classList.remove('active');
             });
             document.querySelector('.firstBtn').classList.add('active');
-
         }
 
         const turnOnNavUser = () => {
@@ -586,31 +565,34 @@
                 const page = parseInt(link.getAttribute('data-page'));
                 link.parentElement.classList.remove('active');
             });
-            document.querySelector('.firstBtn').classList.add('active');
-
+            document.querySelector('.firstBtnUser').classList.add('active');
         }
     </script>
 
-<script>
-    const searchFood = () => {
-        const FoodItems = document.querySelectorAll('#foodName');
-        var inputSearch = document.querySelector('.inputSearch').value.trim();
-        if (inputSearch.length === 0) {
-            alert('Input search is empty');
-            return;
-        }
-        console.log('Search input:', inputSearch);
-        console.log('Food items:', FoodItems);
-        FoodItems.forEach(item => {
-            const foodName = item.textContent || item.innerText; 
-            if (foodName.toLowerCase().includes(inputSearch.toLowerCase())) {
-                item.style.display = "block"; 
-            } else {
-                item.parentElement.style.display = "none";
+    <script>
+        const searchFood = () => {
+            turnOffNav();
+            const inputSearch = document.querySelector('.inputSearch').value.trim().toLowerCase();
+            const FoodItems = document.querySelectorAll('.foodItemSearch');
+            if (inputSearch.length === 0) {
+                alert('Input search is empty');
+                return;
             }
-        });
-    }
-</script>
+            let foundAny = false;
+            FoodItems.forEach(item => {
+                const foodName = item.querySelector('.foodName').textContent.trim().toLowerCase();
+                if (foodName.includes(inputSearch)) {
+                    item.style.display = "table-row";
+                    foundAny = true;
+                } else {
+                    item.style.display = "none";
+                }
+            });
+            if (!foundAny) {
+                alert('No matching food items found');
+            }
+        };
+    </script>
 
 </body>
 

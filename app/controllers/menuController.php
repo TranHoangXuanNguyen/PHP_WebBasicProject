@@ -51,12 +51,12 @@ class MenuController extends Controller
         }
         $foodDetailModel = new FoodModel();
         $fooddetail =  $foodDetailModel->detailFood($foodId);
-        // Nếu tìm thấy món ăn
+        //If can find food item
         if ($fooddetail != null) {
             $relevant = $foodDetailModel->relevantFood($foodId);
 
             $this->view('DetailFood', ['fooddetail' => $fooddetail, 'relevantfood' => $relevant]);
-            // Hiển thị thông tin chi tiết của 1 món ăn 
+            // show detail of food item
         } else {
             echo "No food items found";
         }

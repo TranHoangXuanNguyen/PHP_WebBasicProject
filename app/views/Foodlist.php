@@ -145,12 +145,23 @@
 
         .page-link {
             display: inline-block;
-            color: white;
-            background-color: orange;
+            color: darkorange;
             padding: 10px 15px;
-            border: 1px solid orange;
             border-radius: 5px;
             font-size: 16px;
+            border-color: darkorange;
+        }
+
+        .active {
+            background-color: orange !important;
+            border-radius: 5px;
+        }
+
+
+        .page-item.active .page-link {
+            background-color: orange !important;
+            border: 1px solid orange;
+
         }
 
         .page-link:hover {
@@ -160,6 +171,8 @@
 
         .page-item.disabled .page-link {
             cursor: not-allowed;
+            color: #ccc;
+            border-color: #ccc;
         }
     </style>
 </head>
@@ -224,9 +237,14 @@
             </div>
         <?php endif; ?>
         <?php
-        $totalItems = count($data['total']); 
+        $totalItems = count($data['total']);
         $itemsPerPage = 9;
-        $totalPages = ceil($totalItems / $itemsPerPage); 
+        $totalPages = ceil($totalItems / $itemsPerPage);
+        if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+            $currentPage = $_GET['page'];
+        } else {
+            $currentPage = 1;
+        }
         ?>
 
         <nav aria-label="Page navigation example">

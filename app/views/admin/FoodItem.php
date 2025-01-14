@@ -23,13 +23,14 @@ $fooditems = $data['allfooditems'];
             </tr>
         </thead>
         <tbody class="tablebody">
+            <div></div>
             <?php
             $pageItem = 0;
             foreach ($fooditems as $fooditem) {
                 echo "
-            <tr id='row{$pageItem}'>
+            <tr id='row{$pageItem}' class = 'foodItemSearch'>
                 <th scope='row'>" . htmlspecialchars($fooditem->foodId) . "</th>
-                <td id='foodName'>" . htmlspecialchars($fooditem->foodName) . "</td>
+                <td class='foodName' data-info='$fooditem->foodName' >" . htmlspecialchars($fooditem->foodName) . "</td>
                 <td>
                     <img src='" . htmlspecialchars($fooditem->foodImg) . "' class='fooditemimgadin' alt='Image of " . htmlspecialchars($fooditem->foodName) . "'>
                 </td>
@@ -49,10 +50,12 @@ $fooditems = $data['allfooditems'];
     </table>
 
 
+
     <div class="modalPopup" onclick="closeModal()"> </div>
     <div class="modalContent">
         <span class="closeBtn" onclick="closeModal()">X</span>
     </div>
+
 
 
 
