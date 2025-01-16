@@ -257,11 +257,14 @@ class AdminModelFooditem
     public function getIncomeEachMonth()
     {
         $sql = "SELECT 
-                    MONTH(created_at) AS month,
-                    SUM(total_amount) AS total_income
-                FROM orders 
-                WHERE status = 'completed' 
-                GROUP BY MONTH(created_at);";
+    MONTH(created_at) AS month,
+    SUM(total_amount) AS total_income
+FROM orders 
+WHERE 
+    status = 'completed' 
+    AND YEAR(created_at) = YEAR(NOW())
+GROUP BY MONTH(created_at);
+";
         $result = mysqli_query($this->connect, $sql);
         $listTable = [];
         if (mysqli_num_rows($result) > 0) {
